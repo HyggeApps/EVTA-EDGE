@@ -48,7 +48,6 @@ custom_css = """
     }
     </style>
 """
-st.markdown(custom_css, unsafe_allow_html=True)
 
 st.sidebar.write('----')
 
@@ -398,8 +397,7 @@ def show_dialog(item):
                 if uploaded_files:
                     item["arquivos"] = ", ".join([f.name for f in uploaded_files])
                     item["situacao"] = "🟨 Em aprovação"
-                    with st.spinner("Fazendo upload..."):
-                        cadastros.upload_to_3projetos(uploaded_files, alias_selecionado, 'EDGE', credito, title, revisao) 
+                    cadastros.upload_to_3projetos(uploaded_files, alias_selecionado,'EDGE',credito, title,revisao) 
                 else:
                     item["arquivos"] = item.get("arquivos", "")
                     item["situacao"] = situacao
@@ -460,7 +458,7 @@ columns = [
         "id": "title",
         "name": "Título",
         "field": "title",
-        "minWidth": 300,
+        "minWidth": 400,
         "formatter": Formatters.tree,
         "exportCustomFormatter": Formatters.treeExport,
         "filterable": True,
@@ -470,7 +468,7 @@ columns = [
         "id": "categoria",
         "name": "Categoria",
         "field": "categoria",
-        "minWidth": 150,
+        "minWidth": 50,
         "filterable": True,
         "filter": {
             "model": Filters.multipleSelect,
@@ -487,7 +485,7 @@ columns = [
         "name": "% Completo",
         "field": "percentual",
         "sortable": True,
-        "minWidth": 150,
+        "minWidth": 100,
         "editable": True,
         "type": FieldType.number,
         "filterable": True,
@@ -513,7 +511,7 @@ columns = [
         "id": "situacao",
         "name": "Situação",
         "field": "situacao",
-        "minWidth": 150,
+        "minWidth": 50,
         "filterable": True,
         "filter": {
             "model": Filters.multipleSelect,
@@ -529,14 +527,14 @@ columns = [
         "id": "arquivos",
         "name": "Arquivo(s)",
         "field": "arquivos",
-        "minWidth": 100,
+        "minWidth": 250,
         "filterable": True,
     },
     {
         "id": "atribuicao",
         "name": "Filtro personalizado",
         "field": "atribuicao",
-        "minWidth": 100,
+        "minWidth": 150,
         "filterable": True,
         "filter": {
             "model": Filters.singleSelect,
@@ -582,24 +580,19 @@ columns = [
 # Configura as opções do grid
 options = {
     "enableFiltering": True,
-    "forceFitColumns": False,  # Garante que as colunas não se estiquem automaticamente
-    "enableColumnResizing": True,  # Permite o redimensionamento das colunas
+    "autoResize": {"minHeight": 400},
     "enableTreeData": True,
     "multiColumnSort": False,
     "enableHtml": True,
+    "resizeByContent": True,  # Auto-ajuste do tamanho das colunas baseado no conteúdo
     "treeDataOptions": {
         "columnId": "title",
-        "indentMarginLeft": 15,
+        "indentMarginLeft": 10,
         "initiallyCollapsed": False,
         "parentPropName": "__parent",
         "levelPropName": "__depth"
     },
-    "noDataMessage": "Nenhum dado para o filtro aplicado",
-    "defaultColumnOptions": {  # Define opções padrão para todas as colunas
-         "cellClass": "small-font",
-         "resizable": True,
-         "minWidth": 50  # Largura mínima padrão, reforçando o minWidth definido individualmente
-    }
+    "noDataMessage": "Nenhum dado para o filtro aplicado"
 }
 
 menu_principal = st.tabs(['Página inicial', 'Informações adicionais', 'Resumo', 'Cadastros'])
