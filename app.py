@@ -84,7 +84,6 @@ client = conecta_banco()
 db = client['certificacoes']
 
 with st.sidebar:
-
     # Criar um arquivo temporário com os usuários do MongoDB
     temp_config_path = cadastros.create_temp_config_from_mongo(db)
 
@@ -113,8 +112,8 @@ with st.sidebar:
         st.success('Login efetuado com sucesso!')
     except LoginError as e:
         st.error(e)
-                
-st.write(st.session_state['authentication_status'])               
+    st.write(st.session_state['authentication_status'])           
+            
 # Autenticando usuário
 if st.session_state['authentication_status']:
     if 'admin' in st.session_state["roles"]:
