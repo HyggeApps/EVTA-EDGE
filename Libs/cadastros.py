@@ -11,7 +11,8 @@ import requests
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
-import hashlib
+import streamlit_authenticator as stauth
+from streamlit_authenticator.utilities.hasher import Hasher
 
 def selecionar_alias_usuario(client, projeto_selecionado, username): 
     # Conectar ao banco de dados e obter a coleção de usuários
@@ -112,9 +113,9 @@ def add_projeto_to_construtora(client, construtora_name, projeto_name, projeto_a
     except Exception as e:
         st.error(f"Erro ao adicionar projeto: {str(e)}")
 
-def add_user_to_db(client, username, name, password, email, view_type, construtora, projetos, aliases):
+def add_user_to_db(client, username, name, password, email, view_type, construtora, projetos, aliases, tipo):
     # Estruturar cada projeto com `nome` e `alias`
-    projetos_data = [{'nome': projeto, 'alias': alias} for projeto, alias in zip(projetos, aliases)]
+    projetos_data = [{'nome': projeto, 'alias': alias, 'tipo': tipo} for projeto, alias in zip(projetos, aliases)]
     
     # Dados do usuário, incluindo a lista de projetos com nome e alias
     user_data = {
@@ -128,7 +129,7 @@ def add_user_to_db(client, username, name, password, email, view_type, construto
     }
     
     db = client['certificacoes']
-    users_collection = db['usuarios']
+    users_collection = db['users']
     
     try:
         users_collection.insert_one(user_data)
@@ -486,9 +487,19 @@ def create_temp_config_from_mongo(db):
     for user_data in users_data:
         username = user_data['username']
 
-        # Hashear a senha antes de armazenar
-        raw_password = user_data.get('password', '')
-        hashed_password = hashlib.sha256(raw_password.encode('utf-8')).hexdigest()
+        # Gerar a senha hasheada usando stauth.Hasher
+        # Cria um dicionário de credenciais para o usuário atual
+        credentials = {
+            'usernames': {
+            user_data['username']: {
+                'password': user_data.get('password', '')
+            }
+            }
+        }
+        # Gera as credenciais com a senha hasheada
+        hashed_credentials = Hasher.hash_passwords(credentials)
+        # Extrai a senha hasheada para poder ser utilizada na criação do config
+        hashed_passwords = [hashed_credentials['usernames'][user_data['username']]['password']]
 
         # Preparar os dados do usuário no formato do config.yaml
         user_yaml_data = {
@@ -497,7 +508,7 @@ def create_temp_config_from_mongo(db):
             'first_name': user_data.get('name', '').split()[0],
             'last_name': ' '.join(user_data.get('name', '').split()[1:]),
             'logged_in': False,
-            'password': hashed_password,
+            'password': hashed_passwords[0],
             'roles': [user_data.get('funcao', 'viewer')]
         }
 
