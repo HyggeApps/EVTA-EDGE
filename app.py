@@ -581,7 +581,7 @@ columns = [
 # Configura as opções do grid
 options = {
     "enableFiltering": True,
-    "autoResize": {"minHeight": 500},
+    #"autoResize": {"minHeight": 500},
     "enableTreeData": True,
     "multiColumnSort": False,
     "enableHtml": True,
