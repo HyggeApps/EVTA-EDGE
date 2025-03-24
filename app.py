@@ -458,7 +458,7 @@ columns = [
         "id": "title",
         "name": "Título",
         "field": "title",
-        "minWidth": 400,
+        "minWidth": 700,
         "formatter": Formatters.tree,
         "exportCustomFormatter": Formatters.treeExport,
         "filterable": True,
@@ -584,10 +584,13 @@ options = {
     "enableTreeData": True,
     "multiColumnSort": False,
     "enableHtml": True,
-    "resizeByContent": True,  # Auto-ajuste do tamanho das colunas baseado no conteúdo
+    # Ativa o ajuste dinâmico do tamanho das colunas baseado no conteúdo
+    "resizeByContent": True,
+    # Caso queira que a última coluna use todo o espaço restante, pode adicionar:
+    # "forceFitColumns": True,
     "treeDataOptions": {
         "columnId": "title",
-        "indentMarginLeft": 10,
+        "indentMarginLeft": 15,
         "initiallyCollapsed": False,
         "parentPropName": "__parent",
         "levelPropName": "__depth"
