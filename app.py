@@ -12,6 +12,18 @@ from pymongo import errors
 import sys
 sys.path.append('../')
 import Libs.cadastros as cadastros
+import yaml
+from urllib.parse import quote_plus
+from yaml.loader import SafeLoader
+from streamlit_authenticator.utilities import (CredentialsError,
+                                               ForgotError,
+                                               Hasher,
+                                               LoginError,
+                                               RegisterError,
+                                               ResetError,
+                                               UpdateError)
+
+import streamlit_authenticator as stauth
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
 st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
@@ -72,19 +84,51 @@ client = conecta_banco()
 db = client['certificacoes']
 
 with st.sidebar:
-    st.info(f'Bem-vindo(a), **TESTE**!')
-    st.info('Este é o ambiente de **admin** para preenchimento das informações referentes ao EVTA de projetos.')
-    # Persistência da seleção do projeto: se o projeto for alterado, reseta os dados e recarrega a aplicação
-    if "projeto_selecionado" not in st.session_state:
-        st.session_state.projeto_selecionado = cadastros.selecionar_projeto_usuario(client, "admin")
-    else:
-        novo_projeto = cadastros.selecionar_projeto_usuario(client, "admin")
-        if novo_projeto != st.session_state.projeto_selecionado:
-            st.session_state.projeto_selecionado = novo_projeto
-            # Reseta as variáveis dependentes para forçar o recarregamento dos dados
-            st.session_state.pop("rows", None)
-            st.session_state.pop("grid_key", None)
-            st.rerun()
+
+    # Criar um arquivo temporário com os usuários do MongoDB
+    temp_config_path = cadastros.create_temp_config_from_mongo(db)
+
+    # Carregar e verificar as chaves no arquivo config.yaml
+    config_data = cadastros.load_config_and_check_or_insert_cookies(temp_config_path)
+
+    # Loading config file
+    with open(temp_config_path, 'r', encoding='utf-8') as file:
+        config = yaml.load(file, Loader=SafeLoader)
+
+    # Creating the authenticator object
+    authenticator = stauth.Authenticate(
+        config['credentials'],
+        config['cookie']['name'],
+        config['cookie']['key'],
+        config['cookie']['expiry_days']
+    )
+
+        # authenticator = stauth.Authenticate(
+        #     '../config.yaml'
+        # )
+
+        # Creating a login widget
+    try:
+        authenticator.login()
+    except LoginError as e:
+        st.error(e)
+                
+# Autenticando usuário
+if st.session_state['authentication_status']:
+    if 'admin' in st.session_state["roles"]:
+        st.info(f'Bem-vindo(a), **TESTE**!')
+        st.info('Este é o ambiente de **admin** para preenchimento das informações referentes ao EVTA de projetos.')
+        # Persistência da seleção do projeto: se o projeto for alterado, reseta os dados e recarrega a aplicação
+        if "projeto_selecionado" not in st.session_state:
+            st.session_state.projeto_selecionado = cadastros.selecionar_projeto_usuario(client, "admin")
+        else:
+            novo_projeto = cadastros.selecionar_projeto_usuario(client, "admin")
+            if novo_projeto != st.session_state.projeto_selecionado:
+                st.session_state.projeto_selecionado = novo_projeto
+                # Reseta as variáveis dependentes para forçar o recarregamento dos dados
+                st.session_state.pop("rows", None)
+                st.session_state.pop("grid_key", None)
+                st.rerun()
 
     alias_selecionado = cadastros.selecionar_alias_usuario(client, st.session_state.projeto_selecionado, "admin")
     itens_json = cadastros.get_from_3projetos(alias_selecionado, 'creditos_default.json')
@@ -96,10 +140,6 @@ def read_json_creditos(path):
     return data
 
 data_json = read_json_creditos(itens_json)
-
-#st.write(data_json)
-
-
 
 # Função auxiliar para gerar IDs únicos (utilizando UUID)
 def gen_id():
