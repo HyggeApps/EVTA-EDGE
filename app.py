@@ -582,7 +582,8 @@ columns = [
 # Configura as opções do grid
 options = {
     "enableFiltering": True,
-    "forceFitColumns": False,  # Permite scroll horizontal mantendo os tamanhos mínimos definidos
+    "forceFitColumns": False,  # Garante que as colunas não se estiquem automaticamente
+    "enableColumnResizing": True,  # Permite o redimensionamento das colunas
     "enableTreeData": True,
     "multiColumnSort": False,
     "enableHtml": True,
@@ -593,7 +594,12 @@ options = {
         "parentPropName": "__parent",
         "levelPropName": "__depth"
     },
-    "noDataMessage": "Nenhum dado para o filtro aplicado"
+    "noDataMessage": "Nenhum dado para o filtro aplicado",
+    "defaultColumnOptions": {  # Define opções padrão para todas as colunas
+         "cellClass": "small-font",
+         "resizable": True,
+         "minWidth": 50  # Largura mínima padrão, reforçando o minWidth definido individualmente
+    }
 }
 
 menu_principal = st.tabs(['Página inicial', 'Informações adicionais', 'Resumo', 'Cadastros'])
