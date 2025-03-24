@@ -379,10 +379,10 @@ def show_dialog(item):
         db_options = [opt for opt in db_options if opt]  
         combined_options = list(set(st.session_state.custom_filter_options + db_options))
         combined_options.sort()  # Opcional: para ordenar as opções alfabeticamente
-        
+        st.session_state.custom_filter_options = combined_options
         filtro_personalizado = st.selectbox(
             "Filtro Personalizado", 
-            options=combined_options, 
+            options=st.session_state.custom_filter_options, 
             key="filtro_personalizado",
             placeholder="Selecione um filtro"
         )
