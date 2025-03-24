@@ -84,6 +84,7 @@ client = conecta_banco()
 db = client['certificacoes']
 
 with st.sidebar:
+    st.write(1)
     # Criar um arquivo temporário com os usuários do MongoDB
     temp_config_path = cadastros.create_temp_config_from_mongo(db)
 
