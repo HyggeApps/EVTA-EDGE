@@ -486,7 +486,7 @@ columns = [
         "name": "% Completo",
         "field": "percentual",
         "sortable": True,
-        "minWidth": 100,
+        "minWidth": 200,
         "editable": True,
         "type": FieldType.number,
         "filterable": True,
