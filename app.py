@@ -60,6 +60,7 @@ def get_ancestor_by_depth(item, target_depth):
         parent_id = parent.get("__parent") if parent else None
     return None
 
+@st.cache_resource
 def conecta_banco():
     username = quote_plus(st.secrets['database']['username'])
     password = quote_plus(st.secrets['database']['password'])
@@ -88,6 +89,7 @@ with st.sidebar:
     alias_selecionado = cadastros.selecionar_alias_usuario(client, st.session_state.projeto_selecionado, "admin")
     itens_json = cadastros.get_from_3projetos(alias_selecionado, 'creditos_default.json')
 
+@st.cache_data
 def read_json_creditos(path):
     with open(path, 'r', encoding='utf-8') as file:
         data = json.load(file)

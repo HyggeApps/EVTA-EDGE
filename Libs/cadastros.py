@@ -136,11 +136,13 @@ def add_user_to_db(client, username, name, password, email, view_type, construto
         st.error("Erro: Usuário já cadastrado!")
 
 # Carregar construtoras existentes
+@st.cache_data
 def get_construtoras(client):
     db = client['certificacoes']
     construtoras_collection = db['construtoras']
     return list(construtoras_collection.find({}, {"_id": 0, "construtora": 1}))
 
+@st.cache_data
 def get_projetos(client, construtora):
     db = client['certificacoes']
     construtoras_collection = db['construtoras']
@@ -150,6 +152,7 @@ def get_projetos(client, construtora):
     return [projeto['nome'] for projeto in result['projetos']] if result and 'projetos' in result else []
 
 # Carregar aliases dos projetos de uma construtora
+@st.cache_data
 def get_alias(client, construtora):
     db = client['certificacoes']
     construtoras_collection = db['construtoras']
@@ -159,6 +162,7 @@ def get_alias(client, construtora):
     return [projeto['alias'] for projeto in result['projetos']] if result and 'projetos' in result else []
 
 # Carregar aliases dos projetos de uma construtora
+@st.cache_data
 def get_tipo_projeto(client, construtora):
     db = client['certificacoes']
     construtoras_collection = db['construtoras']
@@ -167,7 +171,7 @@ def get_tipo_projeto(client, construtora):
     # Retorna uma lista com os aliases dos projetos se houver resultados
     return [projeto['tipo'] for projeto in result['projetos']] if result and 'projetos' in result else []
 
-
+@st.cache_data
 def get_usuarios(client):
     db = client['certificacoes']
     users_collection = db['users']
