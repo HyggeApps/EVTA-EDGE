@@ -471,9 +471,9 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
         #print("Error acquiring token:", result.get("error_description", ""))
         st.error(f"Erro ao adquirir token: {result.get('error_description', '')}")
 
-def create_temp_config_from_mongo(collection):
+def create_temp_config_from_mongo(db):
     # Buscar todos os usuários no MongoDB
-    users_data = collection.find()
+    users_data = db['users'].find()
 
     # Criar um dicionário para armazenar os dados do config temporário
     temp_config_data = {
