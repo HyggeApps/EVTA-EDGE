@@ -114,6 +114,7 @@ with st.sidebar:
     except LoginError as e:
         st.error(e)
                 
+ st.write(st.session_state['authentication_status'])               
 # Autenticando usuário
 if st.session_state['authentication_status']:
     if 'admin' in st.session_state["roles"]:
