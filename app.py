@@ -546,20 +546,6 @@ columns = [
         },
     },
     {
-        "id": "observacao",
-        "name": "Observação",
-        "field": "observacao",
-        "minWidth": 150,
-        "filterable": True,
-    },
-    {
-        "id": "comentario_hygge",
-        "name": "Comentário HYGGE",
-        "field": "comentario_hygge",
-        "minWidth": 150,
-        "filterable": True,
-    },
-    {
         "id": "revisao",
         "name": "Revisão",
         "field": "revisao",
