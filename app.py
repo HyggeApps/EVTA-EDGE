@@ -82,38 +82,6 @@ def conecta_banco():
 
 client = conecta_banco()
 db = client['certificacoes']
-
-with st.sidebar:
-    st.write(1)
-    # Criar um arquivo temporário com os usuários do MongoDB
-    temp_config_path = cadastros.create_temp_config_from_mongo(db)
-
-    # Carregar e verificar as chaves no arquivo config.yaml
-    config_data = cadastros.load_config_and_check_or_insert_cookies(temp_config_path)
-
-    # Loading config file
-    with open(temp_config_path, 'r', encoding='utf-8') as file:
-        config = yaml.load(file, Loader=SafeLoader)
-
-    # Creating the authenticator object
-    authenticator = stauth.Authenticate(
-        config['credentials'],
-        config['cookie']['name'],
-        config['cookie']['key'],
-        config['cookie']['expiry_days']
-    )
-
-    # Só tenta fazer o login quando o botão for pressionado
-    if st.button("Entrar"):
-        try:
-            authenticator.login()
-            st.success('Login efetuado com sucesso!')
-        except LoginError as e:
-            st.error(e)
-    else:
-        st.info("Aguardando o clique para o login.")
-
-    st.write("Status de autenticação:", st.session_state.get('authentication_status'))
             
 # Autenticando usuário
 if st.session_state['authentication_status']:
