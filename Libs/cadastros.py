@@ -137,14 +137,14 @@ def add_user_to_db(client, username, name, password, email, view_type, construto
 
 # Carregar construtoras existentes
 @st.cache_data
-def get_construtoras(client):
-    db = client['certificacoes']
+def get_construtoras(_client):
+    db = _client['certificacoes']
     construtoras_collection = db['construtoras']
     return list(construtoras_collection.find({}, {"_id": 0, "construtora": 1}))
 
 @st.cache_data
-def get_projetos(client, construtora):
-    db = client['certificacoes']
+def get_projetos(_client, construtora):
+    db = _client['certificacoes']
     construtoras_collection = db['construtoras']
     result = construtoras_collection.find_one({'construtora': construtora}, {"_id": 0, "projetos.nome": 1})
     
@@ -153,8 +153,8 @@ def get_projetos(client, construtora):
 
 # Carregar aliases dos projetos de uma construtora
 @st.cache_data
-def get_alias(client, construtora):
-    db = client['certificacoes']
+def get_alias(_client, construtora):
+    db = _client['certificacoes']
     construtoras_collection = db['construtoras']
     result = construtoras_collection.find_one({'construtora': construtora}, {"_id": 0, "projetos.alias": 1})
     
@@ -163,8 +163,8 @@ def get_alias(client, construtora):
 
 # Carregar aliases dos projetos de uma construtora
 @st.cache_data
-def get_tipo_projeto(client, construtora):
-    db = client['certificacoes']
+def get_tipo_projeto(_client, construtora):
+    db = _client['certificacoes']
     construtoras_collection = db['construtoras']
     result = construtoras_collection.find_one({'construtora': construtora}, {"_id": 0, "projetos.tipo": 1})
     
@@ -172,8 +172,8 @@ def get_tipo_projeto(client, construtora):
     return [projeto['tipo'] for projeto in result['projetos']] if result and 'projetos' in result else []
 
 @st.cache_data
-def get_usuarios(client):
-    db = client['certificacoes']
+def get_usuarios(_client):
+    db = _client['certificacoes']
     users_collection = db['users']
     return list(users_collection.find({}, {"_id": 0, "username": 1}))
 
@@ -343,7 +343,7 @@ def get_from_3projetos(root_folder_name, file_name):
                 # Download the specified file
                 download_url = target_file['@microsoft.graph.downloadUrl']
                 file_response = requests.get(download_url)
-                if file_response.status_code == 200:
+                if (file_response.status_code == 200):
                     #print(f"'{file_name}' downloaded successfully.")
                     # Create a temporary file to save the content
                     with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file_name.split('.')[-1]}") as temp_file:
