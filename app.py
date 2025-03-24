@@ -397,7 +397,8 @@ def show_dialog(item):
                 if uploaded_files:
                     item["arquivos"] = ", ".join([f.name for f in uploaded_files])
                     item["situacao"] = "🟨 Em aprovação"
-                    cadastros.upload_to_3projetos(uploaded_files, alias_selecionado,'EDGE',credito, title,revisao) 
+                    with st.spinner("Fazendo upload..."):
+                        cadastros.upload_to_3projetos(uploaded_files, alias_selecionado, 'EDGE', credito, title, revisao) 
                 else:
                     item["arquivos"] = item.get("arquivos", "")
                     item["situacao"] = situacao
