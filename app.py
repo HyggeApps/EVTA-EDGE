@@ -548,7 +548,12 @@ columns = [
             "multiSelect": True,
             "collection": (
                 [{"value": "", "label": "Todos"}] +
-                [{"value": op, "label": op} for op in (st.session_state.custom_filter_options if "custom_filter_options" in st.session_state else [])]
+                [{"value": op, "label": op} for op in sorted(
+                    set(
+                        st.session_state.get("custom_filter_options", []) +
+                        [db_val for db_val in db[collection_name].distinct("atribuicao") if db_val]
+                    )
+                )]
             ),
         },
     },
