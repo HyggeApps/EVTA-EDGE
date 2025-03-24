@@ -594,7 +594,7 @@ options = {
 menu_principal = st.tabs(['Página inicial', 'Informações adicionais', 'Resumo', 'Cadastros'])
 
 with menu_principal[0]:
-    st.write(1)
+    #st.write(1)
     with st.container():
         # Atualiza a key do slickgrid incluindo o projeto selecionado para forçar o refresh
         grid_key = f"{st.session_state.projeto_selecionado}_{st.session_state.grid_key}"
