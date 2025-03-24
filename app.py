@@ -102,17 +102,17 @@ with st.sidebar:
         config['cookie']['expiry_days']
     )
 
-        # authenticator = stauth.Authenticate(
-        #     '../config.yaml'
-        # )
+    # Só tenta fazer o login quando o botão for pressionado
+    if st.button("Entrar"):
+        try:
+            authenticator.login()
+            st.success('Login efetuado com sucesso!')
+        except LoginError as e:
+            st.error(e)
+    else:
+        st.info("Aguardando o clique para o login.")
 
-        # Creating a login widget
-    try:
-        authenticator.login()
-        st.success('Login efetuado com sucesso!')
-    except LoginError as e:
-        st.error(e)
-    st.write(st.session_state['authentication_status'])           
+    st.write("Status de autenticação:", st.session_state.get('authentication_status'))
             
 # Autenticando usuário
 if st.session_state['authentication_status']:
