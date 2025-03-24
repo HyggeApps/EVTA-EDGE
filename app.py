@@ -110,6 +110,7 @@ with st.sidebar:
         # Creating a login widget
     try:
         authenticator.login()
+        st.success('Login efetuado com sucesso!')
     except LoginError as e:
         st.error(e)
                 
