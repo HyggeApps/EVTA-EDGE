@@ -582,7 +582,7 @@ columns = [
 # Configura as opções do grid
 options = {
     "enableFiltering": True,
-    #"autoResize": {"minHeight": 500},
+    "forceFitColumns": False,  # Permite scroll horizontal mantendo os tamanhos mínimos definidos
     "enableTreeData": True,
     "multiColumnSort": False,
     "enableHtml": True,
