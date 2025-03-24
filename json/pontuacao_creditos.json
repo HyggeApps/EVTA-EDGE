@@ -1,0 +1,282 @@
+{
+  "IPc1 - Integrative Process": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc1 - LEED for Neighborhood Development Location": {
+    "Pontuação possível": "16",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc2 - Sensitive Land Protection": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc3 - High Priority Site and Equitable Development": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc4 - Surrounding Density and Diverse Uses": {
+    "Pontuação possível": "5",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc5 - Access to Quality Transit": {
+    "Pontuação possível": "5",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc6 - Bicycle Facilities": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc7 - Reduced Parking Footprint": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "LTc8 - Electric Vehicles": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "SSp1 - Construction Activity Pollution Prevention": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "SSc1 - Site Assessment": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "SSc2 - Protect or Restore Habitat": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "SSc3 - Open Space": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "SSc4 - Rainwater Management": {
+    "Pontuação possível": "3",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "SSc5 - Heat Island Reduction": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "SSc6 - Light Pollution Reduction": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "WEp1 - Outdoor Water Use Reduction": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "WEp2 - Indoor Water Use Reduction": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "WEp3 - Building-Level Water Metering": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "WEc1 - Outdoor Water Use Reduction": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "WEc2 - Indoor Water Use Reduction": {
+    "Pontuação possível": "6",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "WEc3 - Optimize Process Water Use": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "WEc4 - Water Metering": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EAp1 - Fundamental Commissioning and Verification": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "EAp2 - Minimum Energy Performance": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "EAp3 - Building-Level Energy Metering": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "EAp4 - Fundamental Refrigerant Management": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "EAc1 - Enhanced Commissioning": {
+    "Pontuação possível": "6",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EAc2 - Optimize Energy Performance": {
+    "Pontuação possível": "18",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EAc3 - Advanced Energy Metering": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EAc4 - Grid Harmonization": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EAc5 - Renewable Energy": {
+    "Pontuação possível": "5",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EAc6 - Enhanced Refrigerant Management": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "MRp1 - Storage and Collection of Recyclables": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "MRc1 - Building Life-Cycle Impact Reduction": {
+    "Pontuação possível": "5",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "MRc2 - Environmental Product Declarations": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "MRc3 - Sourcing of Raw Materials": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "MRc4 - Material Ingredients": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "MRc5 - Construction and Demolition Waste Management": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQp1 - Minimum Indoor Air Quality Performance": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "EQp2 - Environmental Tobacco Smoke Control": {
+    "Pontuação possível": "Required",
+    "Pontuação prevista": "Required",
+    "Pontuação atual": "Required"
+  },
+  "EQc1 - Enhanced Indoor Air Quality Strategies": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc2 - Low-Emitting Materials": {
+    "Pontuação possível": "3",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc3 - Construction Indoor Air Quality Management Plan": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc4 - Indoor Air Quality Assessment": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc5 - Thermal Comfort": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc6 - Interior Lighting": {
+    "Pontuação possível": "2",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc7 - Daylight": {
+    "Pontuação possível": "3",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc8 - Quality Views": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "EQc9 - Acoustic Performance": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "INc1 - Innovation": {
+    "Pontuação possível": "5",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "INc2 - LEED Accredited Professional": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "RPc1 - Regional Priority: Specific Credit": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "RPc2 - Regional Priority: Specific Credit": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "RPc3 - Regional Priority: Specific Credit": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  },
+  "RPc4 - Regional Priority: Specific Credit": {
+    "Pontuação possível": "1",
+    "Pontuação prevista": "0",
+    "Pontuação atual": "0"
+  }
+}
