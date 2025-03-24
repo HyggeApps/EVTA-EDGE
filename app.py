@@ -584,6 +584,10 @@ options = {
     "enableTreeData": True,
     "multiColumnSort": False,
     "enableHtml": True,
+    # Ativa o ajuste dinâmico do tamanho das colunas baseado no conteúdo
+    "resizeByContent": False,
+    # Caso queira que a última coluna use todo o espaço restante, pode adicionar:
+    "forceFitColumns": False,
     "treeDataOptions": {
         "columnId": "title",
         "indentMarginLeft": 15,
