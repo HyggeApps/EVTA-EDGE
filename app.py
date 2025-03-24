@@ -373,13 +373,19 @@ def show_dialog(item):
         else:
             selected_options = []
 
+        # Se o projeto selecionado mudou, reinicia a lista de filtros personalizados
+        if st.session_state.get("previous_project") != st.session_state.projeto_selecionado:
+            st.session_state.custom_filter_options = []
+            st.session_state.previous_project = st.session_state.projeto_selecionado
+
         # Consulta opções "atribuicao" já existentes no banco para o projeto em questão
         db_options = db[collection_name].distinct("atribuicao")
         # Filtra valores não vazios e combina com as opções customizadas já presentes
-        db_options = [opt for opt in db_options if opt]  
+        db_options = [opt for opt in db_options if opt]
         combined_options = list(set(st.session_state.custom_filter_options + db_options))
         combined_options.sort()  # Opcional: para ordenar as opções alfabeticamente
         st.session_state.custom_filter_options = combined_options
+
         filtro_personalizado = st.selectbox(
             "Filtro Personalizado", 
             options=st.session_state.custom_filter_options, 
