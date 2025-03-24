@@ -459,7 +459,7 @@ columns = [
         "id": "title",
         "name": "Título",
         "field": "title",
-        "minWidth": 400,
+        "minWidth": 500,
         "formatter": Formatters.tree,
         "exportCustomFormatter": Formatters.treeExport,
         "filterable": True,
@@ -469,7 +469,7 @@ columns = [
         "id": "categoria",
         "name": "Categoria",
         "field": "categoria",
-        "minWidth": 50,
+        "minWidth": 150,
         "filterable": True,
         "filter": {
             "model": Filters.multipleSelect,
