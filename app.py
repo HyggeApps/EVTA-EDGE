@@ -780,6 +780,8 @@ if st.session_state['authentication_status']:
     with menu_principal[2]:
         st.info(2)
     with menu_principal[3]:
+        st.subheader('Fluxo de EVTA + Diagnóstico Preliminar')
+        fluxos.fluxo_diagnostico_preliminar()
         desc.descricoes_categorias()
 
 
