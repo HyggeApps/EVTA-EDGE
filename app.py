@@ -20,6 +20,8 @@ import streamlit_authenticator as stauth
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
+import pandas as pd
+import altair as alt
 import Libs.descricoes as desc
 import Libs.fluxos as fluxos
 
@@ -776,12 +778,73 @@ if st.session_state['authentication_status']:
                         
 
     with menu_principal[1]:
-        st.info(1)
+
+        # Filtra apenas os itens (nós de profundidade 3)
+        itens = [r for r in st.session_state.rows if r.get("__depth") == 3]
+
+        # Cria uma lista de registros com categoria, etapa e situação
+        dados = []
+        for item in itens:
+            dados.append({
+            "Categoria": item.get("categoria", "Sem categoria"),
+            "Etapa": item.get("tipo", "Desconhecido"),
+            "Situacao": item.get("situacao", "Sem situação")
+            })
+        
+        if dados:
+            df = pd.DataFrame(dados)
+            # Classifica a situação: se contiver "Aprovado", é "Aprovados", senão "Não aprovados"
+            df["Situacao"] = df["Situacao"].apply(lambda x: "Aprovados" if "Aprovado" in x else "Não aprovados")
+            # Agrupa as Etapas: "Projeto" e "Obra" se tornam "Preliminar"; "Pós‑construção" permanece
+            df["Etapa"] = df["Etapa"].apply(
+            lambda x: "Preliminar" if any(sub in x for sub in ["Projeto", "Obra"]) 
+            else ("Pós-construção" if "Pós" in x or "Pós‑construção" in x else x)
+            )
+            resumo = df.groupby(["Categoria", "Etapa", "Situacao"]).size().reset_index(name="Count")
+            
+            # Para cada categoria, imprime o somatório de Aprovados e Não aprovados em cada etapa
+            categorias = df["Categoria"].unique()
+            for cat in categorias:
+                df_cat = df[df["Categoria"] == cat]
+                pivot_cat = df_cat.groupby(["Etapa", "Situacao"]).size().unstack(fill_value=0)
+
+            # Calcula o percentual de aprovados para cada categoria nos grupos "Preliminar" e "Pós‑construção"
+            approved_percentages = {}
+            for cat in categorias:
+                df_cat = df[df["Categoria"] == cat]
+                for etapa in ["Preliminar", "Pós‑construção"]:
+                    df_etapa = df_cat[df_cat["Etapa"] == etapa]
+                    total = len(df_etapa)
+                    if total > 0:
+                        approved_count = df_etapa[df_etapa["Situacao"] == "Aprovados"].shape[0]
+                        percentage = approved_count / total * 100
+                    else:
+                        percentage = 0
+                    approved_percentages[f"{cat} - {etapa}"] = percentage
+
+        cols = st.columns(2)
+        with cols[0]:
+            st.subheader("Preliminar")
+            fluxos.render_ring_gauge(
+                round(approved_percentages['01. Energia - Preliminar'], 2),
+                round(approved_percentages['02. Água - Preliminar'], 2),
+                round(approved_percentages['03. Materiais - Preliminar'], 2),
+                key='ring_gauge_preliminar'
+            )
+        with cols[1]:
+            st.subheader("Pós‑construção")
+            fluxos.render_ring_gauge(
+                round(approved_percentages['01. Energia - Pós‑construção'], 2),
+                round(approved_percentages['02. Água - Pós‑construção'], 2),
+                round(approved_percentages['03. Materiais - Pós‑construção'], 2),
+                key='ring_gauge_pos_construcao'
+            )
+
     with menu_principal[2]:
         st.info(2)
+
+            
     with menu_principal[3]:
-        st.subheader('Fluxo de EVTA + Diagnóstico Preliminar')
-        fluxos.fluxo_diagnostico_preliminar()
         desc.descricoes_categorias()
 
 
