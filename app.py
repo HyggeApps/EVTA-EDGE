@@ -20,7 +20,6 @@ import streamlit_authenticator as stauth
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
-import streamlit_authenticator as stauth
 
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
@@ -69,13 +68,11 @@ def get_ancestor_by_depth(item, target_depth):
         parent_id = parent.get("__parent") if parent else None
     return None
 
-@st.cache_resource
 def conecta_banco():
     username = quote_plus(st.secrets['database']['username'])
     password = quote_plus(st.secrets['database']['password'])
     uri = f"mongodb+srv://{username}:{password}@evta.lxx4c.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true"
-    client = MongoClient(uri, server_api=ServerApi('1'))
-    return client
+    return MongoClient(uri, server_api=ServerApi('1'))
 
 client = conecta_banco()
 db = client['certificacoes']
@@ -312,6 +309,11 @@ if st.session_state['authentication_status']:
         
         st.session_state.rows = default_rows
 
+    def get_db_options(collection_name):
+        # Consulta opções "atribuicao" existentes e filtra valores não vazios
+        options = db[collection_name].distinct("atribuicao")
+        return sorted([opt for opt in options if opt])
+
     @st.dialog("Detalhes da Seleção", width="large")
     def show_dialog(item, permission):
         global db, collection_name  # Acesso às variáveis globais definidas no app.py
@@ -356,7 +358,6 @@ if st.session_state['authentication_status']:
             
             if credit_node:
                 st.write(f"**Crédito:** {credit_node.get('title', 'Sem crédito')}")
-                credito = credit_node.get('title', 'Sem crédito')
             else:
                 st.write("**Crédito:** Não disponível")
             
@@ -366,10 +367,10 @@ if st.session_state['authentication_status']:
             st.write("Edite os campos abaixo:")
             cols = st.columns(2)
             with cols[0]:
-                situacoes = ["🟥 Pendente", "🟩 Aprovado", "🟨 Em aprovação", "🟧 Necessário adequações"]
+                situacoes = ["🟥 Pendente", "🟩 Aprovado", "🟨 Em aprovação", "🟧 Necessário adequações", "🟪 Solicitação de edição"]
                 default_val = item.get("situacao", "🟥 Pendente")
                 default_index_situacao = situacoes.index(default_val) if default_val in situacoes else 0
-                if permission == 'admin':
+                if 'admin' in permission:
                     situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação")
                 else:
                     situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação", disabled=True)
@@ -377,7 +378,7 @@ if st.session_state['authentication_status']:
                 default_revisao = item.get("revisao", "R01")
                 revisoes = ['R01', 'R02', 'R03']
                 default_index_revisao = revisoes.index(default_revisao) if default_revisao in revisoes else 0
-                if permission == 'admin':
+                if 'admin' in permission:
                     revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao)
                 else:
                     revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao, disabled=True)
@@ -396,7 +397,6 @@ if st.session_state['authentication_status']:
                         st.success(f"Opção '{nova_opcao}' adicionada.")
                     else: 
                         st.warning("❗Opção inválida ou já existente.")
-
             with cols[1]:
                 if st.session_state.custom_filter_options:
                     excluir_opcao = st.selectbox(
@@ -408,13 +408,12 @@ if st.session_state['authentication_status']:
                         st.session_state.custom_filter_options.remove(excluir_opcao)
                         st.success(f"Opção '{excluir_opcao}' excluída.")
                 else:
-                    st.write('')
                     st.info("Nenhuma opção de filtro para excluir.")
             
             default_atribuicao = item.get("atribuicao")
             if isinstance(default_atribuicao, list):
                 selected_options = default_atribuicao
-            elif isinstance(default_atribuicao, str) and default_atribuicao in st.session_state.custom_filter_options:
+            elif isinstance(default_atribuicao, str):
                 selected_options = [default_atribuicao]
             else:
                 selected_options = []
@@ -424,12 +423,10 @@ if st.session_state['authentication_status']:
                 st.session_state.custom_filter_options = []
                 st.session_state.previous_project = st.session_state.projeto_selecionado
 
-            # Consulta opções "atribuicao" já existentes no banco para o projeto em questão
-            db_options = db[collection_name].distinct("atribuicao")
-            # Filtra valores não vazios e combina com as opções customizadas já presentes
-            db_options = [opt for opt in db_options if opt]
+            # Usa o cache para buscar as opções já existentes no banco para o projeto em questão
+            db_options = get_db_options(collection_name)
             combined_options = list(set(st.session_state.custom_filter_options + db_options))
-            combined_options.sort()  # Opcional: para ordenar as opções alfabeticamente
+            combined_options.sort()
             st.session_state.custom_filter_options = combined_options
 
             filtro_personalizado = st.selectbox(
@@ -440,22 +437,61 @@ if st.session_state['authentication_status']:
             )
 
             observacao = st.text_area("Observação", value=item.get("observacao", ""))
-            if permission == 'admin':
+            if 'admin' in permission:
                 comentario_hygge = st.text_area("Comentário HYGGE", value=item.get("comentario_hygge", ""))
             else:
                 comentario_hygge = st.text_area("Comentário HYGGE", value=item.get("comentario_hygge", ""), disabled=True)
 
-            if permission == 'admin':
-                liberar_edicao = st.checkbox("Liberar Edição (Admin)", key="liberar_edicao")
-                solicitar_edicao = False
-            else:
-                solicitar_edicao = st.checkbox("Solicitar Edição", key="solicitar_edicao")
-                liberar_edicao = False
+            # Exibe o status atual da edição
+            current_doc = db[collection_name].find_one({"id": item["id"]})
+            current_status = current_doc.get("update_status", "") if current_doc else ""
+        
+            # Se o admin detectar que o item está com 'solicitação de edição',
+            # libera a edição mudando o status para 'Pendente'
+            if 'admin' in permission and situacao == "🟪 Solicitação de edição":
+                email_confirmacao = st.text_input("Email para confirmação", value=item.get("email", ""))
+                if st.button("Liberar edição"):
+                    db[collection_name].update_one(
+                        {"id": item["id"]},
+                        {"$set": {"update_status": "", "situacao": "🟥 Pendente"}}
+                    )
+                    st.success("Permissão liberada! Status atualizado para Pendente.")
+                    
+                    # Envia email para o cliente com a confirmação da liberação da edição
+                    try:
+                        # Obtém o email do cliente a partir do item ou use um email padrão
+                        client_email = email_confirmacao
+                        message = MIMEMultipart()
+                        message["From"] = 'admin@hygge.eco.br'
+                        message["To"] = client_email
+                        message["Subject"] = f"Confirmação: Liberação de Edição - {item.get('title', '')[:15]}..."
+                        body = f"Olá,\n\nSua solicitação de edição para o item '{item.get('title', '')}' foi liberada. " \
+                               f"Você pode realizar as alterações necessárias agora.\n\nAtenciosamente,\nEquipe de Certificações HYGGE"
+                        message.attach(MIMEText(body, "plain"))
+                        
+                        server = smtplib.SMTP('smtp.office365.com', 587)
+                        server.starttls()
+                        server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
+                        server.sendmail('admin@hygge.eco.br', client_email, message.as_string())
+                        server.quit()
+                        st.success("Email de confirmação enviado para o cliente.")
+                    except Exception as e:
+                        st.error(f"Falha ao enviar email de confirmação: {e}")
+                    
+                    st.rerun()
 
-            if st.button("Salvar Alterações"):
-                if item.get("update_status") == "atualizado" and not liberar_edicao:
-                    st.warning("❗Atualização já realizada para este crédito. Só pode ser alterado novamente quando liberado pelo administrador, marque a opção **'Solicitar Edição'** para enviar um pedido de edição ao administrador.")
-                else:
+            st.info("Clique em 'Salvar Informações' para salvar as alterações realizadas acima.")
+            
+            # Para usuários (não-admin), determinar se a edição pode ser feita diretamente.
+            # A primeira alteração ou depois de uma aprovação do admin permite editar sem solicitação.
+            # Caso contrário, se o status estiver 'atualizado' (alteração já feita e não aprovada), a edição direta não é permitida.
+            allow_direct_save = True
+            if 'admin' not in permission and current_status == "atualizado":
+                allow_direct_save = False
+
+            if st.button("Salvar Informações"):
+                if 'admin' in permission or allow_direct_save:
+                    # Atualização dos campos conforme entrada do formulário
                     item["observacao"] = observacao
                     item["comentario_hygge"] = comentario_hygge
                     item["revisao"] = revisao
@@ -463,52 +499,71 @@ if st.session_state['authentication_status']:
 
                     if uploaded_files:
                         item["arquivos"] = ", ".join([f.name for f in uploaded_files])
-                        item["situacao"] = "🟨 Em aprovação"
-                        cadastros.upload_to_3projetos(uploaded_files, alias_selecionado,'EDGE',credito, title,revisao) 
+                        item["situacao"] = "🟥 Pendente"
+                        cadastros.upload_to_3projetos(
+                            uploaded_files,
+                            alias_selecionado,
+                            'EDGE',
+                            credit_node.get("title", ""),
+                            title,
+                            revisao
+                        )
                     else:
                         item["arquivos"] = item.get("arquivos", "")
                         item["situacao"] = situacao
 
-                    if not liberar_edicao:
+                    # Se for usuário, e não for a primeira alteração, marcar como "atualizado"
+                    if 'admin' not in permission:
                         item["update_status"] = "atualizado"
                     else:
                         item["update_status"] = ""
-                    
-                    # Atualiza o registro correspondente na collection do MongoDB
-                    db[collection_name].update_one({"id": item["id"]}, {"$set": item})
 
-                    #enviar email para o responsável caso seja solicitada edição
-                    if solicitar_edicao:
+                    db[collection_name].update_one({"id": item["id"]}, {"$set": item})
+                    st.success("Alterações salvas!")
+                    compute_percent_complete(st.session_state.rows)
+                    st.session_state.grid_key += 1
+                    with st.spinner("Atualizando dados..."):
+                        st.rerun()
+                else:
+                    st.warning("Edição não permitida. Se desejar alterar este item, por favor, solicite uma edição.")
+
+            # Para usuários que não são admin e quando a edição direta não é permitida,
+            # oferece a opção de solicitar uma alteração.
+            if 'admin' not in permission and not allow_direct_save:
+                st.info("Clique em 'Solicitar Edição' para registrar a solicitação de alteração.")
+                if st.button("Solicitar Edição"):
+                    item["situacao"] = "🟪 Solicitação de edição"
+                    db[collection_name].update_one({"id": item["id"]}, {"$set": item})
+                    
+                    # Enviando email para os responsáveis pela aprovação da edição
+                    try:
                         #receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
                         receivers = ['rodrigo@hygge.eco.br']
                         message = MIMEMultipart()
                         message["From"] = 'admin@hygge.eco.br'
                         message["To"] = ", ".join(receivers)
-                        message["Subject"] = f'{alias_selecionado} - Solicitação de edição no crédito {credito}'
+                        message["Subject"] = f'Solicitação de edição - {alias_selecionado} - {credit_node.get("title", "")}'
 
                         # Corpo do email original
-                        body = f"""<p>Foi solicitada a edição do item "{title}" para o crédito "{credito}" - "{title}".</p>"""
-
-                        # Anexa o corpo do email completo no formato HTML
+                        body = f"""<p>Foi solicitada uma edição por {st.session_state['name']} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
                         message.attach(MIMEText(body, "html"))
 
-                            # Sending the email
+                        # Sending the email
                         try:
                             server = smtplib.SMTP('smtp.office365.com', 587)
                             server.starttls()
                             server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
-                            server.sendmail(st.secrets['microsoft']['email'], receivers, message.as_string())
+                            server.sendmail('admin@hygge.eco.br', receivers, message.as_string())
                             server.quit()
-                            st.success("Solicitação de edição enviada para o responsável.")
                         except Exception as e:
                             st.error(f"Falha no envio do email: {e}")
-                    
-                    st.success("Alterações salvas!")
-                    st.write("Dados atualizados:")
-                    compute_percent_complete(st.session_state.rows)
-                    st.session_state.grid_key += 1
-                    with st.spinner("Atualizando dados..."):
-                        st.rerun()
+
+                        st.success("Solicitação de edição registrada com sucesso!")
+                    except Exception as e:
+                        st.error(f"Erro ao enviar email: {e}")
+                    st.rerun()
+
+
 
     # --- Calcula o campo "categoria" para cada nó ---
     # Cria um mapeamento id -> node
@@ -612,7 +667,8 @@ if st.session_state['authentication_status']:
                     {"value": "🟥 Pendente", "label": "🟥 Pendente"},
                     {"value": "🟩 Aprovado", "label": "🟩 Aprovado"},
                     {"value": "🟨 Em aprovação", "label": "🟨 Em aprovação"},
-                    {"value": "🟧 Necessário adequações", "label": "🟧 Necessário adequações"}
+                    {"value": "🟧 Necessário adequações", "label": "🟧 Necessário adequações"},
+                    {"value": "🟪 Solicitação de edição", "label": "🟪 Solicitação de edição"}
                 ]
             },
         },

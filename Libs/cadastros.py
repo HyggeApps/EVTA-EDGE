@@ -3,7 +3,6 @@ from pymongo import errors
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from urllib.parse import quote_plus
-from pymongo import errors
 import yaml
 import tempfile
 from msal import ConfidentialClientApplication
@@ -274,11 +273,12 @@ def add_project_to_existing_user(client, username, novo_projeto, novo_alias, nov
         if result.modified_count > 0:
             st.success(f"Projeto '{novo_projeto}/{novo_alias}' adicionado ao usuário '{username}' com sucesso!")
         else:
-            st.warning(f"O projeto '{novo_projeto}/{novo_alias}' já está associado ao usuário '{username}' ou o usuário não foi encontrado.")
+            st.warning(f"O projeto '{novo_projeto}/{novo_alias}' já está associado ao usuário '{username}' ou o usuário não 1encontrado.")
     
     except Exception as e:
         st.error(f"Erro ao atribuir o projeto: {str(e)}")
 
+@st.cache_data
 def get_from_3projetos(root_folder_name, file_name):
     # Azure credentials and MSAL Client Configuration
     CLIENT_ID = st.secrets['azure']['client_id']
