@@ -23,7 +23,7 @@ import smtplib
 import pandas as pd
 import altair as alt
 import Libs.descricoes as desc
-import Libs.fluxos as fluxos
+import Libs.resumo as resumo
 
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
@@ -825,7 +825,7 @@ if st.session_state['authentication_status']:
         cols = st.columns(2)
         with cols[0]:
             st.subheader("Preliminar")
-            fluxos.render_ring_gauge(
+            resumo.render_ring_gauge(
                 round(approved_percentages['01. Energia - Preliminar'], 2),
                 round(approved_percentages['02. Água - Preliminar'], 2),
                 round(approved_percentages['03. Materiais - Preliminar'], 2),
@@ -833,7 +833,7 @@ if st.session_state['authentication_status']:
             )
         with cols[1]:
             st.subheader("Pós‑construção")
-            fluxos.render_ring_gauge(
+            resumo.render_ring_gauge(
                 round(approved_percentages['01. Energia - Pós‑construção'], 2),
                 round(approved_percentages['02. Água - Pós‑construção'], 2),
                 round(approved_percentages['03. Materiais - Pós‑construção'], 2),
