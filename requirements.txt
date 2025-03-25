@@ -6,3 +6,4 @@ pypdf2
 wfork-streamlit-profiler
 streamlit_echarts
 streamlit_slickgrid
+streamlit-flow-component
