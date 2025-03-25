@@ -20,6 +20,7 @@ import streamlit_authenticator as stauth
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
+import Libs.descricoes as desc
 
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
@@ -741,12 +742,11 @@ if st.session_state['authentication_status']:
     st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
 
     if 'admin' in st.session_state["roles"]:
-        menu_principal = st.tabs(['Página inicial', 'Informações adicionais', 'Resumo', 'Cadastros'])
+        menu_principal = st.tabs(['Página inicial','Resumo','Gerar relatório', 'Entenda o EDGE', 'Cadastros'])
 
-    else: menu_principal = st.tabs(['Página inicial', 'Informações adicionais', 'Resumo'])
+    else: menu_principal = st.tabs(['Página inicial','Resumo','Gerar relatório', 'Entenda o EDGE'])
 
     with menu_principal[0]:
-        #st.write(1)
         with st.container():
             # Atualiza a key do slickgrid incluindo o projeto selecionado para forçar o refresh
             grid_key = f"{st.session_state.projeto_selecionado}_{st.session_state.grid_key}"
@@ -776,13 +776,14 @@ if st.session_state['authentication_status']:
 
     with menu_principal[1]:
         st.info(1)
-
     with menu_principal[2]:
         st.info(2)
+    with menu_principal[3]:
+        desc.descricoes_categorias()
 
 
     if 'admin' in st.session_state["roles"]:
-        with menu_principal[3]:
+        with menu_principal[4]:
             st.info("Cadastros de construtoras, projetos, clientes e adição de projetos aos clientes")
             pagina_cad_construtora, pagina_cad_projetos, cadastro_cliente, adicao_projeto_cliente = st.tabs(
                 ["Cadastro de Construtora", "Cadastro de Projetos", "Cadastro de Cliente", "Adição de projeto ao cliente"]
