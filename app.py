@@ -21,6 +21,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
 import Libs.descricoes as desc
+import Libs.fluxos as fluxos
 
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
@@ -779,6 +780,7 @@ if st.session_state['authentication_status']:
     with menu_principal[2]:
         st.info(2)
     with menu_principal[3]:
+        fluxos.fluxo_teste()
         desc.descricoes_categorias()
 
 
