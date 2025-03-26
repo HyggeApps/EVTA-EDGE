@@ -135,6 +135,11 @@ with st.sidebar:
 
 
 if st.session_state['authentication_status']:
+    if 'admin' in st.session_state["roles"]:
+        if st.button('Recarregar informações'):
+            st.cache_data.clear()
+            st.cache_resource.clear()
+            
     @st.cache_data
     def read_json_creditos(path):
         with open(path, 'r', encoding='utf-8') as file:
