@@ -3,11 +3,12 @@ import time
 import streamlit as st
 from streamlit_echarts import st_echarts
 
-def render_ring_gauge(energia, agua, material, key):
+def render_ring_gauge(energia, agua, material, key_data):
     option = {
         "series": [
             {
                 "type": "gauge",
+                #"center": ["30%", "40%"],
                 "startAngle": 0,
                 "endAngle": 360,
                 "pointer": {"show": False},
@@ -57,6 +58,4 @@ def render_ring_gauge(energia, agua, material, key):
         ]
     }
 
-    st_echarts(option, height="500px", key=key)
-    
-#render_ring_gauge()
+    st_echarts(option, height="500px", key=f'{key_data}')
