@@ -24,8 +24,26 @@ def descricoes_categorias():
         with st.expander("Descrição", expanded=False):
             st.write("A eficiência de materiais é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através da melhoria do sistema construtivo para menor incorporação de carbono na edificação.")
             st.write("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
+    
     st.write('----')
-    st.title('Etapas')
+    st.title('Etapas de certificação')
+    
+    cols = st.columns(2)
+
+    with cols[0]:
+        st.subheader('Preliminar')
+        with st.expander("Descrição", expanded=False):
+            st.write("A Certificação Preliminar do projeto é realizada com base nas estratégias adotadas nos projetos arquitetônicos e de disciplinas complementares do empreendimento.")
+            st.write("Dentre os documentos a serem submetidos para a certificação estão pranchas dos projetos, memoriais descritivos, memoriais de cálculo e fichas técnicas que comprovem as medidas que serão implementadas.")
+
+    with cols[1]:
+        st.subheader('Pós-Construção')
+        with st.expander("Descrição", expanded=False):
+            st.write("A certificação Pós-Construção diz respeito à implementação, em obra, das medidas previstas em projeto na fase de Certificação Preliminar, além da atualização de quaisquer alterações realizadas durante a construção do empreendimento.")
+            st.write("Dentre os documentos a serem submetidos, estão os projetos e memoriais descritivos atualizados conforme construção, fotos da implementação das medidas em obra e documentos de compra dos materiais.")
+
+    st.write('----')
+    st.title('Etapas de documentação')
 
     cols = st.columns(3)
 

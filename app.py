@@ -745,9 +745,9 @@ if st.session_state['authentication_status']:
 
 
     if 'admin' in st.session_state["roles"]:
-        menu_principal = st.tabs(['Página inicial','Relatório e dados', 'Entenda o EDGE', 'Cadastros'])
+        menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE', 'Cadastros'])
 
-    else: menu_principal = st.tabs(['Página inicial','Relatório e dados', 'Entenda o EDGE'])
+    else: menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE'])
 
     with menu_principal[0]:
         st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
@@ -776,8 +776,9 @@ if st.session_state['authentication_status']:
                     for anexo_key, anexo_detail in cat_data["anexos"].items():
                         descricao = anexo_detail.get("descricao", "Sem descrição")
                         st.markdown(f"**{anexo_key}:** {descricao}")
-                        
-    with menu_principal[1]:
+                    
+        st.write('----')
+        
         if st.button('Gerar resumo'):
             # Filtra apenas os itens (nós de profundidade 3)
             itens = [r for r in st.session_state.rows if r.get("__depth") == 3]
@@ -833,10 +834,9 @@ if st.session_state['authentication_status']:
                 cols = st.columns(2)
                 with cols[0]:
                     st.subheader("Preliminar")
-                    st.info('A Certificação Preliminar do projeto é realizada com base nas estratégias adotadas nos projetos arquitetônicos e de disciplinas complementares do empreendimento.\n')
+                    st.info('A Certificação Preliminar do projeto é realizada com base nas estratégias adotadas nos projetos arquitetônicos e de disciplinas complementares do empreendimento. Englobando, portanto, as etapas de Projeto e Obra.')
                     st.info('Dentre os documentos a serem submetidos para a certificação estão pranchas dos projetos, memoriais descritivos, memoriais de cálculo e fichas técnicas que comprovem as medidas que serão implementadas.')
                     # Exibe os dados agregados em um DataFrame para Preliminar
-                    st.dataframe(resumo_preliminar.reset_index(drop=True), use_container_width=True)
                     
                     res.render_ring_gauge(
                         round(approved_percentages.get('01. Energia - Preliminar', 0), 2),
@@ -844,28 +844,27 @@ if st.session_state['authentication_status']:
                         round(approved_percentages.get('03. Materiais - Preliminar', 0), 2),
                         key_data=f'ring_gauge_preliminar_{random.randint(0, 100000)}'
                     )
+                    st.dataframe(resumo_preliminar.reset_index(drop=True), use_container_width=True)
                 with cols[1]:
                     st.subheader("Pós‑construção")
                     st.info('A certificação Pós-Construção diz respeito à implementação, em obra, das medidas previstas em projeto na fase de Certificação Preliminar, além da atualização de quaisquer alterações realizadas durante a construção do empreendimento.')
                     st.info('Dentre os documentos a serem submetidos, estão os projetos e memoriais descritivos atualizados conforme construção, fotos da implementação das medidas em obra e documentos de compra dos materiais.')
                     
                     # Exibe os dados agregados em um DataFrame para Pós‑construção
-                    st.dataframe(resumo_pos.reset_index(drop=True), use_container_width=True)
-                    
                     res.render_ring_gauge(
                         round(approved_percentages.get('01. Energia - Pós‑construção', 0), 2),
                         round(approved_percentages.get('02. Água - Pós‑construção', 0), 2),
                         round(approved_percentages.get('03. Materiais - Pós‑construção', 0), 2),
                         key_data=f'ring_gauge_pos_construcao_{random.randint(0, 100000)}'
                     )
+                    st.dataframe(resumo_pos.reset_index(drop=True), use_container_width=True)
 
-
-    with menu_principal[2]:
+    with menu_principal[1]:
         desc.descricoes_categorias()
 
 
     if 'admin' in st.session_state["roles"]:
-        with menu_principal[3]:
+        with menu_principal[2]:
             st.info("Cadastros de construtoras, projetos, clientes e adição de projetos aos clientes")
             pagina_cad_construtora, pagina_cad_projetos, cadastro_cliente, adicao_projeto_cliente = st.tabs(
                 ["Cadastro de Construtora", "Cadastro de Projetos", "Cadastro de Cliente", "Adição de projeto ao cliente"]
