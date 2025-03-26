@@ -767,7 +767,6 @@ if st.session_state['authentication_status']:
     else: menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE'])
 
     with menu_principal[0]:
-        st.write(1)
         st.title('Check-list de acompanhamento das informações do EDGE')
         st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
         with st.container():
