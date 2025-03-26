@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 import uuid
-from streamlit_slickgrid import slickgrid, Formatters, Filters, FieldType, OperatorType, StreamlitSlickGridFormatters
+from streamlit_slickgrid import slickgrid, Formatters, Filters, FieldType, OperatorType, StreamlitSlickGridFormatters, ExportServices
 import warnings
 import time
 warnings.filterwarnings("ignore")
@@ -197,7 +197,7 @@ if st.session_state['authentication_status']:
     tipo_mapping = {
         "projeto": "01. Projeto",
         "obra": "02. Obra",
-        "pos-construcao": "03. Pós‑construção"
+        "pos-construcao": "03. Pós construção"
     }
 
     # Constrói a árvore manualmente com 4 níveis
@@ -216,7 +216,7 @@ if st.session_state['authentication_status']:
                 _rows.append(credit_node)
                 credit_id = credit_node["id"]
 
-                # Para cada etapa (Projeto, Obra, Pós‑construção)
+                # Para cada etapa (Projeto, Obra, Pós construção)
                 for subkey in ["projeto", "obra", "pos-construcao"]:
                     items = credit_detail.get(subkey, [])
                     if items:
@@ -351,11 +351,11 @@ if st.session_state['authentication_status']:
             elif 'Obra' in title: 
                 st.title("Etapa de Obra")
                 st.info("Fase de execução da construção do edifício, na qual devem ser implementadas as soluções previstas na fase de projeto.")
-                st.info("Os itens dessa fase são referentes ao registro e comprovação da implementação das estratégias, para envio para a Certificação Pós-Construção.")
+                st.info("Os itens dessa fase são referentes ao registro e comprovação da implementação das estratégias, para envio para a Certificação Pós construção.")
             elif 'construção' in title:
-                st.title("Etapa de Pós-construção")
+                st.title("Etapa de Pós construção")
                 st.info("Fase de revisão da documentação considerando quaisquer alterações realizadas durante a construção em relação ao que foi previsto para a Certificação Preliminar.")
-                st.info("Os itens dessa fase são referentes à apresentação de projetos e memoriais atualizados, conforme o que foi construído, bem como documentos de compra, para envio para a Certificação Pós-Construção.")
+                st.info("Os itens dessa fase são referentes à apresentação de projetos e memoriais atualizados, conforme o que foi construído, bem como documentos de compra, para envio para a Certificação Pós construção.")
         else:
             st.write(f"**Categoria:** {item.get('categoria', 'Sem categoria')}")
             categoria = item.get('categoria', 'Sem categoria')
@@ -748,7 +748,15 @@ if st.session_state['authentication_status']:
             "parentPropName": "__parent",
             "levelPropName": "__depth"
         },
-        "noDataMessage": "Nenhum dado para o filtro aplicado"
+        "noDataMessage": "Nenhum dado para o filtro aplicado",
+        "enableTextExport": True,
+        "enableExcelExport": True,
+        "excelExportOptions": {"sanitizeDataExport": True},
+        "textExportOptions": {"sanitizeDataExport": True},
+        "externalResources": [
+            ExportServices.ExcelExportService,
+            ExportServices.TextExportService,
+        ],
     }
 
 
@@ -771,40 +779,39 @@ if st.session_state['authentication_status']:
                 key=f"energy_grid_{grid_key}",
                 on_click="rerun"
             )
+            
+            # Se o slickgrid retornar um dicionário com a chave "data", usamos ela para criar o DataFrame filtrado.
+            df_filtered = pd.DataFrame(st.session_state.rows)
+            # Se uma linha foi clicada, exibe o diálogo de detalhes.
+            # Para isso, assumimos que o slickgrid pode retornar uma tupla (row, col)
+            if out_geral is not None:
+                row, col = out_geral
+                show_dialog(st.session_state.rows[row], st.session_state["roles"])
+
             # Exibe um DataFrame com os dados filtrados atualmente no grid.
             # Caso o slickgrid retorne um dicionário com a chave "data", usamos ele;
             # caso contrário, exibimos todos os dados.
-            if out_geral is not None and isinstance(out_geral, dict) and "data" in out_geral:
-                filtered_data = out_geral["data"]
-            else:
-                filtered_data = st.session_state.rows
 
+            filtered_data = st.session_state.rows
             # Mantém no DataFrame apenas os registros de profundidade 3.
             filtered_data = [item for item in filtered_data if item.get("__depth", 0) == 3]
 
             df_filtered = pd.DataFrame(filtered_data)
-
-            # Se uma linha foi clicada, exibe o diálogo de detalhes.
-            # Para isso, assumimos que o slickgrid pode retornar uma tupla (row, col)
-            if out_geral is not None and isinstance(out_geral, tuple):
-                row, col = out_geral
-                show_dialog(st.session_state.rows[row], st.session_state["roles"])
         
-        if st.button('Gerar relatório'):
-            
+        if st.button('Gerar o relatário do projeto'):
             pdf_path = cadastros.gerar_relatorio('Projeto', st.session_state.projeto_selecionado, df_filtered)
             codigo_aleatorio = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
-            # Exibir botão de download para o usuário
+            #Exibir botão de download para o usuário
             with open(pdf_path, "rb") as pdf_file:
                 st.download_button(
                     label="Baixar Relatório",
                     data=pdf_file,
-                    file_name=f"Relatório_{st.session_state.rojeto_selecionado}_{codigo_aleatorio}.pdf",
+                    file_name=f"Relatório_{st.session_state.projeto_selecionado}_{codigo_aleatorio}.pdf",
                     mime="application/pdf"
                 )
 
-
+        st.write('----')
         st.title('Anexos')
         # --- Criar expander para cada anexo ---
         for categoria, cat_data in data_json.items():
@@ -834,14 +841,14 @@ if st.session_state['authentication_status']:
                 df = pd.DataFrame(dados)
                 # Classifica a situação: se contiver "Aprovado", é "Aprovados", senão "Não aprovados"
                 df["Situacao"] = df["Situacao"].apply(lambda x: "Aprovados" if "Aprovado" in x else "Não aprovados")
-                # Agrupa as Etapas: "Projeto" e "Obra" se tornam "Preliminar"; "Pós‑construção" permanece
+                # Agrupa as Etapas: "Projeto" e "Obra" se tornam "Preliminar"; "Pós construção" permanece
                 df["Etapa"] = df["Etapa"].apply(
                     lambda x: "Preliminar" if any(sub in x for sub in ["Projeto", "Obra"])
-                        else ("Pós‑construção" if "Pós" in x or "Pós‑construção" in x else x)
+                        else ("Pós construção" if "Pós" in x or "Pós construção" in x else x)
                 )
                 # Gera resumo para exibir combinando todas as situações mesmo que 0 ou vazio
                 categorias = sorted(df["Categoria"].unique())
-                etapas = ["Preliminar", "Pós‑construção"]
+                etapas = ["Preliminar", "Pós construção"]
                 situacoes = ["Aprovados", "Não aprovados"]
                 summary_list = []
                 for cat in categorias:
@@ -851,7 +858,7 @@ if st.session_state['authentication_status']:
                             summary_list.append({"Categoria": cat, "Etapa": etapa, "Situação": situacao, "Qtde.": count})
                 resumo = pd.DataFrame(summary_list)
                 
-                # Calcula o percentual de aprovados para cada categoria nos grupos "Preliminar" e "Pós‑construção"
+                # Calcula o percentual de aprovados para cada categoria nos grupos "Preliminar" e "Pós construção"
                 approved_percentages = {}
                 for cat in categorias:
                     df_cat = df[df["Categoria"] == cat]
@@ -865,9 +872,9 @@ if st.session_state['authentication_status']:
                             percentage = 0
                         approved_percentages[f"{cat} - {etapa}"] = percentage
 
-                # Divide o resumo em duas partes: uma para Preliminar e outra para Pós‑construção
+                # Divide o resumo em duas partes: uma para Preliminar e outra para Pós construção
                 resumo_preliminar = resumo[resumo["Etapa"] == "Preliminar"]
-                resumo_pos = resumo[resumo["Etapa"] == "Pós‑construção"]
+                resumo_pos = resumo[resumo["Etapa"] == "Pós construção"]
 
                 cols = st.columns(2)
                 with cols[0]:
@@ -884,15 +891,15 @@ if st.session_state['authentication_status']:
                     )
                     st.dataframe(resumo_preliminar.reset_index(drop=True), use_container_width=True)
                 with cols[1]:
-                    st.subheader("Pós‑construção")
-                    st.info('A certificação Pós-Construção diz respeito à implementação, em obra, das medidas previstas em projeto na fase de Certificação Preliminar, além da atualização de quaisquer alterações realizadas durante a construção do empreendimento.')
+                    st.subheader("Pós construção")
+                    st.info('A certificação Pós construção diz respeito à implementação, em obra, das medidas previstas em projeto na fase de Certificação Preliminar, além da atualização de quaisquer alterações realizadas durante a construção do empreendimento.')
                     st.info('Dentre os documentos a serem submetidos, estão os projetos e memoriais descritivos atualizados conforme construção, fotos da implementação das medidas em obra e documentos de compra dos materiais.')
                     
-                    # Exibe os dados agregados em um DataFrame para Pós‑construção
+                    # Exibe os dados agregados em um DataFrame para Pós construção
                     res.render_ring_gauge(
-                        round(approved_percentages.get('01. Energia - Pós‑construção', 0), 2),
-                        round(approved_percentages.get('02. Água - Pós‑construção', 0), 2),
-                        round(approved_percentages.get('03. Materiais - Pós‑construção', 0), 2),
+                        round(approved_percentages.get('01. Energia - Pós construção', 0), 2),
+                        round(approved_percentages.get('02. Água - Pós construção', 0), 2),
+                        round(approved_percentages.get('03. Materiais - Pós construção', 0), 2),
                         key_data=f'ring_gauge_pos_construcao_{random.randint(0, 100000)}'
                     )
                     st.dataframe(resumo_pos.reset_index(drop=True), use_container_width=True)

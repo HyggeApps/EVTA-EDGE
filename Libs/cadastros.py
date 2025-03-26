@@ -12,6 +12,34 @@ from email.mime.multipart import MIMEMultipart
 import smtplib
 import streamlit_authenticator as stauth
 from streamlit_authenticator.utilities.hasher import Hasher
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_RIGHT, TA_JUSTIFY, TA_CENTER
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from datetime import datetime
+from reportlab.platypus import SimpleDocTemplate, PageTemplate, Frame, Table, TableStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from datetime import datetime
+from PyPDF2 import PdfReader, PdfWriter
+from pathlib import Path
+from reportlab.lib.colors import Color
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import mm
+import warnings
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import tempfile
+import os
+warnings.filterwarnings("ignore")
+
+custom_color = Color(165/255.0, 154/255.0, 148/255.0)
 
 def selecionar_alias_usuario(client, projeto_selecionado, username): 
     # Conectar ao banco de dados e obter a coleção de usuários
@@ -554,3 +582,491 @@ def load_config_and_check_or_insert_cookies(config_file_path):
         yaml.dump(config_data, file, default_flow_style=False)
 
     return config_data
+
+class MyDocTemplate(SimpleDocTemplate):
+    """
+    Subclasse de SimpleDocTemplate para adicionar números de página a um documento PDF.
+
+    Métodos:
+    - __init__(*args, **kwargs): Inicializa a subclasse MyDocTemplate chamando o construtor da classe base SimpleDocTemplate.
+    - handle_pageBegin(): Método sobrescrito para adicionar um número de página ao início de cada página.
+    - _add_page_number(canvas): Adiciona o número da página ao canvas do PDF.
+
+    Atributos:
+    - None
+
+    Uso:
+    - Esta classe é usada para criar documentos PDF com números de página automaticamente adicionados no canto inferior direito de cada página.
+    """
+    def __init__(self, *args, **kwargs):
+        SimpleDocTemplate.__init__(self, *args, **kwargs)
+
+    def handle_pageBegin(self):
+        self._handle_pageBegin()
+        #self._add_page_number(self.canv)
+
+    #def _add_page_number(self, canvas):
+        #page_num = canvas.getPageNumber()
+        #text = f"{page_num}"
+        #canvas.drawRightString(200 * mm - 10 * mm, 10 * mm, text)
+
+def data_detalhada(data_proposta):
+    """
+    Função para formatar uma data em um formato detalhado em português.
+
+    Args:
+    - data_proposta (datetime.date): Objeto de data a ser formatado.
+
+    Returns:
+    - str: Data formatada no formato 'XX de XXXXX de XXXX', onde 'XXXXX' é o nome do mês em português.
+    """
+    # Portuguese month names
+    months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+    # Format the date: 'XX de XXXXX de XXXX'
+    formatted_date = f'{data_proposta.day} de {months[data_proposta.month - 1]} de {data_proposta.year}'
+    return formatted_date
+
+def gerar_relatorio(construtora, nome_projeto, df):
+
+    # Path to the font file
+    font_path = Path(__file__).parent / "Fonts/Hero-Regular.ttf"
+
+    # Ensure the font file exists
+    if not font_path.is_file():
+        raise FileNotFoundError(f"Font file not found: {font_path}")
+
+    # Create a temporary file for the font
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.ttf') as tmp_font:
+        # Read the font file and write its content to the temporary file
+        with open(font_path, 'rb') as font_file:
+            tmp_font.write(font_file.read())
+
+    # Register the font with a name (e.g., 'HeroLightRegular')
+    pdfmetrics.registerFont(TTFont('HeroLightRegular', tmp_font.name))
+
+        #visualizar_por_uh(df)
+    # Path to the font file
+    font_path = Path(__file__).parent / "Fonts/Hero-Bold.ttf"
+
+    # Ensure the font file exists
+    if not font_path.is_file():
+        raise FileNotFoundError(f"Font file not found: {font_path}")
+
+    # Create a temporary file for the font
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.ttf') as tmp_font:
+        # Read the font file and write its content to the temporary file
+        with open(font_path, 'rb') as font_file:
+            tmp_font.write(font_file.read())
+
+    # Register the font with a name (e.g., 'HeroLightRegular')
+    pdfmetrics.registerFont(TTFont('HeroLightBold', tmp_font.name))
+
+            # Path to the font file
+    font_path = Path(__file__).parent / "Fonts/calibri.ttf"
+
+    # Ensure the font file exists
+    if not font_path.is_file():
+        raise FileNotFoundError(f"Font file not found: {font_path}")
+
+    # Create a temporary file for the font
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.ttf') as tmp_font:
+        # Read the font file and write its content to the temporary file
+        with open(font_path, 'rb') as font_file:
+            tmp_font.write(font_file.read())
+
+    # Register the font with a name (e.g., 'HeroLightRegular')
+    pdfmetrics.registerFont(TTFont('Calibri', tmp_font.name))
+
+    def blank_line(elements, x):
+        for i in range(x):
+            elements.append(Spacer(1, 12)) 
+            
+    def add_background(canvas, doc):
+        # Define your background drawing code here
+        canvas.saveState()
+        canvas.drawImage(image_reader, 0, 0, width=doc.pagesize[0], height=doc.pagesize[1])
+        canvas.restoreState()
+
+    image_reader = Path(__file__).parent / "Imgs/Template.png"
+
+    # Create a temporary directory for the PDF
+    temp_dir = tempfile.mkdtemp()
+    pdf_filename = f'Relatório de Checklist - {nome_projeto}.pdf'
+    pdf_path = os.path.join(temp_dir, pdf_filename)
+
+    # Initialize the BaseDocTemplate
+    # Define seu documento usando a nova classe
+    doc = MyDocTemplate(pdf_path, pagesize=landscape(A4))
+    #doc = BaseDocTemplate(pdf_path, pagesize=letter)
+
+    # Create a frame and a page template with the background
+    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+    template = PageTemplate(id='background', frames=frame, onPage=add_background)
+    doc.addPageTemplates([template])
+    
+    # Define your styles and elements
+    styles = getSampleStyleSheet()
+    hero_light_style = ParagraphStyle(
+        'HeroLight',
+        parent=styles['Normal'],
+        fontName='HeroLightRegular',
+        fontSize=11,
+        leftIndent=-0,
+        leading=16,
+        wordWrap='CJK'  # Adiciona wordWrap para não quebrar palavras
+    )
+    
+    calibri_style = ParagraphStyle(
+        'Calibri',
+        parent=styles['Normal'],
+        fontName='Calibri',
+        fontSize=12,
+        leftIndent=-0,
+        leading=16,
+        wordWrap='CJK'  # Adiciona wordWrap para não quebrar palavras
+    )
+
+    # Define your styles and elements
+    styles = getSampleStyleSheet()
+
+    hero_bold_style = ParagraphStyle(
+        'HeroLightBold',
+        parent=styles['Normal'],
+        fontName='HeroLightBold',
+        fontSize=12,
+        leftIndent=0,
+        leading=16
+    )
+
+    right_aligned_style = ParagraphStyle(
+        'RightAlignedHeroLight',
+        parent=hero_light_style,
+        alignment=TA_RIGHT
+    )
+
+    title_style = ParagraphStyle(
+        'TitleAlignedHeroLight',
+        parent=hero_bold_style,
+        fontSize=18,
+        alignment=TA_CENTER
+    )
+    
+    legenda_style = ParagraphStyle(
+        'LegendaAlignedHeroLight',
+        parent=hero_light_style,
+        fontSize=9,
+        alignment=TA_CENTER
+    )
+    
+    subtitle_style = ParagraphStyle(
+        'SubtitleAlignedHeroLight',
+        parent=hero_light_style,
+        fontSize=11,
+        alignment=TA_CENTER
+    )
+    
+    justify_style = ParagraphStyle(
+        'JustifyStyle',
+        parent=calibri_style,
+        alignment=TA_JUSTIFY
+    )
+    
+    style2 = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+
+        # Align all elements in the table to the center (both horizontally and vertically)
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+        # Font for the entire table
+        ('FONT', (0, 0), (-1, -1), 'Calibri', 8),
+
+        # Specific font for the first row
+        ('FONT', (0, 0), (-1, 0), 'Calibri', 8),
+
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke)
+    ])
+
+    style4 = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+
+        # Align all elements in the table to the center (both horizontally and vertically)
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+        # Font for the entire table
+        ('FONT', (0, 0), (-1, -1), 'Calibri', 9.5),
+
+        # Specific font for the first row
+        ('FONT', (0, 0), (-1, 0), 'Calibri', 9.5),
+
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
+
+        # Define the column widths: first column 20%, second column 80%
+        ('COLWIDTHS', (0, 0), (0, -1), '20%'),
+        ('COLWIDTHS', (1, 0), (1, -1), '80%'),
+    ])
+
+    style_ambsnros = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+
+        # Align all elements in the table to the center (both horizontally and vertically)
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+        # Font for the entire table
+        ('FONT', (0, 0), (-1, -1), 'Calibri', 8),
+
+        # Specific font for the first row
+        ('FONT', (0, 0), (-1, 0), 'Calibri', 8),
+
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke)
+    ])
+    
+    style3 = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+
+        # Align all elements in the table to the center (both horizontally and vertically)
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+        # Font for the entire table
+        ('FONT', (0, 0), (-1, -1), 'Calibri', 8.5),
+
+        # Specific font for the first row
+        ('FONT', (0, 0), (-1, 0), 'Calibri', 8.5),
+
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke)
+    ])
+
+    indent_style = ParagraphStyle('Indented', parent=calibri_style, leftIndent=20)    
+    
+
+    # Conteúdo do documento
+    ### ----------------------- Página de introdução -------------------------
+    elements = []
+    blank_line(elements,2)
+    elements.append(Paragraph(f'Relatório de acompanhamento de documentação', title_style)) 
+    blank_line(elements,1)
+    elements.append(Paragraph(f'{construtora}: {nome_projeto}', title_style)) 
+    blank_line(elements,1)
+    elements.append(Paragraph(f'{data_detalhada(datetime.now())}', subtitle_style))
+    blank_line(elements,2)
+    elements.append(Paragraph('1. Introdução', hero_bold_style))
+    blank_line(elements,1)
+    elements.append(Paragraph('O Relatório de Acompanhamento de Documentação elaborado pela Hygge é uma ferramenta para gerenciar e monitorar a documentação enviada. Este documento permite um registro de todos os itens que precisam ser entregues, com o intuito de facilitar a comunicação e o acompanhamento do progresso.', justify_style))
+    elements.append(Paragraph('O relatório traz, de forma resumida e com visualização geral, os itens já descritos no Checklist Hygge que é apresentado via Streamlit. As informações são as seguintes:', justify_style))
+    blank_line(elements,1)
+    elements.append(Paragraph('Arquivo anexado;', justify_style))
+    blank_line(elements,1)
+    elements.append(Paragraph('Observação do cliente;', justify_style))  
+    blank_line(elements,1)
+    elements.append(Paragraph('Situação do item/documento;', justify_style))  
+    blank_line(elements,1)
+    elements.append(Paragraph('Filtro personalizado;', justify_style))  
+    blank_line(elements,1)
+    elements.append(Paragraph('Comentário Hygge;', justify_style))  
+    blank_line(elements,1)
+    elements.append(Paragraph('Revisão.', justify_style))  
+
+    elements.append(PageBreak())
+    
+    # Define um estilo para o corpo das células com fonte menor
+    cell_style = ParagraphStyle(
+        'BodyTextReduced',
+        parent=styles["BodyText"],
+        fontName='Helvetica',
+        fontSize=8,     # Fonte reduzida
+        leading=10,     # Espaçamento entre linhas reduzido
+        wordWrap='LTR'
+    )
+
+    # Define um estilo específico para o cabeçalho da tabela
+    table_header_style = ParagraphStyle(
+        'TableHeader',
+        parent=styles["BodyText"],
+        fontName='Helvetica-Bold',
+        fontSize=8,     # Fonte reduzida
+        leading=10,     # Espaçamento reduzido
+        alignment=TA_CENTER,
+        wordWrap='LTR'
+    )
+
+    ### ----------------------- Página de Resumo -------------------------
+
+    #blank_line(elements,2)
+    #elements.append(Paragraph('2. Resumo', hero_bold_style))
+    #blank_line(elements,1)
+        
+    # Configura a largura da tabela conforme o tamanho da página
+    page_width, page_height = landscape(A4)
+    table_width = page_width * 0.9
+    column_width = table_width / len(df.columns)
+
+    # Cria os dados da tabela convertendo as células em Paragraphs
+    # Usando o estilo reduzido para o cabeçalho
+    #header_data = [Paragraph(str(col), table_header_style) for col in df.columns]
+    #body_data = [[Paragraph(str(cell), cell_style) for cell in row] for row in df.values]
+    #data = [header_data] + body_data
+
+    # Cria a tabela com as larguras definidas e repetição do cabeçalho
+    #table = Table(data, colWidths=[column_width] * len(df.columns), repeatRows=1)
+    
+    # Aplica o estilo à tabela (ajuste conforme necessário)
+    style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('FONT', (0, 0), (-1, -1), 'Helvetica', 8),
+        ('FONT', (0, 0), (-1, 0), 'Helvetica-Bold', 8),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 2),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('WORDWRAP', (0, 0), (-1, -1), 'LTR')
+    ])
+    #table.setStyle(style)
+
+    # Adicionar a tabela à lista de elementos
+    #elements.append(table)
+    #elements.append(PageBreak())
+
+    # Adicionando título principal ao documento
+    elements.append(Paragraph('2. Créditos', hero_bold_style))
+    blank_line(elements,1)
+
+    # Agrupando por 'Categoria' e 'Crédito'
+    grouped = df.groupby(['categoria', 'credito', 'tipo', 'item'], sort=False)
+    #st.write(df.columns)
+
+    # Iterando por cada grupo
+    for (category, credit, type, item), group in grouped:
+        # Exibe a categoria e o crédito como títulos fora da tabela
+        elements.append(Paragraph(f"Categoria: {category}", hero_bold_style))
+        elements.append(Paragraph(f"Crédito: {credit}", hero_bold_style))
+        
+        
+        # Espaço antes da tabela principal
+        elements.append(Spacer(1, 12))
+        
+        # Extrair os dados de 'Descrição' e 'Comentário HYGGE' para exibir em tabela separada
+        comentarios_df = group[['title', 'comentario_hygge']].rename(columns={
+            'title': 'Descrição',
+            'comentario_hygge': 'Comentário HYGGE'
+        })
+        
+        # Cria um DataFrame simplificado removendo colunas indesejadas
+        group_simplificado = group.drop(columns=['title', 'id', 'depth', '__parent', 'categoria', 'credito', 'atribuicao', 'comentario_hygge', 'update_status', 'percentual', '__depth'])
+        
+        # Renomear as colunas do grupo simplificado conforme solicitado
+        group_simplificado = group_simplificado.rename(columns={
+            'item': 'Descrição',
+            'tipo': 'Tipo',
+            'situacao': 'Situação',
+            'revisao': 'Revisão',
+            'observacao': 'Observação',
+            'arquivos': 'Arquivos'
+        })
+        
+        # Recalcular largura das colunas para o grupo simplificado
+        table_width = page_width * 0.9
+        column_width = table_width / len(group_simplificado.columns)
+        
+        # Converter o grupo simplificado em uma lista de listas com Paragraph para cada célula
+        data = [[Paragraph(str(cell), cell_style) for cell in row] for row in group_simplificado.values]
+        # Adicionar o cabeçalho utilizando as colunas do DataFrame simplificado
+        data.insert(0, [Paragraph(str(col), cell_style) for col in group_simplificado.columns])
+        
+        # Definir a tabela com larguras de coluna e repetição de cabeçalho nas páginas
+        table = Table(data, colWidths=[column_width] * len(group_simplificado.columns), repeatRows=1)
+        
+        # Estilo da tabela principal
+        style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('FONT', (0, 0), (-1, -1), 'Helvetica', 10),
+            ('FONT', (0, 0), (-1, 0), 'Helvetica-Bold', 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 2),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('WORDWRAP', (0, 0), (-1, -1), 'LTR')
+        ])
+        table.setStyle(style)
+        
+        # Adicionar a tabela principal ao documento
+        elements.append(table)
+        
+        # Espaço entre as tabelas
+        elements.append(Spacer(1, 12))
+        
+        # Criar tabela para 'Descrição' e 'Comentário Hygge'
+        comentarios_data = [[Paragraph(str(cell), cell_style) for cell in row] for row in comentarios_df.values]
+        comentarios_data.insert(0, [Paragraph(str(col), cell_style) for col in comentarios_df.columns])
+        
+        # Recalcular a largura das colunas para a tabela de comentários
+        comentarios_table_width = page_width * 0.9
+        comentarios_column_width = comentarios_table_width / len(comentarios_df.columns)
+        
+        comentarios_table = Table(
+            comentarios_data,
+            colWidths=[comentarios_column_width] * len(comentarios_df.columns),
+            repeatRows=1
+        )
+        
+        # Estilo para a tabela de comentários
+        comentarios_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), custom_color),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('FONT', (0, 0), (-1, -1), 'Helvetica', 10),
+            ('FONT', (0, 0), (-1, 0), 'Helvetica-Bold', 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 2),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('WORDWRAP', (0, 0), (-1, -1), 'LTR')
+        ])
+        comentarios_table.setStyle(comentarios_style)
+        
+        # Adicionar a tabela de comentários ao documento
+        elements.append(comentarios_table)
+        
+        # Quebra de página após cada grupo
+        elements.append(PageBreak())
+
+    # Building the document
+    doc.build(elements)
+
+
+    # -------- Geração do relatório --------------------------
+
+    
+    cover_filename = Path(__file__).parent / "Imgs/Capa.pdf"
+    back_cover_filename = Path(__file__).parent / "Imgs/ContraCapa.pdf"
+    
+    pdfs = [cover_filename, pdf_path, back_cover_filename] # pdf_path is the path to your main PDF
+
+    writer = PdfWriter()
+
+    for pdf in pdfs:
+        reader = PdfReader(open(pdf, 'rb'))
+        for i in range(len(reader.pages)):
+            writer.add_page(reader.pages[i])
+
+    with open(pdf_path, 'wb') as f_out:
+        writer.write(f_out)
+        st.success('Relatório gerado com sucesso! Clique no botão abaixo para fazer o download.')
+    
+    return pdf_path
