@@ -25,6 +25,7 @@ import altair as alt
 import Libs.descricoes as desc
 import Libs.resumo as res
 import random
+import string
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
 
@@ -327,26 +328,34 @@ if st.session_state['authentication_status']:
         
         if 'Energia' in title:
             st.title('Categoria de Energia')
-            st.info("lorem ipsum...")
+            st.info("A eficiência energética é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através de medidas de redução de consumo energético do edifício ou de geração de energia.")
+            st.info("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
         elif 'Água' in title:
             st.title('Categoria de Água')
-            st.info("lorem ipsum...")
+            st.info("A eficiência hídrica é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através de medidas de redução de consumo de água potável do empreendimento.")
+            st.info("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
         elif "Materiais" in title:
             st.title('Categoria de Materiais')
-            st.info("lorem ipsum...")
+            st.info("A eficiência de materiais é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através da melhoria do sistema construtivo para menor incorporação de carbono na edificação.")
+            st.info("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
         elif depth == 1:
+            st.info("O **'*'** ao lado do título representa que trata-se de um pré-requisito obrigatório para a certificação.")
             st.title(f"Crédito {title}")
-            st.info("lorem ipsum...")
+            desc.descricoes_creditos(title)
+            
         elif depth == 2:
             if 'Projeto' in title: 
                 st.title("Etapa de Projeto")
-                st.info("lorem ipsum...")
+                st.info("Momento em que as estratégias precisam ser incorporadas e registradas nos projetos arquitetônicos e de disciplinas complementares do empreendimento.")
+                st.info("Os itens dessa fase são referentes às informações que precisam estar contidas nos projetos, memoriais e fichas técnicas para envio para a Certificação Preliminar.")
             elif 'Obra' in title: 
                 st.title("Etapa de Obra")
-                st.info("lorem ipsum...")
+                st.info("Fase de execução da construção do edifício, na qual devem ser implementadas as soluções previstas na fase de projeto.")
+                st.info("Os itens dessa fase são referentes ao registro e comprovação da implementação das estratégias, para envio para a Certificação Pós-Construção.")
             elif 'construção' in title:
                 st.title("Etapa de Pós-construção")
-                st.info("lorem ipsum...")
+                st.info("Fase de revisão da documentação considerando quaisquer alterações realizadas durante a construção em relação ao que foi previsto para a Certificação Preliminar.")
+                st.info("Os itens dessa fase são referentes à apresentação de projetos e memoriais atualizados, conforme o que foi construído, bem como documentos de compra, para envio para a Certificação Pós-Construção.")
         else:
             st.write(f"**Categoria:** {item.get('categoria', 'Sem categoria')}")
             categoria = item.get('categoria', 'Sem categoria')
@@ -762,12 +771,40 @@ if st.session_state['authentication_status']:
                 key=f"energy_grid_{grid_key}",
                 on_click="rerun"
             )
-            if out_geral is not None:
+            # Exibe um DataFrame com os dados filtrados atualmente no grid.
+            # Caso o slickgrid retorne um dicionário com a chave "data", usamos ele;
+            # caso contrário, exibimos todos os dados.
+            if out_geral is not None and isinstance(out_geral, dict) and "data" in out_geral:
+                filtered_data = out_geral["data"]
+            else:
+                filtered_data = st.session_state.rows
+
+            # Mantém no DataFrame apenas os registros de profundidade 3.
+            filtered_data = [item for item in filtered_data if item.get("__depth", 0) == 3]
+
+            df_filtered = pd.DataFrame(filtered_data)
+
+            # Se uma linha foi clicada, exibe o diálogo de detalhes.
+            # Para isso, assumimos que o slickgrid pode retornar uma tupla (row, col)
+            if out_geral is not None and isinstance(out_geral, tuple):
                 row, col = out_geral
                 show_dialog(st.session_state.rows[row], st.session_state["roles"])
+        
         if st.button('Gerar relatório'):
-            st.write('1')
-        st.write('----')
+            
+            pdf_path = cadastros.gerar_relatorio('Projeto', st.session_state.projeto_selecionado, df_filtered)
+            codigo_aleatorio = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
+            # Exibir botão de download para o usuário
+            with open(pdf_path, "rb") as pdf_file:
+                st.download_button(
+                    label="Baixar Relatório",
+                    data=pdf_file,
+                    file_name=f"Relatório_{st.session_state.rojeto_selecionado}_{codigo_aleatorio}.pdf",
+                    mime="application/pdf"
+                )
+
+
         st.title('Anexos')
         # --- Criar expander para cada anexo ---
         for categoria, cat_data in data_json.items():
