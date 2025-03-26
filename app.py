@@ -541,8 +541,8 @@ if st.session_state['authentication_status']:
                     
                     # Enviando email para os responsáveis pela aprovação da edição
                     try:
-                        #receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
-                        receivers = ['rodrigo@hygge.eco.br']
+                        receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
+                        #receivers = ['rodrigo@hygge.eco.br']
                         message = MIMEMultipart()
                         message["From"] = 'admin@hygge.eco.br'
                         message["To"] = ", ".join(receivers)

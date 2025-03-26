@@ -442,8 +442,8 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
             if upload_response.status_code in [200, 201]:
                 #print(f"File '{uploaded_file.name}' successfully uploaded to the final folder.")
                 st.success(f"Arquivo '{uploaded_file.name}' enviado com sucesso para a estrutura de pastas especificada!")
-                #receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
-                receivers = ['rodrigo@hygge.eco.br']
+                receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
+                #receivers = ['rodrigo@hygge.eco.br']
                 message = MIMEMultipart()
                 message["From"] = 'admin@hygge.eco.br'
                 message["To"] = ", ".join(receivers)
