@@ -798,7 +798,7 @@ if st.session_state['authentication_status']:
 
             df_filtered = pd.DataFrame(filtered_data)
         
-        if st.button('Gerar o relatário do projeto'):
+        if st.button('Gerar o relatório do projeto'):
             pdf_path = cadastros.gerar_relatorio('Projeto', st.session_state.projeto_selecionado, df_filtered)
             codigo_aleatorio = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
