@@ -945,16 +945,16 @@ def gerar_relatorio(construtora, nome_projeto, df):
     elements.append(Paragraph('2. Créditos', hero_bold_style))
     blank_line(elements,1)
 
-    # Agrupando por 'Categoria' e 'Crédito'
-    grouped = df.groupby(['categoria', 'credito', 'tipo', 'item'], sort=False)
+    # Agrupando por 'Categoria', 'Crédito' e 'Tipo'
+    grouped = df.groupby(['categoria', 'credito', 'tipo'], sort=False)
     #st.write(df.columns)
 
     # Iterando por cada grupo
-    for (category, credit, type, item), group in grouped:
+    for (category, credit, type), group in grouped:
         # Exibe a categoria e o crédito como títulos fora da tabela
         elements.append(Paragraph(f"Categoria: {category}", hero_bold_style))
         elements.append(Paragraph(f"Crédito: {credit}", hero_bold_style))
-        
+        elements.append(Paragraph(f"Tipo: {type}", hero_bold_style))
         
         # Espaço antes da tabela principal
         elements.append(Spacer(1, 12))
@@ -966,12 +966,11 @@ def gerar_relatorio(construtora, nome_projeto, df):
         })
         
         # Cria um DataFrame simplificado removendo colunas indesejadas
-        group_simplificado = group.drop(columns=['title', 'id', 'depth', '__parent', 'categoria', 'credito', 'atribuicao', 'comentario_hygge', 'update_status', 'percentual', '__depth'])
+        group_simplificado = group.drop(columns=['tipo', 'title', 'id', 'depth', '__parent', 'categoria', 'credito', 'atribuicao', 'comentario_hygge', 'update_status', 'percentual', '__depth'])
         
         # Renomear as colunas do grupo simplificado conforme solicitado
         group_simplificado = group_simplificado.rename(columns={
             'item': 'Descrição',
-            'tipo': 'Tipo',
             'situacao': 'Situação',
             'revisao': 'Revisão',
             'observacao': 'Observação',
