@@ -7,7 +7,7 @@ def descricoes_categorias():
     st.title('Fluxograma das etapas de certificação')
     png_fluxo = Path(__file__).parent / "Imgs/fluxoEDGE.png"
 
-    st.image(png_fluxo, use_container_width=True)
+    st.image(png_fluxo)
     st.write('----')
     st.title('Etapas de certificação')
 

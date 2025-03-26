@@ -750,6 +750,7 @@ if st.session_state['authentication_status']:
     else: menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE'])
 
     with menu_principal[0]:
+        st.title('Check-list de acompanhamento das informações do EDGE')
         st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
         with st.container():
             # Atualiza a key do slickgrid incluindo o projeto selecionado para forçar o refresh
@@ -764,21 +765,21 @@ if st.session_state['authentication_status']:
             if out_geral is not None:
                 row, col = out_geral
                 show_dialog(st.session_state.rows[row], st.session_state["roles"])
-
+        if st.button('Gerar relatório'):
+            st.write('1')
         st.write('----')
-
-        # --- Expander para exibir os anexos ---
-        with st.expander("Anexos"):
-            for categoria, cat_data in data_json.items():
-                if "anexos" in cat_data:
-                    st.write('----')
-                    st.subheader(categoria)
-                    for anexo_key, anexo_detail in cat_data["anexos"].items():
+        st.title('Anexos')
+        # --- Criar expander para cada anexo ---
+        for categoria, cat_data in data_json.items():
+            if "anexos" in cat_data:
+                st.subheader(categoria)
+                for anexo_key, anexo_detail in cat_data["anexos"].items():
+                    with st.expander(f"{anexo_key}"):
                         descricao = anexo_detail.get("descricao", "Sem descrição")
-                        st.markdown(f"**{anexo_key}:** {descricao}")
+                        st.markdown(descricao)
                     
         st.write('----')
-        
+        st.title('Resumo das informações preenchidas')
         if st.button('Gerar resumo'):
             # Filtra apenas os itens (nós de profundidade 3)
             itens = [r for r in st.session_state.rows if r.get("__depth") == 3]
