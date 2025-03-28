@@ -26,6 +26,11 @@ import Libs.descricoes as desc
 import Libs.resumo as res
 import random
 import string
+import datetime
+from datetime import datetime as dt
+from datetime import timedelta
+import numpy as np
+import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
 
@@ -93,6 +98,8 @@ with st.sidebar:
     with open(temp_config_path, 'r', encoding='utf-8') as file:
         config = yaml.load(file, Loader=SafeLoader)
 
+    # Pre-hashing all plain text passwords once
+    # stauth.Hasher.hash_passwords(config['credentials'])
 
     # Creating the authenticator object
     authenticator = stauth.Authenticate(
@@ -102,11 +109,14 @@ with st.sidebar:
         config['cookie']['expiry_days']
     )
 
-    # Só tenta fazer o login quando o botão for pressionado
-    try:
-        aux = authenticator.login()
-    except LoginError as e:
-        st.error(e)
+    # authenticator = stauth.Authenticate(
+    #     '../config.yaml'
+    # )
+
+    authenticator.login()
+
+    if not st.session_state['authentication_status']:
+        st.sidebar.warning("Por favor, faça o login para continuar. Caso não acesse ao clicar em **'Login'**, confira suas credenciais e tente novamente.")
     
     # Autenticando usuário
     if st.session_state['authentication_status']:
@@ -116,8 +126,8 @@ with st.sidebar:
         else:
             st.sidebar.info(f"Bem-vindo(a), **{st.session_state['name']}**!")
             st.sidebar.info('Este é o ambiente de **usuário** para preenchimento das informações referentes ao check-list HYGGE para certificação do seu projeto.')
-            
-        # Persistência da seleção do projeto: se o projeto for alterado, reseta os dados e recarrega a aplicação
+
+                    # Persistência da seleção do projeto: se o projeto for alterado, reseta os dados e recarrega a aplicação
         if "projeto_selecionado" not in st.session_state:
             st.session_state.projeto_selecionado = cadastros.selecionar_projeto_usuario(client, st.session_state["username"])
         else:
@@ -131,7 +141,7 @@ with st.sidebar:
 
         alias_selecionado = cadastros.selecionar_alias_usuario(client, st.session_state.projeto_selecionado, "admin")
         itens_json = cadastros.get_from_3projetos(alias_selecionado, 'creditos_default.json')
-
+        #itens_json = "C:/Users/RodrigoLeitzke/OneDrive - Hygge/3 PROJETOS/000 - teste1/8-EVTAs/creditos_default.json"
 
 
 if st.session_state['authentication_status']:
@@ -139,7 +149,7 @@ if st.session_state['authentication_status']:
         if st.button('Recarregar informações'):
             st.cache_data.clear()
             st.cache_resource.clear()
-            
+
     @st.cache_data
     def read_json_creditos(path):
         with open(path, 'r', encoding='utf-8') as file:
@@ -156,6 +166,7 @@ if st.session_state['authentication_status']:
     id_counter = 0
     def create_node(title, depth, parent_id=None):
         global id_counter
+        current_time = datetime.datetime.now().isoformat(sep=' ', timespec='seconds')
         if depth == 3:
             node = {
                 "id": id_counter,
@@ -172,7 +183,9 @@ if st.session_state['authentication_status']:
                 "comentario_hygge": "",
                 "revisao": "R01",
                 "update_status": "",
-                "percentual": 0
+                "percentual": 0,
+                "revision_at": "-",
+                "upload_at": "-"
             }
         else:
             node = {
@@ -190,7 +203,9 @@ if st.session_state['authentication_status']:
                 "comentario_hygge": "",
                 "revisao": "",
                 "update_status": "",
-                "percentual": 0
+                "percentual": 0,
+                "revision_at": "",
+                "upload_at": ""
             }
 
         if parent_id is not None:
@@ -269,6 +284,7 @@ if st.session_state['authentication_status']:
             credito_node = get_ancestor_by_depth(item, 1)
             credito = credito_node.get("title", "") if credito_node else ""
             
+            current_time = datetime.datetime.now().isoformat(sep=' ', timespec='seconds')
             tipo_node = get_ancestor_by_depth(item, 2)
             tipo = tipo_node.get("title", "") if tipo_node else ""
             if item.get("__depth", 0) == 3:
@@ -288,7 +304,9 @@ if st.session_state['authentication_status']:
                     "atribuicao": "",
                     "arquivos": "",
                     "update_status": "",
-                    "percentual": 0
+                    "percentual": 0,
+                    "revision_at": "-",
+                    "upload_at": "-"
                 }
                 default_rows.append(update_data)
             else:    
@@ -308,7 +326,9 @@ if st.session_state['authentication_status']:
                     "atribuicao": "",
                     "arquivos": "",
                     "update_status": "",
-                    "percentual": 0
+                    "percentual": 0,
+                    "revision_at": "-",
+                    "upload_at": "-"
                 }
                 default_rows.append(update_data)
         
@@ -388,7 +408,7 @@ if st.session_state['authentication_status']:
                 situacoes = ["🟥 Pendente", "🟩 Aprovado", "🟨 Em aprovação", "🟧 Necessário adequações", "🟪 Solicitação de edição"]
                 default_val = item.get("situacao", "🟥 Pendente")
                 default_index_situacao = situacoes.index(default_val) if default_val in situacoes else 0
-                if 'admin' in permission:
+                if 'admin' in permission and default_val != "🟪 Solicitação de edição":
                     situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação")
                 else:
                     situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação", disabled=True)
@@ -402,54 +422,30 @@ if st.session_state['authentication_status']:
                     revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao, disabled=True)
 
             uploaded_files = st.file_uploader("Arquivo(s)", accept_multiple_files=True)
-
-            cols = st.columns(2)
-            with cols[0]:
-                if "custom_filter_options" not in st.session_state:
-                    st.session_state.custom_filter_options = []
-
-                nova_opcao = st.text_input("Novo filtro personalizado", key="nova_opcao")
-                if st.button("Adicionar filtro", use_container_width=True, key="adicionar_filtro"):
-                    if nova_opcao and nova_opcao not in st.session_state.custom_filter_options:
-                        st.session_state.custom_filter_options.append(nova_opcao)
-                        st.success(f"Opção '{nova_opcao}' adicionada.")
-                    else: 
-                        st.warning("❗Opção inválida ou já existente.")
-            with cols[1]:
-                if st.session_state.custom_filter_options:
-                    excluir_opcao = st.selectbox(
-                        "Selecione a opção para excluir", 
-                        st.session_state.custom_filter_options, 
-                        key="excluir_filter", placeholder="Selecione uma opção"
-                    )
-                    if st.button("Excluir filtro", use_container_width=True, key="excluir_filtro"):
-                        st.session_state.custom_filter_options.remove(excluir_opcao)
-                        st.success(f"Opção '{excluir_opcao}' excluída.")
-                else:
-                    st.info("Nenhuma opção de filtro para excluir.")
             
             default_atribuicao = item.get("atribuicao")
             if isinstance(default_atribuicao, list):
-                selected_options = default_atribuicao
+                default_val = default_atribuicao[0] if default_atribuicao else ""
             elif isinstance(default_atribuicao, str):
-                selected_options = [default_atribuicao]
+                default_val = default_atribuicao
             else:
-                selected_options = []
+                default_val = ""
 
             # Se o projeto selecionado mudou, reinicia a lista de filtros personalizados
             if st.session_state.get("previous_project") != st.session_state.projeto_selecionado:
-                st.session_state.custom_filter_options = []
                 st.session_state.previous_project = st.session_state.projeto_selecionado
 
-            # Usa o cache para buscar as opções já existentes no banco para o projeto em questão
-            db_options = get_db_options(collection_name)
-            combined_options = list(set(st.session_state.custom_filter_options + db_options))
-            combined_options.sort()
-            st.session_state.custom_filter_options = combined_options
+            # Insere uma opção vazia caso ainda não exista, para permitir default vazio
+            options = st.session_state.custom_filter_options.copy()
+            if "" not in options:
+                options.insert(0, "")
+
+            default_index = options.index(default_val) if default_val in options else 0
 
             filtro_personalizado = st.selectbox(
                 "Filtro Personalizado", 
-                options=st.session_state.custom_filter_options, 
+                options=options,
+                index=default_index,
                 key="filtro_personalizado",
                 placeholder="Selecione um filtro"
             )
@@ -467,34 +463,34 @@ if st.session_state['authentication_status']:
             # Se o admin detectar que o item está com 'solicitação de edição',
             # libera a edição mudando o status para 'Pendente'
             if 'admin' in permission and situacao == "🟪 Solicitação de edição":
-                email_confirmacao = st.text_input("Email para confirmação", value=item.get("email", ""))
+                email_confirmacao = st.text_input("Email para confirmação (opcional)", value=item.get("email", ""))
                 if st.button("Liberar edição"):
                     db[collection_name].update_one(
                         {"id": item["id"]},
                         {"$set": {"update_status": "", "situacao": "🟥 Pendente"}}
                     )
                     st.success("Permissão liberada! Status atualizado para Pendente.")
-                    
-                    # Envia email para o cliente com a confirmação da liberação da edição
-                    try:
-                        # Obtém o email do cliente a partir do item ou use um email padrão
-                        client_email = email_confirmacao
-                        message = MIMEMultipart()
-                        message["From"] = 'admin@hygge.eco.br'
-                        message["To"] = client_email
-                        message["Subject"] = f"Confirmação: Liberação de Edição - {item.get('title', '')[:15]}..."
-                        body = f"Olá,\n\nSua solicitação de edição para o item '{item.get('title', '')}' foi liberada. " \
-                               f"Você pode realizar as alterações necessárias agora.\n\nAtenciosamente,\nEquipe de Certificações HYGGE"
-                        message.attach(MIMEText(body, "plain"))
-                        
-                        server = smtplib.SMTP('smtp.office365.com', 587)
-                        server.starttls()
-                        server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
-                        server.sendmail('admin@hygge.eco.br', client_email, message.as_string())
-                        server.quit()
-                        st.success("Email de confirmação enviado para o cliente.")
-                    except Exception as e:
-                        st.error(f"Falha ao enviar email de confirmação: {e}")
+                    if len(email_confirmacao):
+                        # Envia email para o cliente com a confirmação da liberação da edição
+                        try:
+                            # Obtém o email do cliente a partir do item ou use um email padrão
+                            client_email = email_confirmacao
+                            message = MIMEMultipart()
+                            message["From"] = 'admin@hygge.eco.br'
+                            message["To"] = client_email
+                            message["Subject"] = f"Confirmação: Liberação de Edição - {item.get('title', '')[:15]}..."
+                            body = f"Olá,\n\nSua solicitação de edição para o item '{item.get('title', '')}' foi liberada. " \
+                                f"Você pode realizar as alterações necessárias agora.\n\nAtenciosamente,\nEquipe de Certificações HYGGE"
+                            message.attach(MIMEText(body, "plain"))
+                            
+                            server = smtplib.SMTP('smtp.office365.com', 587)
+                            server.starttls()
+                            server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
+                            server.sendmail('admin@hygge.eco.br', client_email, message.as_string())
+                            server.quit()
+                            st.success("Email de confirmação enviado para o cliente.")
+                        except Exception as e:
+                            st.error(f"Falha ao enviar email de confirmação: {e}")
                     
                     st.rerun()
 
@@ -512,12 +508,16 @@ if st.session_state['authentication_status']:
                     # Atualização dos campos conforme entrada do formulário
                     item["observacao"] = observacao
                     item["comentario_hygge"] = comentario_hygge
+                    if item.get("revisao", "R01") != revisao:
+                        item["revision_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
                     item["revisao"] = revisao
                     item["atribuicao"] = filtro_personalizado
 
                     if uploaded_files:
                         item["arquivos"] = ", ".join([f.name for f in uploaded_files])
-                        item["situacao"] = "🟥 Pendente"
+                        item["situacao"] = "🟨 Em aprovação"
+                        # Atualiza o campo "updated_at" com a data e hora atuais
+                        item["upload_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
                         cadastros.upload_to_3projetos(
                             uploaded_files,
                             alias_selecionado,
@@ -535,28 +535,28 @@ if st.session_state['authentication_status']:
                         item["update_status"] = "atualizado"
                     else:
                         item["update_status"] = ""
+                    
 
                     db[collection_name].update_one({"id": item["id"]}, {"$set": item})
                     st.success("Alterações salvas!")
                     compute_percent_complete(st.session_state.rows)
                     st.session_state.grid_key += 1
-                    with st.spinner("Atualizando dados..."):
-                        st.rerun()
+                    st.rerun()
                 else:
                     st.warning("Edição não permitida. Se desejar alterar este item, por favor, solicite uma edição.")
 
             # Para usuários que não são admin e quando a edição direta não é permitida,
             # oferece a opção de solicitar uma alteração.
             if 'admin' not in permission and not allow_direct_save:
-                st.info("Clique em 'Solicitar Edição' para registrar a solicitação de alteração.")
+                st.info("Clique em **'Solicitar Edição'** se você realizou algum preenchimento incorreto e deseja realizar alterações, caso contrário, não há a necessidade de apertar esse botão")
                 if st.button("Solicitar Edição"):
                     item["situacao"] = "🟪 Solicitação de edição"
                     db[collection_name].update_one({"id": item["id"]}, {"$set": item})
                     
                     # Enviando email para os responsáveis pela aprovação da edição
                     try:
-                        receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
-                        #receivers = ['rodrigo@hygge.eco.br']
+                        #receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
+                        receivers = ['rodrigo@hygge.eco.br']
                         message = MIMEMultipart()
                         message["From"] = 'admin@hygge.eco.br'
                         message["To"] = ", ".join(receivers)
@@ -749,7 +749,7 @@ if st.session_state['authentication_status']:
         "treeDataOptions": {
             "columnId": "title",
             "indentMarginLeft": 15,
-            "initiallyCollapsed": False,
+            "initiallyCollapsed": True,
             "parentPropName": "__parent",
             "levelPropName": "__depth"
         },
@@ -764,16 +764,46 @@ if st.session_state['authentication_status']:
         ],
     }
 
-
-
     if 'admin' in st.session_state["roles"]:
-        menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE', 'Cadastros'])
+        menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE', 'Cadastros', 'Controle HYGGE'])
 
     else: menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE'])
 
     with menu_principal[0]:
         st.title('Check-list de acompanhamento das informações do EDGE')
         st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
+                    # Inicializa o st.session_state.custom_filter_options com as opções do banco caso ainda não exista
+        if "custom_filter_options" not in st.session_state:
+            st.session_state.custom_filter_options = get_db_options(collection_name)
+        with st.expander('Filtros personalizados', expanded=True):
+            # Use um widget separado para exibir as opções sem sobrescrever st.session_state.custom_filter_options
+            st.multiselect("Opções de filtro disponíveis", st.session_state.custom_filter_options, default=st.session_state.custom_filter_options, key="display_custom_filter_options", disabled=True)
+            cols = st.columns(2)
+            with cols[0]:
+                nova_opcao = st.text_input("Novo filtro personalizado", key="nova_opcao")
+                if st.button("Adicionar filtro", use_container_width=True, key="adicionar_filtro"):
+                    if nova_opcao and nova_opcao not in st.session_state.custom_filter_options:
+                        st.session_state.custom_filter_options.append(nova_opcao)
+                        st.success(f"Opção '{nova_opcao}' adicionada.")
+                        st.rerun()
+                    else:
+                        st.warning("❗Opção inválida ou já existente.")
+            with cols[1]:
+                if st.session_state.custom_filter_options:
+                    excluir_opcao = st.selectbox(
+                    "Selecione a opção para excluir",
+                    st.session_state.custom_filter_options,
+                    key="excluir_filter",
+                    placeholder="Selecione uma opção"
+                    )
+                    if st.button("Excluir filtro", use_container_width=True, key="excluir_filtro"):
+                        st.session_state.custom_filter_options.remove(excluir_opcao)
+                        st.success(f"Opção '{excluir_opcao}' excluída.")
+                        st.rerun()
+                else:
+                    st.write('')
+                    st.info("Nenhuma opção de filtro para excluir.")
+        st.write('---')
         with st.container():
             # Atualiza a key do slickgrid incluindo o projeto selecionado para forçar o refresh
             grid_key = f"{st.session_state.projeto_selecionado}_{st.session_state.grid_key}"
@@ -826,6 +856,12 @@ if st.session_state['authentication_status']:
                     with st.expander(f"{anexo_key}"):
                         descricao = anexo_detail.get("descricao", "Sem descrição")
                         st.markdown(descricao)
+                        imagens = anexo_detail.get("imagem", [])
+                        for img in imagens:
+                            caminho = img.get("caminho")
+                            legenda = img.get("legenda", "")
+                            if caminho:
+                                st.image(caminho, caption=legenda)
                     
         st.write('----')
         st.title('Resumo das informações preenchidas')
@@ -959,9 +995,9 @@ if st.session_state['authentication_status']:
 
                 if construtoras:
                     construtora_name = st.selectbox("Selecione a Construtora", construtoras, key='construtora_cad_cliente')
-                    projetos = cadastros.get_projetos(client, construtora_name)
-                    alias = cadastros.get_alias(client, construtora_name)
-                    tipos_projetos = cadastros.get_tipo_projeto(client, construtora_name)
+                    projetos = sorted(set(cadastros.get_projetos(client, construtora_name)))
+                    alias = sorted(set(cadastros.get_alias(client, construtora_name)))
+                    tipos_projetos = sorted(set(cadastros.get_tipo_projeto(client, construtora_name)))
 
                     projetos_selecionados = st.multiselect("Selecione os Projetos", projetos) if projetos else []
                     alias_selecionados = st.multiselect("Selecione os alias", alias) if alias else []
@@ -1016,3 +1052,37 @@ if st.session_state['authentication_status']:
                         st.error("Nenhuma construtora cadastrada.")
                 else:
                     st.error("Nenhum cliente cadastrado.")
+        
+        with menu_principal[3]:
+            st.subheader("Controle HYGGE")
+            
+            # Cria selectbox para período
+            periodo_opcoes = {
+            "Uma semana": 7,
+            "15 dias": 15,
+            "30 dias": 30,
+            "60 dias": 60,
+            "90 dias": 90
+            }
+            periodo_selecionado_text = st.selectbox("Selecione o período", list(periodo_opcoes.keys()), index=0)
+            dias_selecionados = periodo_opcoes[periodo_selecionado_text]
+            
+            st.info(f"Situações em aprovação há mais de {dias_selecionados} dias")
+            # Filtra os itens que estão em aprovação e foram atualizados há mais de 'dias_selecionados'
+            data_atual = dt.now()
+            data_limite = data_atual - timedelta(days=dias_selecionados)
+            # Código para listar todos os itens em aprovação e a data
+            itens = [r for r in st.session_state.rows if r.get("__depth") == 3]
+            # Filtra os itens que estão em aprovação ou em solicitação de edição e foram atualizados há mais de 'dias_selecionados'
+            itens_em_aprovacao = [
+                item for item in itens
+                if item.get("situacao") in ["🟨 Em aprovação", "🟪 Solicitação de edição"]
+                    and dt.fromisoformat(item.get("upload_at")) < data_limite
+                ]
+                # Cria um DataFrame com os itens em aprovação
+            df_itens_em_aprovacao = pd.DataFrame(itens_em_aprovacao)
+            # Exibe o DataFrame filtrado ou informa se está vazio
+            if not df_itens_em_aprovacao.empty:
+                st.dataframe(df_itens_em_aprovacao[["categoria", "credito", "tipo", "title", "situacao", "upload_at"]], use_container_width=True)
+            else:
+                st.info(f"Nenhum item em aprovação há mais de {dias_selecionados} dias.")

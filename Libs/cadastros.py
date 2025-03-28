@@ -470,8 +470,8 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
             if upload_response.status_code in [200, 201]:
                 #print(f"File '{uploaded_file.name}' successfully uploaded to the final folder.")
                 st.success(f"Arquivo '{uploaded_file.name}' enviado com sucesso para a estrutura de pastas especificada!")
-                receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
-                #receivers = ['rodrigo@hygge.eco.br']
+                #receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
+                receivers = ['rodrigo@hygge.eco.br']
                 message = MIMEMultipart()
                 message["From"] = 'admin@hygge.eco.br'
                 message["To"] = ", ".join(receivers)
@@ -960,21 +960,23 @@ def gerar_relatorio(construtora, nome_projeto, df):
         elements.append(Spacer(1, 12))
         
         # Extrair os dados de 'Descrição' e 'Comentário HYGGE' para exibir em tabela separada
-        comentarios_df = group[['title', 'comentario_hygge']].rename(columns={
+        comentarios_df = group[['title', 'revisao', 'revision_at', 'comentario_hygge']].rename(columns={
             'title': 'Descrição',
+            'revisao': 'Revisão',
+            'revision_at': 'Data Revisão',
             'comentario_hygge': 'Comentário HYGGE'
         })
         
         # Cria um DataFrame simplificado removendo colunas indesejadas
-        group_simplificado = group.drop(columns=['tipo', 'title', 'id', 'depth', '__parent', 'categoria', 'credito', 'atribuicao', 'comentario_hygge', 'update_status', 'percentual', '__depth'])
+        group_simplificado = group.drop(columns=['tipo', 'title', 'id', 'depth', '__parent', 'categoria', 'credito', 'atribuicao', 'revisao', 'comentario_hygge', 'update_status', 'percentual', '__depth', 'revision_at'])
         
         # Renomear as colunas do grupo simplificado conforme solicitado
-        group_simplificado = group_simplificado.rename(columns={
+        group_simplificado = group_simplificado[['item', 'situacao', 'arquivos','observacao', 'upload_at']].rename(columns={
             'item': 'Descrição',
             'situacao': 'Situação',
-            'revisao': 'Revisão',
+            'arquivos': 'Arquivo(s)',
             'observacao': 'Observação',
-            'arquivos': 'Arquivos'
+            'upload_at': 'Data de Upload'
         })
         
         # Recalcular largura das colunas para o grupo simplificado

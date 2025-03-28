@@ -1,13 +1,17 @@
 import streamlit as st
 from pathlib import Path
+from PIL import Image
 
 # st expander para as categorias do EDGE
 
 def descricoes_categorias():
     st.title('Fluxograma das etapas de certificação')
+    st.write('----')
     png_fluxo = Path(__file__).parent / "Imgs/fluxoEDGE.png"
 
-    st.image(png_fluxo)
+    img = Image.open(png_fluxo)
+    width, height = img.size
+    st.image(img.resize((int(width * 0.6), int(height * 0.6))))
     st.write('----')
     st.title('Etapas de certificação')
 
@@ -73,7 +77,7 @@ def descricoes_categorias():
             st.write("* Os itens dessa fase são referentes à apresentação de projetos e memoriais atualizados, conforme o que foi construído, bem como documentos de compra, para envio para a Certificação Pós-Construção.")
     st.write('----')
     st.title('Pré-requisitos e créditos')
-    st.info('Todos os itens marcados com **"*"** são pré-requisitos')
+    st.info('Todos os itens marcados com **(*)** são pré-requisitos')
 
     cols = st.columns(3)
 
