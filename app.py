@@ -5,6 +5,7 @@ from streamlit_slickgrid import slickgrid, Formatters, Filters, FieldType, Opera
 import warnings
 import time
 warnings.filterwarnings("ignore")
+from pathlib import Path
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from urllib.parse import quote_plus
@@ -859,7 +860,20 @@ if st.session_state['authentication_status']:
                             caminho = img.get("caminho")
                             legenda = img.get("legenda", "")
                             if caminho:
-                                st.image(caminho, caption=legenda)
+                                if caminho.startswith("http"):
+                                    st.image(caminho, caption=legenda)
+                                else:
+                                    try:
+                                        from pathlib import Path
+                                        image_path = Path(caminho)
+                                        if image_path.exists():
+                                            with image_path.open("rb") as f:
+                                                image_bytes = f.read()
+                                            st.image(image_bytes, caption=legenda)
+                                        else:
+                                            st.warning("Image file not found: " + caminho)
+                                    except Exception as e:
+                                        st.error(f"Error loading image: {e}")
                     
         st.write('----')
         st.title('Resumo das informações preenchidas')
