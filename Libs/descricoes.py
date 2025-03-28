@@ -11,7 +11,7 @@ def descricoes_categorias():
 
     img = Image.open(png_fluxo)
     width, height = img.size
-    st.image(img.resize((int(width * 0.3), int(height * 0.3))))
+    st.image(img.resize((int(width * 0.6), int(height * 0.6))))
     st.write('----')
     st.title('Etapas de certificação')
 
