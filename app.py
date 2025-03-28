@@ -29,8 +29,6 @@ import string
 import datetime
 from datetime import datetime as dt
 from datetime import timedelta
-import numpy as np
-import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
 
