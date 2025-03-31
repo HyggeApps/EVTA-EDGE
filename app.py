@@ -145,6 +145,17 @@ with st.sidebar:
 
 
 if st.session_state['authentication_status']:
+    if st.button('Carregar o Guia do Usuário'):
+        pdf_path_anexos = Path(__file__).parent / f"Projects/Guia do Usuário Checklist Hygge EDGE.pdf"
+
+        #Exibir botão de download para o usuário
+        with open(pdf_path_anexos, "rb") as pdf_file:
+            st.download_button(
+                label="Baixar Guia do Usuário",
+                data=pdf_file,
+                file_name=f"Guia do Usuário Checklist Hygge EDGE.pdf",
+                mime="application/pdf"
+            )
     if 'admin' in st.session_state["roles"]:
         if st.button('Recarregar informações'):
             st.cache_data.clear()
