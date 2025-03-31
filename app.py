@@ -30,6 +30,7 @@ import string
 import datetime
 from datetime import datetime as dt
 from datetime import timedelta
+from pathlib import Path
 
 st.set_page_config(page_title="HYGGE | EDGE - Checklist", layout="wide")
 
@@ -139,8 +140,8 @@ with st.sidebar:
                 st.rerun()
 
         alias_selecionado = cadastros.selecionar_alias_usuario(client, st.session_state.projeto_selecionado, "admin")
-        itens_json = cadastros.get_from_3projetos(alias_selecionado, 'creditos_default.json')
-        #itens_json = "C:/Users/RodrigoLeitzke/OneDrive - Hygge/3 PROJETOS/000 - teste1/8-EVTAs/creditos_default.json"
+        codigo_alias_selecionado = alias_selecionado.split(" - ")[0]
+        itens_json = Path(__file__).parent / f"Projects/{codigo_alias_selecionado}/creditos_default.json"
 
 
 if st.session_state['authentication_status']:
@@ -345,240 +346,210 @@ if st.session_state['authentication_status']:
 
     @st.dialog("Detalhes da Seleção", width="large")
     def show_dialog(item, permission):
-        global db, collection_name  # Acesso às variáveis globais definidas no app.py
-        title = item.get("title", "")
-        depth = item.get("__depth", 0)
-        st.write('---')
-        
-        if 'Energia' in title:
-            st.title('Categoria de Energia')
-            st.info("A eficiência energética é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através de medidas de redução de consumo energético do edifício ou de geração de energia.")
-            st.info("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
-        elif 'Água' in title:
-            st.title('Categoria de Água')
-            st.info("A eficiência hídrica é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através de medidas de redução de consumo de água potável do empreendimento.")
-            st.info("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
-        elif "Materiais" in title:
-            st.title('Categoria de Materiais')
-            st.info("A eficiência de materiais é uma das três categorias de recursos que compõem o padrão EDGE, com requisito mínimo de eficiência de 20%, que deve ser conquistado através da melhoria do sistema construtivo para menor incorporação de carbono na edificação.")
-            st.info("Para fins de certificação, a equipe de projeto e construção deve revisar os requisitos para as medidas apresentadas e fornecer as informações solicitadas.")
-        elif depth == 1:
-            st.info("O **'*'** ao lado do título representa que trata-se de um pré-requisito obrigatório para a certificação.")
-            st.title(f"Crédito {title}")
-            desc.descricoes_creditos(title)
+        with st.spinner("Carregando detalhes..."):
+            global db, collection_name  # Acesso às variáveis globais definidas no app.py
+            title = item.get("title", "")
+            depth = item.get("__depth", 0)
+            st.write('---')
             
-        elif depth == 2:
-            if 'Projeto' in title: 
-                st.title("Etapa de Projeto")
-                st.info("Momento em que as estratégias precisam ser incorporadas e registradas nos projetos arquitetônicos e de disciplinas complementares do empreendimento.")
-                st.info("Os itens dessa fase são referentes às informações que precisam estar contidas nos projetos, memoriais e fichas técnicas para envio para a Certificação Preliminar.")
-            elif 'Obra' in title: 
-                st.title("Etapa de Obra")
-                st.info("Fase de execução da construção do edifício, na qual devem ser implementadas as soluções previstas na fase de projeto.")
-                st.info("Os itens dessa fase são referentes ao registro e comprovação da implementação das estratégias, para envio para a Certificação Pós construção.")
-            elif 'construção' in title:
-                st.title("Etapa de Pós construção")
-                st.info("Fase de revisão da documentação considerando quaisquer alterações realizadas durante a construção em relação ao que foi previsto para a Certificação Preliminar.")
-                st.info("Os itens dessa fase são referentes à apresentação de projetos e memoriais atualizados, conforme o que foi construído, bem como documentos de compra, para envio para a Certificação Pós construção.")
-        else:
-            st.write(f"**Categoria:** {item.get('categoria', 'Sem categoria')}")
-            categoria = item.get('categoria', 'Sem categoria')
-            id_map = {n["id"]: n for n in st.session_state.rows}
-            credit_node = None
-            parent_id = item.get("__parent")
-            while parent_id is not None:
-                parent_node = id_map.get(parent_id)
-                if parent_node.get("__depth") == 1:
-                    credit_node = parent_node
-                    break
-                parent_id = parent_node.get("__parent")
-            
-            if credit_node:
-                st.write(f"**Crédito:** {credit_node.get('title', 'Sem crédito')}")
+            if 'Energia' in title:
+                st.title('Categoria de Energia')
+                st.info("A eficiência energética é uma das três categorias de recursos do padrão EDGE, [...]")
+            elif 'Água' in title:
+                st.title('Categoria de Água')
+                st.info("A eficiência hídrica é uma das três categorias de recursos do padrão EDGE, [...]")
+            elif "Materiais" in title:
+                st.title('Categoria de Materiais')
+                st.info("A eficiência de materiais é uma das três categorias de recursos do padrão EDGE, [...]")
+            elif depth == 1:
+                st.info("O **'*'** ao lado do título representa um pré-requisito obrigatório para a certificação.")
+                st.title(f"Crédito {title}")
+                # Cache na descrição para evitar processamento repetido
+                cached_descricao = st.cache_data(lambda t: desc.descricoes_creditos(t), key=f"credito_{title}")
+                cached_descricao(title)
+            elif depth == 2:
+                if 'Projeto' in title: 
+                    st.title("Etapa de Projeto")
+                    st.info("Momento em que as estratégias precisam ser incorporadas e registradas nos projetos.")
+                elif 'Obra' in title: 
+                    st.title("Etapa de Obra")
+                    st.info("Fase de execução da construção do edifício, com as implementações das soluções.")
+                elif 'construção' in title:
+                    st.title("Etapa de Pós construção")
+                    st.info("Fase de revisão da documentação considerando alterações realizadas durante a obra.")
             else:
-                st.write("**Crédito:** Não disponível")
-            
-            st.write(f"**Item selecionado:** {title}")
-
-            st.write('----')
-            st.write("Edite os campos abaixo:")
-            cols = st.columns(2)
-            with cols[0]:
-                situacoes = ["🟥 Pendente", "🟩 Aprovado", "🟨 Em aprovação", "🟧 Necessário adequações", "🟪 Solicitação de edição"]
-                default_val = item.get("situacao", "🟥 Pendente")
-                default_index_situacao = situacoes.index(default_val) if default_val in situacoes else 0
-                if 'admin' in permission and default_val != "🟪 Solicitação de edição":
-                    situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação")
+                st.write(f"**Categoria:** {item.get('categoria', 'Sem categoria')}")
+                # Utilize uma variável cache para o id_map se for reutilizada em vários diálogos
+                id_map = st.session_state.get("id_map")
+                if id_map is None:
+                    id_map = {n["id"]: n for n in st.session_state.rows}
+                    st.session_state.id_map = id_map
+                credit_node = None
+                parent_id = item.get("__parent")
+                while parent_id is not None:
+                    parent_node = id_map.get(parent_id)
+                    if parent_node.get("__depth") == 1:
+                        credit_node = parent_node
+                        break
+                    parent_id = parent_node.get("__parent")
+                
+                if credit_node:
+                    st.write(f"**Crédito:** {credit_node.get('title', 'Sem crédito')}")
                 else:
-                    situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação", disabled=True)
-            with cols[1]:
-                default_revisao = item.get("revisao", "R01")
-                revisoes = ['R01', 'R02', 'R03']
-                default_index_revisao = revisoes.index(default_revisao) if default_revisao in revisoes else 0
+                    st.write("**Crédito:** Não disponível")
+                
+                st.write(f"**Item selecionado:** {title}")
+    
+                st.write('----')
+                st.write("Edite os campos abaixo:")
+                cols = st.columns(2)
+                with cols[0]:
+                    situacoes = ["🟥 Pendente", "🟩 Aprovado", "🟨 Em aprovação", "🟧 Necessário adequações", "🟪 Solicitação de edição"]
+                    default_val = item.get("situacao", "🟥 Pendente")
+                    default_index_situacao = situacoes.index(default_val) if default_val in situacoes else 0
+                    if 'admin' in permission and default_val != "🟪 Solicitação de edição":
+                        situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação")
+                    else:
+                        situacao = st.selectbox("Situação", options=situacoes, index=default_index_situacao, placeholder="Selecione uma situação", disabled=True)
+                with cols[1]:
+                    revisoes = ['R01', 'R02', 'R03']
+                    default_revisao = item.get("revisao", "R01")
+                    default_index_revisao = revisoes.index(default_revisao) if default_revisao in revisoes else 0
+                    if 'admin' in permission:
+                        revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao)
+                    else:
+                        revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao, disabled=True)
+    
+                uploaded_files = st.file_uploader("Arquivo(s)", accept_multiple_files=True)
+                
+                default_atribuicao = item.get("atribuicao")
+                default_val = default_atribuicao[0] if isinstance(default_atribuicao, list) and default_atribuicao else (default_atribuicao if isinstance(default_atribuicao, str) else "")
+    
+                if st.session_state.get("previous_project") != st.session_state.projeto_selecionado:
+                    st.session_state.previous_project = st.session_state.projeto_selecionado
+    
+                options = st.session_state.custom_filter_options.copy()
+                if "" not in options:
+                    options.insert(0, "")
+    
+                default_index = options.index(default_val) if default_val in options else 0
+    
+                filtro_personalizado = st.selectbox(
+                    "Filtro Personalizado", 
+                    options=options,
+                    index=default_index,
+                    key="filtro_personalizado",
+                    placeholder="Selecione um filtro"
+                )
+    
+                observacao = st.text_area("Observação", value=item.get("observacao", ""))
                 if 'admin' in permission:
-                    revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao)
+                    comentario_hygge = st.text_area("Comentário HYGGE", value=item.get("comentario_hygge", ""))
                 else:
-                    revisao = st.selectbox("Revisão", options=revisoes, index=default_index_revisao, disabled=True)
-
-            uploaded_files = st.file_uploader("Arquivo(s)", accept_multiple_files=True)
+                    comentario_hygge = st.text_area("Comentário HYGGE", value=item.get("comentario_hygge", ""), disabled=True)
+    
+                current_doc = db[collection_name].find_one({"id": item["id"]})
+                current_status = current_doc.get("update_status", "") if current_doc else ""
             
-            default_atribuicao = item.get("atribuicao")
-            if isinstance(default_atribuicao, list):
-                default_val = default_atribuicao[0] if default_atribuicao else ""
-            elif isinstance(default_atribuicao, str):
-                default_val = default_atribuicao
-            else:
-                default_val = ""
-
-            # Se o projeto selecionado mudou, reinicia a lista de filtros personalizados
-            if st.session_state.get("previous_project") != st.session_state.projeto_selecionado:
-                st.session_state.previous_project = st.session_state.projeto_selecionado
-
-            # Insere uma opção vazia caso ainda não exista, para permitir default vazio
-            options = st.session_state.custom_filter_options.copy()
-            if "" not in options:
-                options.insert(0, "")
-
-            default_index = options.index(default_val) if default_val in options else 0
-
-            filtro_personalizado = st.selectbox(
-                "Filtro Personalizado", 
-                options=options,
-                index=default_index,
-                key="filtro_personalizado",
-                placeholder="Selecione um filtro"
-            )
-
-            observacao = st.text_area("Observação", value=item.get("observacao", ""))
-            if 'admin' in permission:
-                comentario_hygge = st.text_area("Comentário HYGGE", value=item.get("comentario_hygge", ""))
-            else:
-                comentario_hygge = st.text_area("Comentário HYGGE", value=item.get("comentario_hygge", ""), disabled=True)
-
-            # Exibe o status atual da edição
-            current_doc = db[collection_name].find_one({"id": item["id"]})
-            current_status = current_doc.get("update_status", "") if current_doc else ""
-        
-            # Se o admin detectar que o item está com 'solicitação de edição',
-            # libera a edição mudando o status para 'Pendente'
-            if 'admin' in permission and situacao == "🟪 Solicitação de edição":
-                email_confirmacao = st.text_input("Email para confirmação (opcional)", value=item.get("email", ""))
-                if st.button("Liberar edição"):
-                    db[collection_name].update_one(
-                        {"id": item["id"]},
-                        {"$set": {"update_status": "", "situacao": "🟥 Pendente"}}
-                    )
-                    st.success("Permissão liberada! Status atualizado para Pendente.")
-                    if len(email_confirmacao):
-                        # Envia email para o cliente com a confirmação da liberação da edição
+                if 'admin' in permission and situacao == "🟪 Solicitação de edição":
+                    email_confirmacao = st.text_input("Email para confirmação (opcional)", value=item.get("email", ""))
+                    if st.button("Liberar edição"):
+                        db[collection_name].update_one(
+                            {"id": item["id"]},
+                            {"$set": {"update_status": "", "situacao": "🟥 Pendente"}}
+                        )
+                        st.success("Permissão liberada! Status atualizado para Pendente.")
+                        if email_confirmacao:
+                            try:
+                                client_email = email_confirmacao
+                                message = MIMEMultipart()
+                                message["From"] = 'admin@hygge.eco.br'
+                                message["To"] = client_email
+                                message["Subject"] = f"Confirmação: Liberação de Edição - {item.get('title', '')[:15]}..."
+                                body = f"Olá,\n\nSua solicitação de edição para o item '{item.get('title', '')}' foi liberada. Você pode realizar as alterações necessárias agora.\n\nAtenciosamente,\nEquipe de Certificações HYGGE"
+                                message.attach(MIMEText(body, "plain"))
+                                
+                                server = smtplib.SMTP('smtp.office365.com', 587)
+                                server.starttls()
+                                server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
+                                server.sendmail('admin@hygge.eco.br', client_email, message.as_string())
+                                server.quit()
+                                st.success("Email de confirmação enviado para o cliente.")
+                            except Exception as e:
+                                st.error(f"Falha ao enviar email de confirmação: {e}")
+                        
+                        st.rerun()
+    
+                st.info("Clique em 'Salvar Informações' para salvar as alterações realizadas acima.")
+                
+                allow_direct_save = True
+                if 'admin' not in permission and current_status == "atualizado":
+                    allow_direct_save = False
+    
+                if st.button("Salvar Informações"):
+                    if 'admin' in permission or allow_direct_save:
+                        item["observacao"] = observacao
+                        item["comentario_hygge"] = comentario_hygge
+                        if item.get("revisao", "R01") != revisao:
+                            item["revision_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
+                        item["revisao"] = revisao
+                        item["atribuicao"] = filtro_personalizado
+    
+                        if uploaded_files:
+                            item["arquivos"] = ", ".join([f.name for f in uploaded_files])
+                            item["situacao"] = "🟨 Em aprovação"
+                            item["upload_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
+                            cadastros.upload_to_3projetos(
+                                uploaded_files,
+                                alias_selecionado,
+                                'EDGE',
+                                credit_node.get("title", ""),
+                                title,
+                                revisao
+                            )
+                        else:
+                            item["arquivos"] = item.get("arquivos", "")
+                            item["situacao"] = situacao
+    
+                        if 'admin' not in permission:
+                            item["update_status"] = "atualizado"
+                        else:
+                            item["update_status"] = ""
+                        
+                        db[collection_name].update_one({"id": item["id"]}, {"$set": item})
+                        st.success("Alterações salvas!")
+                        compute_percent_complete(st.session_state.rows)
+                        st.session_state.grid_key += 1
+                        st.rerun()
+                    else:
+                        st.warning("Edição não permitida. Se desejar alterar este item, por favor, solicite uma edição.")
+    
+                if 'admin' not in permission and not allow_direct_save:
+                    st.info("Clique em **'Solicitar Edição'** se você realizou algum preenchimento incorreto e deseja realizar alterações.")
+                    if st.button("Solicitar Edição"):
+                        item["situacao"] = "🟪 Solicitação de edição"
+                        db[collection_name].update_one({"id": item["id"]}, {"$set": item})
+                        
                         try:
-                            # Obtém o email do cliente a partir do item ou use um email padrão
-                            client_email = email_confirmacao
+                            receivers = ['rodrigo@hygge.eco.br']
                             message = MIMEMultipart()
                             message["From"] = 'admin@hygge.eco.br'
-                            message["To"] = client_email
-                            message["Subject"] = f"Confirmação: Liberação de Edição - {item.get('title', '')[:15]}..."
-                            body = f"Olá,\n\nSua solicitação de edição para o item '{item.get('title', '')}' foi liberada. " \
-                                f"Você pode realizar as alterações necessárias agora.\n\nAtenciosamente,\nEquipe de Certificações HYGGE"
-                            message.attach(MIMEText(body, "plain"))
-                            
-                            server = smtplib.SMTP('smtp.office365.com', 587)
-                            server.starttls()
-                            server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
-                            server.sendmail('admin@hygge.eco.br', client_email, message.as_string())
-                            server.quit()
-                            st.success("Email de confirmação enviado para o cliente.")
-                        except Exception as e:
-                            st.error(f"Falha ao enviar email de confirmação: {e}")
-                    
-                    st.rerun()
-
-            st.info("Clique em 'Salvar Informações' para salvar as alterações realizadas acima.")
-            
-            # Para usuários (não-admin), determinar se a edição pode ser feita diretamente.
-            # A primeira alteração ou depois de uma aprovação do admin permite editar sem solicitação.
-            # Caso contrário, se o status estiver 'atualizado' (alteração já feita e não aprovada), a edição direta não é permitida.
-            allow_direct_save = True
-            if 'admin' not in permission and current_status == "atualizado":
-                allow_direct_save = False
-
-            if st.button("Salvar Informações"):
-                if 'admin' in permission or allow_direct_save:
-                    # Atualização dos campos conforme entrada do formulário
-                    item["observacao"] = observacao
-                    item["comentario_hygge"] = comentario_hygge
-                    if item.get("revisao", "R01") != revisao:
-                        item["revision_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
-                    item["revisao"] = revisao
-                    item["atribuicao"] = filtro_personalizado
-
-                    if uploaded_files:
-                        item["arquivos"] = ", ".join([f.name for f in uploaded_files])
-                        item["situacao"] = "🟨 Em aprovação"
-                        # Atualiza o campo "updated_at" com a data e hora atuais
-                        item["upload_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
-                        cadastros.upload_to_3projetos(
-                            uploaded_files,
-                            alias_selecionado,
-                            'EDGE',
-                            credit_node.get("title", ""),
-                            title,
-                            revisao
-                        )
-                    else:
-                        item["arquivos"] = item.get("arquivos", "")
-                        item["situacao"] = situacao
-
-                    # Se for usuário, e não for a primeira alteração, marcar como "atualizado"
-                    if 'admin' not in permission:
-                        item["update_status"] = "atualizado"
-                    else:
-                        item["update_status"] = ""
-                    
-
-                    db[collection_name].update_one({"id": item["id"]}, {"$set": item})
-                    st.success("Alterações salvas!")
-                    compute_percent_complete(st.session_state.rows)
-                    st.session_state.grid_key += 1
-                    st.rerun()
-                else:
-                    st.warning("Edição não permitida. Se desejar alterar este item, por favor, solicite uma edição.")
-
-            # Para usuários que não são admin e quando a edição direta não é permitida,
-            # oferece a opção de solicitar uma alteração.
-            if 'admin' not in permission and not allow_direct_save:
-                st.info("Clique em **'Solicitar Edição'** se você realizou algum preenchimento incorreto e deseja realizar alterações, caso contrário, não há a necessidade de apertar esse botão")
-                if st.button("Solicitar Edição"):
-                    item["situacao"] = "🟪 Solicitação de edição"
-                    db[collection_name].update_one({"id": item["id"]}, {"$set": item})
-                    
-                    # Enviando email para os responsáveis pela aprovação da edição
-                    try:
-                        #receivers = ['maiz@hygge.eco.br', 'joao@hygge.eco.br']
-                        receivers = ['rodrigo@hygge.eco.br']
-                        message = MIMEMultipart()
-                        message["From"] = 'admin@hygge.eco.br'
-                        message["To"] = ", ".join(receivers)
-                        message["Subject"] = f'Solicitação de edição - {alias_selecionado} - {credit_node.get("title", "")}'
-
-                        # Corpo do email original
-                        body = f"""<p>Foi solicitada uma edição por {st.session_state['name']} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
-                        message.attach(MIMEText(body, "html"))
-
-                        # Sending the email
-                        try:
+                            message["To"] = ", ".join(receivers)
+                            message["Subject"] = f'Solicitação de edição - {alias_selecionado} - {credit_node.get("title", "")}'
+    
+                            body = f"""<p>Foi solicitada uma edição por {st.session_state['name']} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
+                            message.attach(MIMEText(body, "html"))
+    
                             server = smtplib.SMTP('smtp.office365.com', 587)
                             server.starttls()
                             server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
                             server.sendmail('admin@hygge.eco.br', receivers, message.as_string())
                             server.quit()
+    
+                            st.success("Solicitação de edição registrada com sucesso!")
                         except Exception as e:
-                            st.error(f"Falha no envio do email: {e}")
-
-                        st.success("Solicitação de edição registrada com sucesso!")
-                    except Exception as e:
-                        st.error(f"Erro ao enviar email: {e}")
-                    st.rerun()
+                            st.error(f"Erro ao enviar email: {e}")
+                        st.rerun()
 
 
 
