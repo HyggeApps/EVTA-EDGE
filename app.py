@@ -818,6 +818,17 @@ if st.session_state['authentication_status']:
 
         st.write('----')
         st.title('Anexos')
+        if st.button('Carregar o caderno de anexos do projeto'):
+            pdf_path_anexos = Path(__file__).parent / f"Projects/{codigo_alias_selecionado}/Caderno de Anexos HYGGE EDGE.pdf"
+
+            #Exibir botão de download para o usuário
+            with open(pdf_path, "rb") as pdf_file:
+                st.download_button(
+                    label="Baixar Caderno de Anexos",
+                    data=pdf_file,
+                    file_name=f"Caderno de Anexos HYGGE EDGE.pdf",
+                    mime="application/pdf"
+                )
         # --- Criar expander para cada anexo ---
         for categoria, cat_data in data_json.items():
             if "anexos" in cat_data:
