@@ -822,7 +822,7 @@ if st.session_state['authentication_status']:
             pdf_path_anexos = Path(__file__).parent / f"Projects/{codigo_alias_selecionado}/Caderno de Anexos HYGGE EDGE.pdf"
 
             #Exibir botão de download para o usuário
-            with open(pdf_path, "rb") as pdf_file:
+            with open(pdf_path_anexos, "rb") as pdf_file:
                 st.download_button(
                     label="Baixar Caderno de Anexos",
                     data=pdf_file,
