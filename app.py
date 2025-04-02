@@ -488,7 +488,9 @@ if st.experimental_user.is_logged_in and com_acesso:
                 allow_direct_save = True
                 if 'admin' not in permission and current_status == "atualizado":
                     original_atribuicao = current_doc.get("atribuicao", "")
-                    if original_atribuicao == filtro_personalizado:
+                    if original_atribuicao != filtro_personalizado and not uploaded_files and observacao == item.get("observacao", ""):
+                        allow_direct_save = True
+                    else:
                         allow_direct_save = False
     
                 if st.button("Salvar Informações"):
