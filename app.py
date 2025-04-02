@@ -343,10 +343,8 @@ if st.experimental_user.is_logged_in and com_acesso:
         st.session_state.rows = default_rows
 
     def get_db_options(collection_name):
-        st.write(collection_name)
         # Consulta opções "atribuicao" existentes e filtra valores não vazios
         options = db[collection_name].distinct("atribuicao")
-        st.write(options)
         return sorted([opt for opt in options if opt])
 
     @st.dialog("Detalhes da Seleção", width="large")
@@ -756,6 +754,7 @@ if st.experimental_user.is_logged_in and com_acesso:
         if "custom_filter_options" not in st.session_state:
             if st.session_state.get("previous_project") != st.session_state.projeto_selecionado:
                 st.session_state.custom_filter_options = get_db_options(collection_name)
+                st.write(st.session_state.custom_filter_options)
                 st.session_state.previous_project = st.session_state.projeto_selecionado
         with st.expander('Filtros personalizados', expanded=True):
             # Use um widget separado para exibir as opções sem sobrescrever st.session_state.custom_filter_options
