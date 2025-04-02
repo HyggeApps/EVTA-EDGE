@@ -119,7 +119,7 @@ with st.sidebar:
                 st.rerun()
 
         if not db['usuarios'].count_documents({"email": email_login}) > 0:
-            st.sidebar.warning("Seu email não está cadastrado no banco de dados. Entre em contato com a HYGGE para solicitar o cadastro.")
+            st.sidebar.error("Entre em contato com a HYGGE para solicitar o cadastro.")
             st.sidebar.write('---')
             st.sidebar.warning("Clique no botão **'Sair'** para encerrar a sessão.")
             if st.sidebar.button("Sair", use_container_width=True):
