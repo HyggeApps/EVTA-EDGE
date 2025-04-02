@@ -539,7 +539,7 @@ if st.experimental_user.is_logged_in and com_acesso:
                             db[collection_name].update_one({"id": item["id"]}, {"$set": item})
                             
                             try:
-                                receivers = ['rodrigo@hygge.eco.br']
+                                receivers = ['joao@hygge.eco.br', 'maiz@hygge.eco.br']
                                 message = MIMEMultipart()
                                 message["From"] = 'admin@hygge.eco.br'
                                 message["To"] = ", ".join(receivers)
