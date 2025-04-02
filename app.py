@@ -123,6 +123,7 @@ with st.sidebar:
         itens_json = Path(__file__).parent / f"Projects/{codigo_alias_selecionado}/creditos_default.json"
 
 if st.experimental_user.is_logged_in:
+    st.sidebar.warning("Clique no botão **'Sair'** para encerrar a sessão.")
     if st.sidebar.button("Sair", use_container_width=True):
         st.logout()
     email_login = st.experimental_user.email
