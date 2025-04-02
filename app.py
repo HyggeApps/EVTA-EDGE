@@ -169,7 +169,7 @@ if st.experimental_user.is_logged_in and com_acesso:
     id_counter = 0
     def create_node(title, depth, parent_id=None):
         global id_counter
-        current_time = datetime.datetime.now().isoformat(sep=' ', timespec='seconds')
+        current_time = (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(sep=' ', timespec='seconds')
         if depth == 3:
             node = {
                 "id": id_counter,
@@ -287,7 +287,7 @@ if st.experimental_user.is_logged_in and com_acesso:
             credito_node = get_ancestor_by_depth(item, 1)
             credito = credito_node.get("title", "") if credito_node else ""
             
-            current_time = datetime.datetime.now().isoformat(sep=' ', timespec='seconds')
+            current_time = (datetime.datetime.now() - datetime.timedelta(hours=3)).isoformat(sep=' ', timespec='seconds')
             tipo_node = get_ancestor_by_depth(item, 2)
             tipo = tipo_node.get("title", "") if tipo_node else ""
             if item.get("__depth", 0) == 3:
