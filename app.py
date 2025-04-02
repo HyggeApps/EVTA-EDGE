@@ -357,7 +357,7 @@ if st.experimental_user.is_logged_in:
                 st.info("O **'*'** ao lado do título representa um pré-requisito obrigatório para a certificação.")
                 st.title(f"Crédito {title}")
                 # Cache na descrição para evitar processamento repetido
-                cached_descricao = st.cache_data(lambda t: desc.descricoes_creditos(t), key=f"credito_{title}")
+                cached_descricao = st.cache_data(lambda t: desc.descricoes_creditos(t))
                 cached_descricao(title)
             elif depth == 2:
                 if 'Projeto' in title: 
@@ -783,7 +783,10 @@ if st.experimental_user.is_logged_in:
             # Para isso, assumimos que o slickgrid pode retornar uma tupla (row, col)
             if out_geral is not None:
                 row, col = out_geral
-                show_dialog(st.session_state.rows[row], st.session_state["roles"])
+                if "@hygge.eco.br" in email_login:
+                    permission = ['admin']
+                else: permission = ['user']
+                show_dialog(st.session_state.rows[row], permission)
 
             # Exibe um DataFrame com os dados filtrados atualmente no grid.
             # Caso o slickgrid retorne um dicionário com a chave "data", usamos ele;
