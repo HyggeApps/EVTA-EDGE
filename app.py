@@ -532,31 +532,34 @@ if st.experimental_user.is_logged_in and com_acesso:
                         st.warning("Edição não permitida. Se desejar alterar este item, por favor, solicite uma edição.")
     
                 if 'admin' not in permission and not allow_direct_save:
-                    st.info("Clique em **'Solicitar Edição'** se você realizou algum preenchimento incorreto e deseja realizar alterações.")
-                    if st.button("Solicitar Edição"):
-                        item["situacao"] = "🟪 Solicitação de edição"
-                        db[collection_name].update_one({"id": item["id"]}, {"$set": item})
-                        
-                        try:
-                            receivers = ['rodrigo@hygge.eco.br']
-                            message = MIMEMultipart()
-                            message["From"] = 'admin@hygge.eco.br'
-                            message["To"] = ", ".join(receivers)
-                            message["Subject"] = f'Solicitação de edição - {alias_selecionado} - {credit_node.get("title", "")}'
-    
-                            body = f"""<p>Foi solicitada uma edição por {st.experimental_user.name} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
-                            message.attach(MIMEText(body, "html"))
-    
-                            server = smtplib.SMTP('smtp.office365.com', 587)
-                            server.starttls()
-                            server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
-                            server.sendmail('admin@hygge.eco.br', receivers, message.as_string())
-                            server.quit()
-    
-                            st.success("Solicitação de edição registrada com sucesso!")
-                        except Exception as e:
-                            st.error(f"Erro ao enviar email: {e}")
-                        st.rerun()
+                    if item.get("situacao") != "🟪 Solicitação de edição":
+                        st.info("Clique em **'Solicitar Edição'** se você realizou algum preenchimento incorreto e deseja realizar alterações.")
+                        if st.button("Solicitar Edição"):
+                            item["situacao"] = "🟪 Solicitação de edição"
+                            db[collection_name].update_one({"id": item["id"]}, {"$set": item})
+                            
+                            try:
+                                receivers = ['rodrigo@hygge.eco.br']
+                                message = MIMEMultipart()
+                                message["From"] = 'admin@hygge.eco.br'
+                                message["To"] = ", ".join(receivers)
+                                message["Subject"] = f'Solicitação de edição - {alias_selecionado} - {credit_node.get("title", "")}'
+        
+                                body = f"""<p>Foi solicitada uma edição por {st.experimental_user.name} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
+                                message.attach(MIMEText(body, "html"))
+        
+                                server = smtplib.SMTP('smtp.office365.com', 587)
+                                server.starttls()
+                                server.login(st.secrets['microsoft']['email'], st.secrets['microsoft']['password'])
+                                server.sendmail('admin@hygge.eco.br', receivers, message.as_string())
+                                server.quit()
+        
+                                st.success("Solicitação de edição registrada com sucesso!")
+                            except Exception as e:
+                                st.error(f"Erro ao enviar email: {e}")
+                            st.rerun()
+                    else:
+                        st.info("A solicitação de edição já foi realizada. Aguarde a liberação do administrador para solicitar novamente.")
 
 
 
