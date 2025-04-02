@@ -156,7 +156,7 @@
                 "descricao": "O projeto arquitetônico deve ser capaz de informar a área de telhado total, bem como a delimitação dos diferentes acabamentos e sistemas construtivos utilizados na cobertura do empreendimento. \n\n Um exemplo de detalhamento/destaque dos acabamentos utilizados está descrito na imagem E1.1, em que torna possível a compreensão da utilização de dois materiais distintos. Vale ressaltar que as hachuras não são obrigatórias, é possível validar a especificação de qualquer forma, desde que torne possível o reconhecimento. \n\n Será necessário especificar em projeto a diferença tanto dos acabamentos, quanto dos sistemas construtivos das coberturas.",
                 "imagem": [
                     {
-                        "caminho": "Imgs/E1.1.png",
+                        "caminho": "Projects/341/Imgs/E1.1.png",
                         "legenda": "Imagem E1.1 - Exemplo de projeto com destaque para os diferentes acabamentos na cobertura"
                     }
                 ]
@@ -252,7 +252,7 @@
                 "descricao": "Para o atendimento dos créditos que citam metais e louças, é necessário que a especificação de metais e louças siga a tabela W1.1 – Recomendações Metais e Louças.",
                 "imagem": [
                     {
-                        "caminho": "Imgs/W1.1.png",
+                        "caminho": "Projects/341/Imgs/W1.1.png",
                         "legenda": "W1.1 - Recomendação de vazões"
                     }
                 ]
@@ -460,7 +460,7 @@
                 "descricao": "Os projetos estruturais precisam apresentar o cálculo de taxa de consumo de aço em kg de aço por metro quadrado de laje (kg/m²) para cada uma das classificações citadas abaixo, conforme aplicável em projeto:           \n  * **Laje de contato com o solo:** todas as áreas de laje que possuem contato com o solo, seja no subsolo ou pavimento térreo do edifício;           \n  * **Laje de cobertura:** todas as lajes em descobertas e/ou com contato com a área externa, independentemente do pavimento em que se encontram;         \n  * **Laje intermediária:** todas as lajes internas, entre os pavimentos da torre, que são cobertas e não possuem contato com o solo.     \n\nPara fases iniciais de projeto estrutural, pode ser fornecida valor estimado de consumo de aço para cada uma das tipologias em projeto ou memorial de cálculo.          \nNo projeto estrutural executivo ou no memorial de cálculo final é necessário que conste o valor final de consumo de aço para cada uma das três tipologias acima citadas, bem como o memorial de cálculo estrutural, contendo o valor de consumo de aço e as áreas consideradas para cada pavimento.",
                 "imagem": [
                     {
-                        "caminho": "Imgs/M1.1.png",
+                        "caminho": "Projects/341/Imgs/M1.1.png",
                         "legenda": "M1.1 - Tipologias de laje para cálculo de taxa de consumo de aço"
                     }
                 ]
