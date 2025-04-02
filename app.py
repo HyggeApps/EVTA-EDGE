@@ -756,8 +756,6 @@ if st.experimental_user.is_logged_in and com_acesso:
             st.session_state.custom_filter_options = current_options if current_options else []
             st.session_state.previous_project = st.session_state.projeto_selecionado
         with st.expander('Filtros personalizados', expanded=True):
-            st.write("Projeto:", collection_name)
-            st.write("Filtros atuais:", st.session_state.custom_filter_options)
             # Use um widget separado para exibir as opções sem sobrescrever st.session_state.custom_filter_options
             st.multiselect("Opções de filtro disponíveis", st.session_state.custom_filter_options,
                      default=st.session_state.custom_filter_options,
