@@ -131,12 +131,12 @@ with st.sidebar:
             itens_json = Path(__file__).parent / f"Projects/{codigo_alias_selecionado}/creditos_default.json"
 
 if st.experimental_user.is_logged_in and com_acesso:
-    
+    email_login = st.experimental_user.email    
     st.sidebar.write('---')
     st.sidebar.warning("Clique no botão **'Sair'** para encerrar a sessão.")
     if st.sidebar.button("Sair", use_container_width=True):
         st.logout()
-    email_login = st.experimental_user.email
+
     if st.button('Carregar o Guia do Usuário'):
         pdf_path_anexos = Path(__file__).parent / f"Projects/Guia do Usuário Checklist Hygge EDGE.pdf"
 
