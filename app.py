@@ -561,8 +561,6 @@ if st.experimental_user.is_logged_in and com_acesso:
                     else:
                         st.info("A solicitação de edição já foi realizada. Aguarde a liberação do administrador para solicitar novamente.")
 
-
-
     # --- Calcula o campo "categoria" para cada nó ---
     # Cria um mapeamento id -> node
     for node in st.session_state.rows:
@@ -754,7 +752,9 @@ if st.experimental_user.is_logged_in and com_acesso:
         st.info('🖱️ **Clique na linha desejada** na tabela abaixo para preencher ou conferir as informações.')
                     # Inicializa o st.session_state.custom_filter_options com as opções do banco caso ainda não exista
         if "custom_filter_options" not in st.session_state:
-            st.session_state.custom_filter_options = get_db_options(collection_name)
+            if st.session_state.get("previous_project") != st.session_state.projeto_selecionado:
+                st.session_state.custom_filter_options = get_db_options(collection_name)
+                st.session_state.previous_project = st.session_state.projeto_selecionado
         with st.expander('Filtros personalizados', expanded=True):
             # Use um widget separado para exibir as opções sem sobrescrever st.session_state.custom_filter_options
             st.multiselect("Opções de filtro disponíveis", st.session_state.custom_filter_options, default=st.session_state.custom_filter_options, key="display_custom_filter_options", disabled=True)
