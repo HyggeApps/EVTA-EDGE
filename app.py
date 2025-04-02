@@ -1034,9 +1034,9 @@ if st.experimental_user.is_logged_in and com_acesso:
                         alias = cadastros.get_alias(client, construtora_name)
                         tipo_projeto = cadastros.get_tipo_projeto(client, construtora_name)
 
-                        novo_projeto = st.selectbox("Selecione o Projeto", projetos) if projetos else None
-                        novo_alias = st.selectbox("Selecione o alias", alias) if alias else None
-                        novo_tipo_projeto = st.selectbox("Selecione o tipo do projeto", tipo_projeto) if tipo_projeto else None
+                        novo_projeto = st.selectbox("Selecione o Projeto", set(projetos)) if projetos else None
+                        novo_alias = st.selectbox("Selecione o alias", set(alias)) if alias else None
+                        novo_tipo_projeto = st.selectbox("Selecione o tipo do projeto", set(tipo_projeto)) if tipo_projeto else None
 
                         if st.button("Atribuir Projeto"):
                             if novo_projeto and username_selecionado:
