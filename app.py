@@ -87,51 +87,30 @@ def conecta_banco():
 client = conecta_banco()
 db = client['certificacoes']
 
-# Criar um arquivo temporário com os usuários do MongoDB
-temp_config_path = cadastros.create_temp_config_from_mongo(db)
-
-# Carregar e verificar as chaves no arquivo config.yaml
-config_data = cadastros.load_config_and_check_or_insert_cookies(temp_config_path)
-
 with st.sidebar:
-    # Loading config file
-    with open(temp_config_path, 'r', encoding='utf-8') as file:
-        config = yaml.load(file, Loader=SafeLoader)
+    email_login = None
+    if not st.experimental_user.is_logged_in:
+        if st.button("Fazer login com o Google", use_container_width=True):
+            st.login("google")
 
-    # Pre-hashing all plain text passwords once
-    # stauth.Hasher.hash_passwords(config['credentials'])
-
-    # Creating the authenticator object
-    authenticator = stauth.Authenticate(
-        config['credentials'],
-        config['cookie']['name'],
-        config['cookie']['key'],
-        config['cookie']['expiry_days']
-    )
-
-    # authenticator = stauth.Authenticate(
-    #     '../config.yaml'
-    # )
-
-    authenticator.login()
-
-    if not st.session_state['authentication_status']:
-        st.sidebar.warning("Por favor, faça o login para continuar. Caso não acesse ao clicar em **'Login'**, confira suas credenciais e tente novamente.")
-    
+        if st.button("Fazer login com a Microsoft", use_container_width=True):
+            st.login("microsoft")
+            
     # Autenticando usuário
-    if st.session_state['authentication_status']:
-        if 'admin' in st.session_state["roles"]:
-            st.sidebar.info(f"Bem-vindo(a), **{st.session_state['name']}**!")
+    if st.experimental_user.is_logged_in:
+        email_login = st.experimental_user.email
+        if '@hygge.eco.br' in email_login:
+            st.sidebar.info(f"Bem-vindo(a), **{st.experimental_user.name}**!")
             st.sidebar.info('Este é o ambiente de **admin** para preenchimento das informações referentes ao check-list HYGGE para certificação do seu projeto.')
         else:
-            st.sidebar.info(f"Bem-vindo(a), **{st.session_state['name']}**!")
+            st.sidebar.info(f"Bem-vindo(a), **{st.experimental_user.name}**!")
             st.sidebar.info('Este é o ambiente de **usuário** para preenchimento das informações referentes ao check-list HYGGE para certificação do seu projeto.')
 
-                    # Persistência da seleção do projeto: se o projeto for alterado, reseta os dados e recarrega a aplicação
+        # Persistência da seleção do projeto: se o projeto for alterado, reseta os dados e recarrega a aplicação
         if "projeto_selecionado" not in st.session_state:
-            st.session_state.projeto_selecionado = cadastros.selecionar_projeto_usuario(client, st.session_state["username"])
+            st.session_state.projeto_selecionado = cadastros.selecionar_projeto_usuario(client, email_login)
         else:
-            novo_projeto = cadastros.selecionar_projeto_usuario(client, st.session_state["username"])
+            novo_projeto = cadastros.selecionar_projeto_usuario(client, email_login)
             if novo_projeto != st.session_state.projeto_selecionado:
                 st.session_state.projeto_selecionado = novo_projeto
                 # Reseta as variáveis dependentes para forçar o recarregamento dos dados
@@ -139,12 +118,14 @@ with st.sidebar:
                 st.session_state.pop("grid_key", None)
                 st.rerun()
 
-        alias_selecionado = cadastros.selecionar_alias_usuario(client, st.session_state.projeto_selecionado, "admin")
+        alias_selecionado = cadastros.selecionar_alias_usuario(client, st.session_state.projeto_selecionado, email_login)
         codigo_alias_selecionado = alias_selecionado.split(" - ")[0]
         itens_json = Path(__file__).parent / f"Projects/{codigo_alias_selecionado}/creditos_default.json"
 
-
-if st.session_state['authentication_status']:
+if st.experimental_user.is_logged_in:
+    if st.sidebar.button("Sair", use_container_width=True):
+        st.logout()
+    email_login = st.experimental_user.email
     if st.button('Carregar o Guia do Usuário'):
         pdf_path_anexos = Path(__file__).parent / f"Projects/Guia do Usuário Checklist Hygge EDGE.pdf"
 
@@ -156,7 +137,7 @@ if st.session_state['authentication_status']:
                 file_name=f"Guia do Usuário Checklist Hygge EDGE.pdf",
                 mime="application/pdf"
             )
-    if 'admin' in st.session_state["roles"]:
+    if '@hygge.eco.br' in email_login:
         if st.button('Recarregar informações'):
             st.cache_data.clear()
             st.cache_resource.clear()
@@ -548,7 +529,7 @@ if st.session_state['authentication_status']:
                             message["To"] = ", ".join(receivers)
                             message["Subject"] = f'Solicitação de edição - {alias_selecionado} - {credit_node.get("title", "")}'
     
-                            body = f"""<p>Foi solicitada uma edição por {st.session_state['name']} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
+                            body = f"""<p>Foi solicitada uma edição por {st.experimental_user.name} para o item "{item.get("title", "")}" do crédito "{credit_node.get("title", "")}" do projeto "{alias_selecionado}".</p>"""
                             message.attach(MIMEText(body, "html"))
     
                             server = smtplib.SMTP('smtp.office365.com', 587)
@@ -745,7 +726,7 @@ if st.session_state['authentication_status']:
         ],
     }
 
-    if 'admin' in st.session_state["roles"]:
+    if '@hygge.eco.br' in email_login:
         menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE', 'Cadastros', 'Controle HYGGE'])
 
     else: menu_principal = st.tabs(['Página inicial', 'Entenda o EDGE'])
@@ -954,7 +935,7 @@ if st.session_state['authentication_status']:
         desc.descricoes_categorias()
 
 
-    if 'admin' in st.session_state["roles"]:
+    if '@hygge.eco.br' in email_login:
         with menu_principal[2]:
             st.info("Cadastros de construtoras, projetos, clientes e adição de projetos aos clientes")
             pagina_cad_construtora, pagina_cad_projetos, cadastro_cliente, adicao_projeto_cliente = st.tabs(
@@ -1008,21 +989,14 @@ if st.session_state['authentication_status']:
                     alias_selecionados = st.multiselect("Selecione os alias", alias) if alias else []
                     tipos_projetos_selecionados = st.multiselect("Selecione os tipos dos projetos", tipos_projetos) if tipos_projetos else []
 
-                    username = st.text_input("Nome de usuário")
-                    name = st.text_input("Nome completo")
                     email = st.text_input("Email")
-                    password = st.text_input("Senha", type="password")
-                    confirm_password = st.text_input("Confirme a senha", type="password")
-                    view_type = st.selectbox("Selecione o tipo de usuário", options=['viewer', 'editor', 'admin'])
 
                     if st.button("Cadastrar Usuário"):
-                        if password == confirm_password:
-                            if username and name and email and construtora_name and projetos_selecionados:
-                                cadastros.add_user_to_db(client, username, name, password, email, view_type, construtora_name, projetos_selecionados, alias_selecionados, tipos_projetos_selecionados)
-                            else:
-                                st.error("Preencha todos os campos!")
+                        if email and construtora_name and projetos_selecionados:
+                            cadastros.add_user_to_db(client, email, construtora_name, projetos_selecionados, alias_selecionados, tipos_projetos_selecionados)
                         else:
-                            st.error("As senhas não coincidem!")
+                            st.error("Preencha todos os campos!")
+
                 else:
                     st.error("Nenhuma construtora cadastrada. Cadastre uma construtora primeiro.")
 
@@ -1031,7 +1005,7 @@ if st.session_state['authentication_status']:
                 st.subheader("Atribuir Projeto a Cliente Existente")
 
                 # Listar todos os usuários cadastrados
-                usuarios = [u['username'] for u in cadastros.get_usuarios(client)]
+                usuarios = [u['email'] for u in cadastros.get_usuarios(client)]
 
                 if usuarios:
                     username_selecionado = st.selectbox("Selecione o Cliente", usuarios)
@@ -1082,6 +1056,7 @@ if st.session_state['authentication_status']:
             itens_em_aprovacao = [
                 item for item in itens
                 if item.get("situacao") in ["🟨 Em aprovação", "🟪 Solicitação de edição"]
+                    and item.get("upload_at") not in ["-", "", None]
                     and dt.fromisoformat(item.get("upload_at")) < data_limite
                 ]
                 # Cria um DataFrame com os itens em aprovação

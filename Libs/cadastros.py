@@ -44,11 +44,10 @@ custom_color = Color(165/255.0, 154/255.0, 148/255.0)
 def selecionar_alias_usuario(client, projeto_selecionado, username): 
     # Conectar ao banco de dados e obter a coleção de usuários
     db = client['certificacoes']
-    users_collection = db['users']
+    users_collection = db['usuarios']
     
     # Buscar o usuário pelo username e carregar os projetos
-    user_data = users_collection.find_one({'username': username}, {"_id": 0, "projetos": 1})
-    
+    user_data = users_collection.find_one({'email': username}, {"_id": 0, "projetos": 1})
     if user_data and 'projetos' in user_data:
         projetos = user_data['projetos']
         
@@ -71,10 +70,10 @@ def selecionar_alias_usuario(client, projeto_selecionado, username):
 def selecionar_projeto_usuario(client, username):
     # Carregar projetos do usuário com base no username
     db = client['certificacoes']
-    users_collection = db['users']
+    users_collection = db['usuarios']
     
     # Buscar o usuário pelo username
-    user_data = users_collection.find_one({'username': username}, {"_id": 0, "projetos": 1})
+    user_data = users_collection.find_one({'email': username}, {"_id": 0, "projetos": 1})
     
     if user_data and 'projetos' in user_data:
         projetos = user_data['projetos']
@@ -140,23 +139,19 @@ def add_projeto_to_construtora(client, construtora_name, projeto_name, projeto_a
     except Exception as e:
         st.error(f"Erro ao adicionar projeto: {str(e)}")
 
-def add_user_to_db(client, username, name, password, email, view_type, construtora, projetos, aliases, tipo):
+def add_user_to_db(client, email, construtora, projetos, aliases, tipos):
     # Estruturar cada projeto com `nome` e `alias`
-    projetos_data = [{'nome': projeto, 'alias': alias, 'tipo': tipo} for projeto, alias in zip(projetos, aliases)]
+    projetos_data = [{'nome': projeto, 'alias': alias, 'tipo': tipo} for projeto, alias, tipo in zip(projetos, aliases, tipos)]
     
     # Dados do usuário, incluindo a lista de projetos com nome e alias
     user_data = {
-        'username': username,
-        'name': name,
-        'password': password,
         'email': email,
-        'funcao': view_type,
         'construtora': construtora,
         'projetos': projetos_data  # Lista de projetos com nome e alias
     }
     
     db = client['certificacoes']
-    users_collection = db['users']
+    users_collection = db['usuarios']
     
     try:
         users_collection.insert_one(user_data)
@@ -203,8 +198,8 @@ def get_tipo_projeto(_client, construtora):
 @st.cache_data
 def get_usuarios(_client):
     db = _client['certificacoes']
-    users_collection = db['users']
-    return list(users_collection.find({}, {"_id": 0, "username": 1}))
+    users_collection = db['usuarios']
+    return list(users_collection.find({}, {"_id": 0, "email": 1}))
 
 def create_temp_config_from_mongo(mongo_uri, db_name, collection_name):
     # Conectar ao MongoDB
@@ -280,9 +275,9 @@ def load_config_and_check_or_insert_cookies(config_file_path):
 
     return config_data
 
-def add_project_to_existing_user(client, username, novo_projeto, novo_alias, novo_tipo):
+def add_project_to_existing_user(client, email, novo_projeto, novo_alias, novo_tipo):
     db = client['certificacoes']
-    users_collection = db['users']
+    users_collection = db['usuarios']
     
     # Estruturar o novo projeto como um objeto com `nome` e `alias`
     projeto_data = {
@@ -294,14 +289,14 @@ def add_project_to_existing_user(client, username, novo_projeto, novo_alias, nov
     # Atualizar o cliente, adicionando o novo projeto na lista de projetos
     try:
         result = users_collection.update_one(
-            {'username': username},  # Busca o cliente pelo username
+            {'email': email},  # Busca o cliente pelo username
             {'$addToSet': {'projetos': projeto_data}}  # Adiciona o projeto completo na lista, sem duplicar
         )
         
         if result.modified_count > 0:
-            st.success(f"Projeto '{novo_projeto}/{novo_alias}' adicionado ao usuário '{username}' com sucesso!")
+            st.success(f"Projeto '{novo_projeto}/{novo_alias}' adicionado ao usuário '{email}' com sucesso!")
         else:
-            st.warning(f"O projeto '{novo_projeto}/{novo_alias}' já está associado ao usuário '{username}' ou o usuário não 1encontrado.")
+            st.warning(f"O projeto '{novo_projeto}/{novo_alias}' já está associado ao usuário '{email}' ou o usuário não 1encontrado.")
     
     except Exception as e:
         st.error(f"Erro ao atribuir o projeto: {str(e)}")
@@ -499,89 +494,6 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
     else:
         #print("Error acquiring token:", result.get("error_description", ""))
         st.error(f"Erro ao adquirir token: {result.get('error_description', '')}")
-
-def create_temp_config_from_mongo(db):
-    # Buscar todos os usuários no MongoDB
-    users_data = db['users'].find()
-
-    # Criar um dicionário para armazenar os dados do config temporário
-    temp_config_data = {
-        'credentials': {
-            'usernames': {}
-        }
-    }
-
-    # Adicionar usuários do MongoDB ao config temporário
-    for user_data in users_data:
-        username = user_data['username']
-
-        # Gerar a senha hasheada usando stauth.Hasher
-        # Cria um dicionário de credenciais para o usuário atual
-        credentials = {
-            'usernames': {
-            user_data['username']: {
-                'password': user_data.get('password', '')
-            }
-            }
-        }
-        # Gera as credenciais com a senha hasheada
-        hashed_credentials = Hasher.hash_passwords(credentials)
-        # Extrai a senha hasheada para poder ser utilizada na criação do config
-        hashed_passwords = [hashed_credentials['usernames'][user_data['username']]['password']]
-
-        # Preparar os dados do usuário no formato do config.yaml
-        user_yaml_data = {
-            'email': user_data.get('email', ''),
-            'failed_login_attempts': 0,
-            'first_name': user_data.get('name', '').split()[0],
-            'last_name': ' '.join(user_data.get('name', '').split()[1:]),
-            'logged_in': False,
-            'password': hashed_passwords[0],
-            'roles': [user_data.get('funcao', 'viewer')]
-        }
-
-        # Adicionar o usuário ao config temporário
-        temp_config_data['credentials']['usernames'][username] = user_yaml_data
-        #print(f"Usuário {username} adicionado ao config temporário.")
-
-    # Criar um arquivo temporário para salvar o config.yaml (como texto)
-    with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.yaml', encoding='utf-8') as temp_file:
-        yaml.dump(temp_config_data, temp_file, default_flow_style=False)
-        temp_file_path = temp_file.name
-
-    #print(f"Arquivo config temporário criado: {temp_file_path}")
-    return temp_file_path
-
-def load_config_and_check_or_insert_cookies(config_file_path):
-    # Carregar o arquivo YAML existente
-    try:
-        with open(config_file_path, 'r') as file:
-            config_data = yaml.safe_load(file)
-            if config_data is None:
-                config_data = {}  # Caso o arquivo esteja vazio
-    except FileNotFoundError:
-        config_data = {}  # Se o arquivo não existir ainda
-
-    # Verificar e garantir que a seção 'cookie' exista
-    if 'cookie' not in config_data:
-        config_data['cookie'] = {
-            'expiry_days': 0,
-            'key': 'some_signature_key',
-            'name': 'some_cookie_name'
-        }
-        #print("Seção 'cookie' criada com valores padrão.")
-
-    # Verificar se a chave 'name' está na seção 'cookie'
-    cookie_name = config_data['cookie'].get('name')
-    if not cookie_name:
-        config_data['cookie']['name'] = 'some_cookie_name'
-        #print("Chave 'name' na seção 'cookie' criada com valor padrão.")
-
-    # Salvar o arquivo atualizado
-    with open(config_file_path, 'w') as file:
-        yaml.dump(config_data, file, default_flow_style=False)
-
-    return config_data
 
 class MyDocTemplate(SimpleDocTemplate):
     """
