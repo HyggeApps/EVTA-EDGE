@@ -343,8 +343,10 @@ if st.experimental_user.is_logged_in and com_acesso:
         st.session_state.rows = default_rows
 
     def get_db_options(collection_name):
+        st.write(collection_name)
         # Consulta opções "atribuicao" existentes e filtra valores não vazios
         options = db[collection_name].distinct("atribuicao")
+        st.write(options)
         return sorted([opt for opt in options if opt])
 
     @st.dialog("Detalhes da Seleção", width="large")
