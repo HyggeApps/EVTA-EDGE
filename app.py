@@ -124,13 +124,15 @@ with st.sidebar:
 
 if st.experimental_user.is_logged_in:
     # se o usuário existir no collection_usuarios, carrega os dados, se não retorna mensagem de erro que não existem projetos atribuídos ao usuário.
+    st.sidebar.write('---')
+    st.sidebar.warning("Clique no botão **'Sair'** para encerrar a sessão.")
+    if st.sidebar.button("Sair", use_container_width=True):
+        st.logout()
     if not db['usuarios'].count_documents({"email": email_login}) > 0:
         st.error("Não existem projetos atribuídos a você. Entre em contato com a equipe HYGGE para mais informações.")
+
     else:
-        st.sidebar.write('---')
-        st.sidebar.warning("Clique no botão **'Sair'** para encerrar a sessão.")
-        if st.sidebar.button("Sair", use_container_width=True):
-            st.logout()
+
         email_login = st.experimental_user.email
         if st.button('Carregar o Guia do Usuário'):
             pdf_path_anexos = Path(__file__).parent / f"Projects/Guia do Usuário Checklist Hygge EDGE.pdf"
