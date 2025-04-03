@@ -1,7 +1,7 @@
 {
     "01. Energia": {
         "creditos": {
-            "01. EEM01 - Window-to-Wall Ratio": {
+            "01. EEM01 - Razão janela-parede": {
                 "projeto": [
                     "Cálculo de área envidraçada e área externa opaca para cada orientação de fachada, bem como a relação WWR",
                     "Projeto arquitetônico com desenho de todas as elevações com dimensões das áreas envidraçadas e áreas opacas"
@@ -14,7 +14,7 @@
                     "Projeto arquitetônico conforme construído com desenho de todas as elevações com dimensões das áreas envidraçadas e áreas opacas"
                 ]
             },
-            "02. EEM02- Reflective Roof": {
+            "02. EEM02- Telhado reflexivo": {
                 "projeto": [
                     "Projeto arquitetônico com delimitação das áreas de telhado/cobertura",
                     "Memorial descritivo com as informações de refletância/absortância solar ou SRI dos materiais/acabamentos de telhado/cobertura",
@@ -32,7 +32,7 @@
                     "Notas fiscais das tintas/acabamentos de telhado/cobertura (Mín. 5 notas)"
                 ]
             },
-            "04. EEM04 - External Shading Devices": {
+            "04. EEM04 - Dispositivos de sombreamento": {
                 "projeto": [
                     "Projetos arquitetônicos das fachadas com informação dos dispositivos de sombreamento em todas as orientações",
                     "Projetos arquitetônicos indicando as dimensões dos dispositivos de sombreamento",
@@ -49,7 +49,7 @@
                     "SRR aprovado pelo IFC (Alternative Compliance Path)"
                 ]
             },
-            "05. EEM05 - Insulation of Roof": {
+            "05. EEM05 - Transmitância térmica do telhado": {
                 "projeto": [
                     "Cortes esquemáticos com informação do sistema construtivo de telhado. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto arquitetônico com informação dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
@@ -68,7 +68,7 @@
                     "Notas fiscais dos materiais utilizados nas coberturas (Mín. 5 notas)"
                 ]
             },
-            "06. EEM06 - Insulation of Ground/Raised Floor Slab": {
+            "06. EEM06 - Transmitância térmica de laje em contato com o solo": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
@@ -86,7 +86,7 @@
                     "Ficha técnica dos isolamentos de piso instalados na laje térrea/em contato com o solo com informação da condutividade (W/m*K), se aplicável"
                 ]
             },
-            "08. EEM08 - Insulation of Exterior Walls": {
+            "08. EEM08 - Transmitância térmica das paredes externas": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo das paredes externas. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo",
@@ -104,7 +104,7 @@
                     "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
-            "09. EEM09 - Efficiency of Glass": {
+            "09. EEM09 - Eficiência do vidro": {
                 "projeto": [
                     "Projeto arquitetônico com informação dos vidros utilizados",
                     "Memorial de cálculo com as relações entre as áreas de vidro, em caso de mais de uma especificação",
@@ -119,7 +119,7 @@
                     "Notas fiscais dos vidros utilizados (Mín. 5 notas)"
                 ]
             },
-            "13. EEM13 - Cooling System Efficiency": {
+            "13. EEM13 - Eficiência do sistema de resfriamento": {
                 "projeto": [
                     "Projeto de HVAC com informação dos componentes internos e externos referentes ao resfriamento dos ambientes",
                     "Lista de todos os equipamentos referentes ao resfriamento dos ambientes. A lista deve apresentar quantitativo e informação de COP (W/W)",
@@ -135,7 +135,7 @@
                     "Notas fiscais dos equipamentos de resfriamento utilizados (Mín. 5 notas)"
                 ]
             },
-            "31. EEM31 - Smart Meters for Energy": {
+            "31. EEM31 - Medidores inteligentes de energia": {
                 "projeto": [
                     "Projetos elétricos com layout dos medidores de energia e a conexão dos equipamentos com o sistema elétrico",
                     "Ficha técnica dos medidores de energia",
@@ -165,7 +165,7 @@
     },
     "02. Água": {
         "creditos": {
-            "01. WEM01 - Water-efficient Showerheads": {
+            "01. WEM01 - Chuveiros com eficiência hídrica": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações dos chuveiros conforme anexo W.1",
                     "Lista de todos os chuveiros projetados. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -181,7 +181,7 @@
                     "Notas fiscais dos chuveiros (Mín. 5 notas)"
                 ]
             },
-            "02. WEM02 - Water-efficient Faucets for all Bathrooms": {
+            "02. WEM02 - Torneiras com eficiência hídrica para todos os banheiros": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das torneiras de banheiro conforme anexo W.1",
                     "Lista de todas as torneiras de banheiro projetadas. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -197,7 +197,7 @@
                     "Notas fiscais das torneiras de banheiro (Mín. 5 notas)"
                 ]
             },
-            "04. WEM04 - Efficient Water Closets for All Bathrooms": {
+            "04. WEM04 - Sanitários com economia hídrica em todos os banheiros": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das bacias sanitárias conforme anexo W.1",
                     "Lista de todas as bacias sanitárias projetadas. A lista deve conter nome do modelo, tipo de acionamento (single ou dual flush) e quantitativo",
@@ -212,7 +212,7 @@
                     "Notas fiscais das bacias sanitárias (Mín. 5 notas)"
                 ]
             },
-            "08. WEM08 - Water-efficient Faucets for Kitchen Sinks": {
+            "08. WEM08 - Torneiras com economia hídrica para pias de cozinha": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das torneiras de cozinha conforme anexo W.1",
                     "Lista de todas as torneiras de cozinha projetadas. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -228,7 +228,7 @@
                     "Notas fiscais das torneiras de cozinha (Mín. 5 notas)"
                 ]
             },
-            "14. WEM14 - Rainwater Harvesting System": {
+            "14. WEM14 - Sistema de captação de água da chuva": {
                 "projeto": [
                     "Projeto com informação do sistema de captação pluvial, destacando as áreas de captação, tubulação e reservatórios",
                     "Memorial de cálculo para dimensionamento dos reservatórios e da tubulação referente à captação pluvial",
@@ -261,7 +261,7 @@
     },
     "03. Materiais": {
         "creditos": {
-            "01. MEM01 - Bottom Floor Construction": {
+            "01. MEM01 - Construção do piso inferior": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto e/ou memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
@@ -281,7 +281,7 @@
                     "Notas fiscais dos materiais utilizados nas lajes térreas/em contato com o solo (Mín. 5 notas)"
                 ]
             },
-            "02. MEM02 - Intermediate Floor Construction": {
+            "02. MEM02 - Construção da laje intermediária": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da laje intermediária. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes intermediárias, em caso de mais de um sistema construtivo utilizado",
@@ -298,7 +298,7 @@
                     "Notas fiscais dos materiais utilizados nas lajes intermediárias (Mín. 5 notas)"
                 ]
             },
-            "03. MEM03 - Floor Finish": {
+            "03. MEM03 - Acabamento do piso": {
                 "projeto": [
                     "Projeto com informação dos acabamentos de piso. É necessário apresentar as espessuras dos acabamentos",
                     "Memorial de cálculo com as relações entre as áreas de acabamento de piso, em caso de mais de um sistema construtivo utilizado",
@@ -315,7 +315,7 @@
                     "Notas fiscais dos materiais utilizados nos acabamentos de piso (Mín. 5 notas)"
                 ]
             },
-            "04. MEM04 - Roof Construction": {
+            "04. MEM04 - Construção do telhado": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo do telhado/cobertura. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de telhados/coberturas, em caso de mais de um sistema construtivo utilizado",
@@ -332,7 +332,7 @@
                     "Notas fiscais dos materiais utilizados nos telhados/coberturas (Mín. 5 notas)"
                 ]
             },
-            "05. MEM05 - Exterior Walls": {
+            "05. MEM05 - Paredes externas": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes internas, em caso de mais de um sistema construtivo utilizado",
@@ -349,7 +349,7 @@
                     "Notas fiscais dos materiais utilizados nas paredes internas (Mín. 5 notas)"
                 ]
             },
-            "06. MEM06 - Interior Walls": {
+            "06. MEM06 - Paredes internas": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
@@ -366,7 +366,7 @@
                     "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
-            "07. MEM07 - Window Frames": {
+            "07. MEM07 - Esquadrias da janela": {
                 "projeto": [
                     "Projeto com informação das esquadrias. O informação deverá conter os materiais, bem como áreas e espessuras",
                     "Memorial de cálculo com separação das áreas de cada esquadria, se utilizado mais de um sistema construtivo",
@@ -383,7 +383,7 @@
                     "Notas fiscais dos materiais utilizados nas esquadrias (Mín. 5 notas)"
                 ]
             },
-            "08. MEM08 - Window Glazing": {
+            "08. MEM08 - Vidros das janelas": {
                 "projeto": [
                     "Projeto arquitetônico com informação dos vidros utilizados",
                     "Memorial de cálculo com as relações entre as áreas de vidro, em caso de mais de uma especificação",
@@ -400,7 +400,7 @@
                     "Notas fiscais dos vidros utilizados (Mín. 5 notas)"
                 ]
             },
-            "09. MEM09 - Roof Insulation": {
+            "09. MEM09 - Isolamento do telhado": {
                 "projeto": [
                     "Projeto e/ou memorial descritivo com informação do tipo de isolamento de cobertura e espessura, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de telhado, em caso de mais de uma especificação",
@@ -418,7 +418,7 @@
                     "Notas fiscais dos isolamentos de cobertura (Mín. 5 notas)"
                 ]
             },
-            "10. MEM10 - Wall Insulation": {
+            "10. MEM10 - Isolamento da parede": {
                 "projeto": [
                     "Projeto com informação do tipo de isolamento de parede, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de parede, em caso de mais de uma especificação",
@@ -436,7 +436,7 @@
                     "Notas fiscais dos isolamentos de parede (Mín. 5 notas)"
                 ]
             },
-            "11. MEM11 - Floor Insulation": {
+            "11. MEM11 - Isolamento do piso": {
                 "projeto": [
                     "Projeto com informação do tipo de isolamento de piso, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de piso, em caso de mais de uma especificação",
