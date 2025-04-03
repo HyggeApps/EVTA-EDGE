@@ -19,7 +19,7 @@
                     "Projeto arquitetônico com delimitação das áreas de telhado/cobertura",
                     "Memorial descritivo com as informações de refletância/absortância solar ou SRI dos materiais/acabamentos de telhado/cobertura",
                     "Memorial de cálculo com as relações entre as áreas de telhados, em caso de mais de um acabamento utilizado",
-                    "Projeto arquitetônico com detalhamento dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
+                    "Projeto arquitetônico com informação dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
                     "Lista de acabamentos de telhado/cobertura",
                     "Fichas técnicas das tintas/acabamentos de telhado/cobertura com informação de refletância/abosrtância solar ou SRI"
                 ],
@@ -28,13 +28,13 @@
                     "Fotos após a instalação dos acabamentos dos telhados/coberturas (Mín. 5 fotos). As fotos devem apresentar datas"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído com detalhamento dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
+                    "Projeto conforme construído com informação dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
                     "Notas fiscais das tintas/acabamentos de telhado/cobertura (Mín. 5 notas)"
                 ]
             },
             "04. EEM04 - External Shading Devices": {
                 "projeto": [
-                    "Projetos arquitetônicos das fachadas com detalhamento dos dispositivos de sombreamento em todas as orientações",
+                    "Projetos arquitetônicos das fachadas com informação dos dispositivos de sombreamento em todas as orientações",
                     "Projetos arquitetônicos indicando as dimensões dos dispositivos de sombreamento",
                     "SRR aprovado pelo IFC (Alternative Compliance Path)"
                 ],
@@ -43,7 +43,7 @@
                     "Fotos destacando os dispositivos de sombreamento (Mín. 5 fotos). As fotos devem apresentar datas"
                 ],
                 "pos-construcao":[
-                    "Projetos conforme construído das fachadas com detalhamento dos dispositivos de sombreamento em todas as orientações",
+                    "Projetos conforme construído das fachadas com informação dos dispositivos de sombreamento em todas as orientações",
                     "Projetos conforme construído indicando as dimensões dos dispositivos de sombreamento",
                     "Notas fiscais dos materiais utilizados nos dispositivos de sombreamento (Mín. 5 notas)",
                     "SRR aprovado pelo IFC (Alternative Compliance Path)"
@@ -51,8 +51,8 @@
             },
             "05. EEM05 - Insulation of Roof": {
                 "projeto": [
-                    "Cortes esquemáticos com detalhamento do sistema construtivo de telhado. É necessário apresentar as espessuras das camadas construtivas",
-                    "Projeto arquitetônico com detalhamento dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
+                    "Cortes esquemáticos com informação do sistema construtivo de telhado. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
                     "Print do preenchimento da calculadora de U-value do EDGE",
                     "Ficha técnica dos isolamentos de cobertura com informação da condutividade (W/m*K), se aplicável",
                     "Orçamento com as especificações de quaisquer materiais utilizados nas coberturas"
@@ -62,15 +62,15 @@
                     "Fotos após a construção das coberturas (Mín. 5 fotos). As fotos devem apresentar datas"
                 ],
                 "pos-construcao":[
-                    "Cortes esquemáticos conforme construído com detalhamento do sistema construtivo do telhado. É necessário apresentar as espessuras das camadas construtivas",
-                    "Projeto conforme construído com detalhamento dos sistemas construtivos de telhado/cobertura conforme anexo E.1",
+                    "Cortes esquemáticos conforme construído com informação do sistema construtivo do telhado. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído com informação dos sistemas construtivos de telhado/cobertura conforme anexo E.1",
                     "Ficha técnica dos isolamentos de cobertura instalados com informação da condutividade (W/m*K), se aplicável",
                     "Notas fiscais dos materiais utilizados nas coberturas (Mín. 5 notas)"
                 ]
             },
             "06. EEM06 - Insulation of Ground/Raised Floor Slab": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
                     "Print do preenchimento da calculadora de U-value do EDGE",
                     "Ficha técnica dos isolamentos de piso utilizados na laje térrea/em contato com o solo com informação da condutividade (W/m*K), se aplicável",
@@ -81,14 +81,14 @@
                     "Fotos após a construção das lajes térreas/em contato com o solo (Mín. 5 fotos). As fotos devem apresentar datas"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos isolamentos de piso instalados na laje térrea/em contato com o solo com informação da condutividade (W/m*K), se aplicável"
                 ]
             },
             "08. EEM08 - Insulation of Exterior Walls": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo das paredes externas. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo das paredes externas. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo",
                     "Print do preenchimento da calculadora de U-value do EDGE",
                     "Ficha técnica dos isolamentos de paredes externas com informação da condutividade (W/m*K), se aplicável",
@@ -99,14 +99,14 @@
                     "Fotos após a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas, bem como marcas e modelos dos materiais utilizados"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo das paredes externas. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo das paredes externas. É necessário apresentar as espessuras das camadas construtivas",
                     "Ficha técnica dos isolamentos de paredes externas instalados, com informação da condutividade (W/m*K), se aplicável",
                     "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
             "09. EEM09 - Efficiency of Glass": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento dos vidros utilizados",
+                    "Projeto arquitetônico com informação dos vidros utilizados",
                     "Memorial de cálculo com as relações entre as áreas de vidro, em caso de mais de uma especificação",
                     "Lista de vidros utilizados",
                     "Fichas técnicas dos vidros utilizados. As fichas técnicas devem conter informação de U-value, FS e TL"
@@ -115,13 +115,13 @@
                     "Fotos dos vidros utilizados (Mín. 5 fotos). As fotos devem apresentar datas"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou memorial descritivo com detalhamento dos vidros utilizados",
+                    "Projeto conforme construído e/ou memorial descritivo com informação dos vidros utilizados",
                     "Notas fiscais dos vidros utilizados (Mín. 5 notas)"
                 ]
             },
             "13. EEM13 - Cooling System Efficiency": {
                 "projeto": [
-                    "Projeto de HVAC com detalhamento dos componentes internos e externos referentes ao resfriamento dos ambientes",
+                    "Projeto de HVAC com informação dos componentes internos e externos referentes ao resfriamento dos ambientes",
                     "Lista de todos os equipamentos referentes ao resfriamento dos ambientes. A lista deve apresentar quantitativo e informação de COP (W/W)",
                     "Fichas técnicas dos equipamentos de resfriamento utilizados",
                     "Memorial de cálculo informando o valor de COP de resfriamento ponderado para o empreendimento como um todo"
@@ -131,7 +131,7 @@
                     "Fotos após a instalação dos equipamentos referentes ao resfriamento dos ambientes (Mín. 5 fotos). As fotos devem apresentar datas e mostrar o modelo e a marca do equipamento"
                 ],
                 "pos-construcao":[
-                    "Projeto de HVAC conforme construído com detalhamento dos componentes internos e externos referentes ao resfriamento dos ambientes",
+                    "Projeto de HVAC conforme construído com informação dos componentes internos e externos referentes ao resfriamento dos ambientes",
                     "Notas fiscais dos equipamentos de resfriamento utilizados (Mín. 5 notas)"
                 ]
             },
@@ -153,7 +153,7 @@
         },
         "anexos": {
             "Anexo E.1": {
-                "descricao": "O projeto arquitetônico deve ser capaz de informar a área de telhado total, bem como a delimitação dos diferentes acabamentos e sistemas construtivos utilizados na cobertura do empreendimento. \n\n Um exemplo de detalhamento/destaque dos acabamentos utilizados está descrito na imagem E1.1, em que torna possível a compreensão da utilização de dois materiais distintos. Vale ressaltar que as hachuras não são obrigatórias, é possível validar a especificação de qualquer forma, desde que torne possível o reconhecimento. \n\n Será necessário especificar em projeto a diferença tanto dos acabamentos, quanto dos sistemas construtivos das coberturas.",
+                "descricao": "O projeto arquitetônico deve ser capaz de informar a área de telhado total, bem como a delimitação dos diferentes acabamentos e sistemas construtivos utilizados na cobertura do empreendimento. \n\n Um exemplo de informação/destaque dos acabamentos utilizados está descrito na imagem E1.1, em que torna possível a compreensão da utilização de dois materiais distintos. Vale ressaltar que as hachuras não são obrigatórias, é possível validar a especificação de qualquer forma, desde que torne possível o reconhecimento. \n\n Será necessário especificar em projeto a diferença tanto dos acabamentos, quanto dos sistemas construtivos das coberturas.",
                 "imagem": [
                     {
                         "caminho": "Projects/341/Imgs/E1.1.png",
@@ -230,7 +230,7 @@
             },
             "14. WEM14 - Rainwater Harvesting System": {
                 "projeto": [
-                    "Projeto com detalhamento do sistema de captação pluvial, destacando as áreas de captação, tubulação e reservatórios",
+                    "Projeto com informação do sistema de captação pluvial, destacando as áreas de captação, tubulação e reservatórios",
                     "Memorial de cálculo para dimensionamento dos reservatórios e da tubulação referente à captação pluvial",
                     "Memorial descritivo do sistema de captação pluvial, destacando todo o processo e o uso final da água captada",
                     "Memorial de cálculo informando a capacidade do reuso de água pluvial relacionada com os usos finais"
@@ -241,7 +241,7 @@
                     "Fotos da área de captação pluvial (Mín. 5 fotos). As fotos devem apresentar datas"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído com detalhamento do sistema de captação pluvial, destacando as áreas de captação, tubulação e reservatórios",
+                    "Projeto conforme construído com informação do sistema de captação pluvial, destacando as áreas de captação, tubulação e reservatórios",
                     "Notas fiscais dos reservatórios de captação pluvial (Mín. 5 notas)",
                     "Notas fiscais das tubulações e equipamentos referentes ao sistema de captação pluvial (Mín. 5 notas) "
                 ]
@@ -263,7 +263,7 @@
         "creditos": {
             "01. MEM01 - Bottom Floor Construction": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto e/ou memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
                     "Projeto e/ou memorial de cálculo com a estimativa de taxa de consumo de aço das lajes, conforme anexo M.1",
                     "Print do preenchimento da calculadora de U-value do EDGE",
@@ -275,7 +275,7 @@
                     "Fotos após a construção das lajes térreas/em contato com o solo (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto e/ou memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
                     "Projeto e/ou memorial de cálculo com as taxas de consumo de aço das lajes, conforme anexo M.1",
                     "Notas fiscais dos materiais utilizados nas lajes térreas/em contato com o solo (Mín. 5 notas)"
@@ -283,7 +283,7 @@
             },
             "02. MEM02 - Intermediate Floor Construction": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo da laje intermediária. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo da laje intermediária. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes intermediárias, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos materiais utilizados nas lajes intermediárias",
                     "Orçamento com as especificações de quaisquer materiais utilizados nas lajes intermediárias"
@@ -293,14 +293,14 @@
                     "Fotos após a construção das lajes intermediárias (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo da laje intermediária. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da laje intermediária. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes intermediárias, em caso de mais de um sistema construtivo utilizado",
                     "Notas fiscais dos materiais utilizados nas lajes intermediárias (Mín. 5 notas)"
                 ]
             },
             "03. MEM03 - Floor Finish": {
                 "projeto": [
-                    "Projeto com detalhamento dos acabamentos de piso. É necessário apresentar as espessuras dos acabamentos",
+                    "Projeto com informação dos acabamentos de piso. É necessário apresentar as espessuras dos acabamentos",
                     "Memorial de cálculo com as relações entre as áreas de acabamento de piso, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos materiais utilizados nos acabamentos de piso",
                     "Orçamento com as especificações de quaisquer materiais utilizados nos acabamentos de piso"
@@ -310,14 +310,14 @@
                     "Fotos após a instalação dos acabamentos de piso (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo e/ou memorial descritivo com detalhamento dos acabamentos de piso. É necessário apresentar as espessuras dos acabamentos",
+                    "Projeto conforme construído e/ou detalhe construtivo e/ou memorial descritivo com informação dos acabamentos de piso. É necessário apresentar as espessuras dos acabamentos",
                     "Memorial de cálculo com as relações entre as áreas de acabamento de piso, em caso de mais de um sistema construtivo utilizado",
                     "Notas fiscais dos materiais utilizados nos acabamentos de piso (Mín. 5 notas)"
                 ]
             },
             "04. MEM04 - Roof Construction": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo do telhado/cobertura. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo do telhado/cobertura. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de telhados/coberturas, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos materiais utilizados nos telhados/coberturas",
                     "Orçamento com as especificações de quaisquer materiais utilizados nos telhados/coberturas"
@@ -327,14 +327,14 @@
                     "Fotos após a construção dos telhados/coberturas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo do telhado/cobertura. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo do telhado/cobertura. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de telhados/coberturas, em caso de mais de um sistema construtivo utilizado",
                     "Notas fiscais dos materiais utilizados nos telhados/coberturas (Mín. 5 notas)"
                 ]
             },
             "05. MEM05 - Exterior Walls": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes internas, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos materiais utilizados nas paredes internas",
                     "Orçamento com as especificações de quaisquer materiais utilizados nas paredes internas"
@@ -344,14 +344,14 @@
                     "Fotos após a construção das paredes internas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes internas, em caso de mais de um sistema construtivo utilizado",
                     "Notas fiscais dos materiais utilizados nas paredes internas (Mín. 5 notas)"
                 ]
             },
             "06. MEM06 - Interior Walls": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos materiais utilizados nas paredes externas",
                     "Orçamento com as especificações de quaisquer materiais utilizados nas paredes externas"
@@ -361,14 +361,14 @@
                     "Fotos após a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
                     "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
             "07. MEM07 - Window Frames": {
                 "projeto": [
-                    "Projeto com detalhamento das esquadrias. O detalhamento deverá conter os materiais, bem como áreas e espessuras",
+                    "Projeto com informação das esquadrias. O informação deverá conter os materiais, bem como áreas e espessuras",
                     "Memorial de cálculo com separação das áreas de cada esquadria, se utilizado mais de um sistema construtivo",
                     "Fichas técnicas dos materiais utilizados nas esquadrias",
                     "Orçamento com as especificações de quaisquer materiais utilizados nas esquadrias"
@@ -378,14 +378,14 @@
                     "Fotos após a instalação das esquadrias (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído com detalhamento das esquadrias. O detalhamento deverá conter os materiais, bem como áreas e espessuras",
+                    "Projeto conforme construído com informação das esquadrias. O informação deverá conter os materiais, bem como áreas e espessuras",
                     "Memorial de cálculo com separação das áreas de cada esquadria, se utilizado mais de um sistema construtivo",
                     "Notas fiscais dos materiais utilizados nas esquadrias (Mín. 5 notas)"
                 ]
             },
             "08. MEM08 - Window Glazing": {
                 "projeto": [
-                    "Projeto arquitetônico com detalhamento dos vidros utilizados",
+                    "Projeto arquitetônico com informação dos vidros utilizados",
                     "Memorial de cálculo com as relações entre as áreas de vidro, em caso de mais de uma especificação",
                     "Lista de vidros utilizados",
                     "Fichas técnicas dos vidros utilizados. As fichas técnicas devem conter informação de U-value, FS, TL e espessura",
@@ -396,13 +396,13 @@
                     "Fotos após a instalação dos vidros (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou memorial descritivo com detalhamento dos vidros utilizados",
+                    "Projeto conforme construído e/ou memorial descritivo com informação dos vidros utilizados",
                     "Notas fiscais dos vidros utilizados (Mín. 5 notas)"
                 ]
             },
             "09. MEM09 - Roof Insulation": {
                 "projeto": [
-                    "Projeto e/ou memorial descritivo com detalhamento do tipo de isolamento de cobertura e espessura, se aplicável",
+                    "Projeto e/ou memorial descritivo com informação do tipo de isolamento de cobertura e espessura, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de telhado, em caso de mais de uma especificação",
                     "Fichas técnicas dos isolamentos de cobertura",
                     "Orçamento com as especificações dos isolamentos de cobertura"
@@ -412,7 +412,7 @@
                     "Fotos após a instalação do isolamento de cobertura (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do tipo de isolamento de cobertura, se aplicável",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do tipo de isolamento de cobertura, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de telhado, em caso de mais de uma especificação",
                     "Fichas técnicas dos isolamentos de cobertura",
                     "Notas fiscais dos isolamentos de cobertura (Mín. 5 notas)"
@@ -420,7 +420,7 @@
             },
             "10. MEM10 - Wall Insulation": {
                 "projeto": [
-                    "Projeto com detalhamento do tipo de isolamento de parede, se aplicável",
+                    "Projeto com informação do tipo de isolamento de parede, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de parede, em caso de mais de uma especificação",
                     "Fichas técnicas dos isolamentos de parede",
                     "Orçamento com as especificações dos isolamentos de parede"
@@ -430,7 +430,7 @@
                     "Fotos após a instalação do isolamento de parede (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do tipo de isolamento de parede, se aplicável",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do tipo de isolamento de parede, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de parede, em caso de mais de uma especificação",
                     "Fichas técnicas dos isolamentos de parede",
                     "Notas fiscais dos isolamentos de parede (Mín. 5 notas)"
@@ -438,7 +438,7 @@
             },
             "11. MEM11 - Floor Insulation": {
                 "projeto": [
-                    "Projeto com detalhamento do tipo de isolamento de piso, se aplicável",
+                    "Projeto com informação do tipo de isolamento de piso, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de piso, em caso de mais de uma especificação",
                     "Fichas técnicas dos isolamentos de piso",
                     "Orçamento com as especificações dos isolamentos de piso"
@@ -448,7 +448,7 @@
                     "Fotos após a instalação do isolamento de piso (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com detalhamento do tipo de isolamento de piso, se aplicável",
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do tipo de isolamento de piso, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de piso, em caso de mais de uma especificação",
                     "Fichas técnicas dos isolamentos de piso",
                     "Notas fiscais dos isolamentos de piso (Mín. 5 notas)"
