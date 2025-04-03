@@ -17,11 +17,11 @@
             "02. EEM02- Reflective Roof": {
                 "projeto": [
                     "Projeto arquitetônico com delimitação das áreas de telhado/cobertura",
-                    "Memorial descritivo com as informações de refletância solar (SRI) dos materiais/acabamentos de telhado/cobertura",
+                    "Memorial descritivo com as informações de refletância/absortância solar ou SRI dos materiais/acabamentos de telhado/cobertura",
                     "Memorial de cálculo com as relações entre as áreas de telhados, em caso de mais de um acabamento utilizado",
                     "Projeto arquitetônico com detalhamento dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
                     "Lista de acabamentos de telhado/cobertura",
-                    "Fichas técnicas das tintas/acabamentos de telhado/cobertura com informação de refletância solar (SRI)"
+                    "Fichas técnicas das tintas/acabamentos de telhado/cobertura com informação de refletância/abosrtância solar ou SRI"
                 ],
                 "obra": [
                     "Fotos durante a instalação dos acabamentos dos telhados/coberturas (Mín. 5 fotos). As fotos devem apresentar datas",
