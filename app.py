@@ -169,7 +169,7 @@ if st.experimental_user.is_logged_in and com_acesso:
     id_counter = 0
     def create_node(title, depth, parent_id=None):
         global id_counter
-        current_time = datetime.datetime.now().isoformat(sep=' ', timespec='seconds')
+        current_time = (datetime.datetime.now()).isoformat(sep=' ', timespec='seconds')
         if depth == 3:
             node = {
                 "id": id_counter,
@@ -287,7 +287,7 @@ if st.experimental_user.is_logged_in and com_acesso:
             credito_node = get_ancestor_by_depth(item, 1)
             credito = credito_node.get("title", "") if credito_node else ""
             
-            current_time = datetime.datetime.now().isoformat(sep=' ', timespec='seconds')
+            current_time = (datetime.datetime.now()).isoformat(sep=' ', timespec='seconds')
             tipo_node = get_ancestor_by_depth(item, 2)
             tipo = tipo_node.get("title", "") if tipo_node else ""
             if item.get("__depth", 0) == 3:
@@ -505,7 +505,7 @@ if st.experimental_user.is_logged_in and com_acesso:
                         if uploaded_files:
                             item["arquivos"] = ", ".join([f.name for f in uploaded_files])
                             item["situacao"] = "🟨 Em aprovação"
-                            item["upload_at"] = dt.now().isoformat(sep=' ', timespec='seconds')
+                            item["upload_at"] = (dt.now() - timedelta(hours=3)).isoformat(sep=' ', timespec='seconds')
                             cadastros.upload_to_3projetos(
                                 uploaded_files,
                                 alias_selecionado,
@@ -539,7 +539,7 @@ if st.experimental_user.is_logged_in and com_acesso:
                             db[collection_name].update_one({"id": item["id"]}, {"$set": item})
                             
                             try:
-                                receivers = ['rodrigo@hygge.eco.br']
+                                receivers = ['joao@hygge.eco.br', 'maiz@hygge.eco.br']
                                 message = MIMEMultipart()
                                 message["From"] = 'admin@hygge.eco.br'
                                 message["To"] = ", ".join(receivers)
