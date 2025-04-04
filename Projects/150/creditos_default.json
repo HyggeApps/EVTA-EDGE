@@ -93,15 +93,6 @@
                         "legenda": "Imagem E1.1 - Exemplo de projeto com destaque para os diferentes acabamentos na cobertura"
                     }
                 ]
-            },
-            "Anexo E.2": {
-                "descricao": "O projeto arquitetônico deve ser capaz de informar a área total de fachada, bem como a delimitação dos diferentes acabamentos utilizados em cada elevação. Portanto, é necessário que haja um detalhamento/destaque dos acabamentos utilizados na fachada. \n\n Um exemplo está descrito na imagem E2.1, em que torna possível a compreensão da utilização de três materiais distintos para as cores de fachada. Vale ressaltar que as hachuras não são obrigatórias, é possível validar a especificação de qualquer forma, desde que torne possível o reconhecimento.",
-                "imagem": [
-                    {
-                        "caminho": "ImgsEDGE/E2.1.png",
-                        "legenda": "Imagem E2.1 - Exemplo de projeto com destaque para as diferentes cores na fachada"
-                    }
-                ]
             }
         }
     },
@@ -160,12 +151,6 @@
                         "legenda": "W1.1 - Recomendação de vazões"
                     }
                 ]
-            },
-            "Anexo W.2": {
-                "descricao": "Para a validação do memorial de cálculo na certificação EDGE, é necessário que sejam apresentados os seguintes dados:             \n * Cálculo para dimensionamento dos reservatórios de reuso de águas cinzas;           \n * Cálculo para dimensionamento das tubulações de reuso de águas cinzas;      \n * Cálculo para dimensionamento da estação de tratamento de águas cinzas;         \n * Valor em m³ da capacidade de reservatório necessária para reuso de águas cinzas;           \n * Capacidade da estação de tratamento em m³/dia;         \n * Volumes de águas cinzas disponíveis por dia;           \n * Eficiência da estação de tratamento (geração final de água tratada por dia;            \n * Balanço da geração/demanda com o uso que terá tal água."
-            },
-            "Anexo W.3": {
-                "descricao": "Para fins de certificação EDGE, é necessário que os hidrômetros sejam capazes de:         \n * Medir o consumo de água, mesmo em períodos offline;            \n * Fornecer suporte para detecção de vazamentos, mesmo em períodos offline;           \n * Fornecer previsões de consumo, quando conectado."
             }
         }
     },
