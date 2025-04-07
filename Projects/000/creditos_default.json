@@ -1,7 +1,7 @@
 {
     "01. Energia": {
         "creditos": {
-            "01. EEM01 - Window-to-Wall Ratio": {
+            "01. EEM01 - Razão janela-parede": {
                 "projeto": [
                     "Cálculo de área envidraçada e área externa opaca para cada orientação de fachada, bem como a relação WWR",
                     "Projeto arquitetônico com desenho de todas as elevações com dimensões das áreas envidraçadas e áreas opacas"
@@ -14,7 +14,7 @@
                     "Projeto arquitetônico conforme construído com desenho de todas as elevações com dimensões das áreas envidraçadas e áreas opacas"
                 ]
             },
-            "02. EEM02- Reflective Roof": {
+            "02. EEM02 - Telhado reflexivo": {
                 "projeto": [
                     "Projeto arquitetônico com delimitação das áreas de telhado/cobertura",
                     "Memorial descritivo com as informações de refletância/absortância solar ou SRI dos materiais/acabamentos de telhado/cobertura",
@@ -32,7 +32,7 @@
                     "Notas fiscais das tintas/acabamentos de telhado/cobertura (Mín. 5 notas)"
                 ]
             },
-            "03. EEM03 - Reflective Walls": {
+            "03. EEM03 - Paredes externas reflexivas": {
                 "projeto": [
                     "Projeto arquitetônico com delimitação das áreas de fachada para todas as elevações",
                     "Projeto arquitetônico com informação das cores das fachadas conforme anexo E.2",
@@ -49,7 +49,7 @@
                     "Notas fiscais das tintas/acabamentos utilizadas nas fachadas (Mín. 5 notas)"
                 ]
             },
-            "04. EEM04 - External Shading Devices": {
+            "04. EEM04 - Dispositivos de sombreamento": {
                 "projeto": [
                     "Projetos arquitetônicos das fachadas com informação dos dispositivos de sombreamento em todas as orientações",
                     "Projetos arquitetônicos indicando as dimensões dos dispositivos de sombreamento",
@@ -66,7 +66,7 @@
                     "SRR aprovado pelo IFC (Alternative Compliance Path)"
                 ]
             },
-            "05. EEM05 - Insulation of Roof": {
+            "05. EEM05 - Transmitância térmica do telhado": {
                 "projeto": [
                     "Cortes esquemáticos com informação do sistema construtivo de telhado. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto arquitetônico com informação dos acabamentos e sistema construtivo de telhado/cobertura conforme anexo E.1",
@@ -85,7 +85,7 @@
                     "Notas fiscais dos materiais utilizados nas coberturas (Mín. 5 notas)"
                 ]
             },
-            "06. EEM06 - Insulation of Ground/Raised Floor Slab": {
+            "06. EEM06 - Transmitância térmica de laje em contato com o solo": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
@@ -103,7 +103,7 @@
                     "Ficha técnica dos isolamentos de piso instalados na láje térrea/em contato com o solo com informação da condutividade (W/m*K), se aplicável"
                 ]
             },
-            "07. EEM07 - Green Roof": {
+            "07. EEM07 - Telhado verde": {
                 "projeto": [
                     "Projeto arquitetônico com delimitação das áreas de telhado verde",
                     "Cortes esquemáticos com informação do sistema construtivo do telhado verde. É necessário apresentar as espessuras das camadas construtivas"
@@ -118,7 +118,7 @@
                     "Notas fiscais dos serviços referentes à instalação do telhado verde (Mín. 5 notas)"
                 ]
             },
-            "08. EEM08 - Insulation of Exterior Walls": {
+            "08. EEM08 - Transmitância térmica das paredes externas": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo das paredes externas. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo",
@@ -136,7 +136,7 @@
                     "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
-            "09. EEM09 - Efficiency of Glass": {
+            "09. EEM09 - Eficiência do vidro": {
                 "projeto": [
                     "Projeto arquitetônico com informação dos vidros utilizados",
                     "Memorial de cálculo com as relações entre as áreas de vidro, em caso de mais de uma especificação",
@@ -151,7 +151,7 @@
                     "Notas fiscais dos vidros utilizados (Mín. 5 notas)"
                 ]
             },
-            "10. EEM10 - Air Infiltration of Envelope": {
+            "10. EEM10 - Infiltração de ar da envoltória": {
                 "projeto": [
                     "Projetos e fichas técnicas com informação dos fechamentos externos indicando as condições de estanqueidade",
                     "Projetos e fichas técnicas com informação das barreiras de ar contínuas em todas as superfícies opacas externas (paredes, telhado, piso) com classificações de estanqueidade",
@@ -179,7 +179,7 @@
                     "Notas fiscais e fichas técnicas de todas as estratégias para estanqueidades instaladas (Mín. 5 notas)"
                 ]
             },
-            "11. EEM11 - Natural Ventilation": {
+            "11. EEM11 - Ventilação natural": {
                 "projeto": [
                     "Projetos arquitetônicos com os layouts de cada pavimento. Os projetos devem conter especificação das janelas e modo de abertura",
                     "Cálculo de ventilação natural conforme requisitos do EDGE",
@@ -194,7 +194,7 @@
                     "SRR aprovado pelo IFC (Alternative Compliance Path)"
                 ]
             },
-            "12. EEM12 - Ceiling Fans": {
+            "12. EEM12 - Ventiladores de teto": {
                 "projeto": [
                     "Projetos com layout dos ventiladores, contendo localização e quantitativo",
                     "Lista de ventiladores utilizados. A lista deve apresentar os modelos",
@@ -209,7 +209,7 @@
                     "Notas fiscais dos ventiladores utilizados (Mín. 5 notas)"
                 ]
             },
-            "13. EEM13 - Cooling System Efficiency": {
+            "13. EEM13 - Eficiência do sistema de resfriamento": {
                 "projeto": [
                     "Projeto de HVAC com informação dos componentes internos e externos referentes ao resfriamento dos ambientes",
                     "Lista de todos os equipamentos referentes ao resfriamento dos ambientes. A lista deve apresentar quantitativo e informação de COP (W/W)",
@@ -225,7 +225,7 @@
                     "Notas fiscais dos equipamentos de resfriamento utilizados (Mín. 5 notas)"
                 ]
             },
-            "14. EEM14 - Variable Speed Drives": {
+            "14. EEM14 - Inversores de velocidade variável": {
                 "projeto": [
                     "Projetos elétricos/mecânicos com informação do uso de inversores de velocidade variável",
                     "Lista dos inversores de velocidade variável utilizados",
@@ -240,7 +240,7 @@
                     "Notas fiscais dos inversores de velocidade variável utilizados (Mín. 5 notas)"
                 ]
             },
-            "15. EEM15 - Fresh Air Pre-Conditioning System": {
+            "15. EEM15 - Sistema de precondicionamento de ar fresco": {
                 "projeto": [
                     "Projeto HVAC com informação dos equipamentos do sistema de pré-condicionamento dos ambientes",
                     "Memorial descritivo com as informações dos equipamentos utilizados no sistema de pré-condicionamento dos ambientes. É necessário a informação da % de ar que passa pelo sistema",
@@ -255,7 +255,7 @@
                     "Notas fiscais dos equipamentos de pré-condicionamento dos ambientes (Mín. 5 notas)"
                 ]
             },
-            "16. EEM16 - Space Heating System Efficiency": {
+            "16. EEM16 - Eficiência do sistema de aquecimento ambiente": {
                 "projeto": [
                     "Projeto HVAC com informação dos componentes internos e externos referentes ao aquecimento dos ambientes",
                     "Lista de todos os equipamentos referentes ao aquecimento dos ambientes. A lista deve apresentar quantitativo e informação de COP (W/W)",
@@ -271,7 +271,7 @@
                     "Notas fiscais dos equipamentos de aquecimento utilizados (Mín. 5 notas)"
                 ]
             },
-            "17. EEM17 - Room Heating Controls with Thermostatic Valves": {
+            "17. EEM17 - Controles de aquecimento ambiente com válvulas termostáticas": {
                 "projeto": [
                     "Projetos detalhando o sistema de controle de temperatura no ambiente (válvulas termostáticas)",
                     "Memorial descritivo informando marca, modelo, especificações e localizações das válvulas termostáticas no empreendimento",
@@ -286,7 +286,7 @@
                     "Notas fiscais das válvulas termostáticas (Mín. 5 notas fiscais)"
                 ]
             },
-            "18. EEM18 - Domestic Hot Water": {
+            "18. EEM18 - Eficiência do sistema de aquecimento ambiente": {
                 "projeto": [
                     "Projeto com layout dos equipamentos de aquecimento de água de todos os pavimentos",
                     "Memorial descritivo do sistema de aquecimento de água implementado no empreendimento",
@@ -302,7 +302,7 @@
                     "Notas fiscais dos equipamentos utilizados no sistema de aquecimento de água (Mín. 5 notas)"
                 ]
             },
-            "19. EEM19 - Domestic Hot Water Preheating System": {
+            "19. EEM19 - Sistema de pré-aquecimento de água quente sanitária": {
                 "projeto": [
                     "Projeto com layout dos equipamentos de pré-aquecimento de água de todos os pavimentos",
                     "Memorial descritivo do sistema de pré-aquecimento de água implementado no empreendimento",
@@ -319,7 +319,7 @@
                     "Notas fiscais dos equipamentos utilizados no sistema de pré-aquecimento de água (Mín. 5 notas)"
                 ]
             },
-            "20. EEM20 - Economizers": {
+            "20. EEM20 - Economizadores": {
                 "projeto": [
                     "Projetos esquemáticos indicando os economizadores de ar e/ou água",
                     "Fichas técnicas dos economizadores de ar e/ou água"
@@ -333,7 +333,7 @@
                     "Notas fiscais dos economizadores de ar e/ou água (Mín. 5 notas)"
                 ]
             },
-            "21. EEM21 - Demand control ventilation using CO2 sensors": {
+            "21. EEM21 - Ventilação controlada por demanda usando sensores de CO2": {
                 "projeto": [
                     "Projetos de HVAC com layout dos sensores de CO2 para controle dos sistemas de ventilação. Os projetos devem conter localização e altura de instalação",
                     "Memorial descritivo indicando que os sensores apresentam um range de 600-1000ppm, capacidade de coletar e armazenar dados em intervalos regulares (10 minutos normalmente) e podem ser calibrados",
@@ -348,7 +348,7 @@
                     "Notas fiscais dos sensores de CO2 (Mín. 5 notas)"
                 ]
             },
-            "22. EEM22 - Efficient Lighting for Internal Areas": {
+            "22. EEM22 - Iluminação eficiente para áreas internas": {
                 "projeto": [
                     "Projeto elétrico com layout das luminárias internas, com localização e especificação dos modelos",
                     "Lista das luminárias internas. A lista deve conter quantitativo e potência de cada equipamento",
@@ -364,7 +364,7 @@
                     "Fichas técnicas das luminárias e lâmpadas internas instaladas"
                 ]
             },
-            "23. EEM23 - Efficient Lighting for External Areas": {
+            "23. EEM23 - Iluminação eficiente para áreas externas": {
                 "projeto": [
                     "Projeto elétrico com layout das luminárias externas, com localização e especificação dos modelos",
                     "Lista das luminárias externas. A lista deve conter quantitativo e potência de cada equipamento",
@@ -380,7 +380,7 @@
                     "Fichas técnicas das luminárias e lâmpadas externas instaladas"
                 ]
             },
-            "24. EEM24 - Lighting Controls": {
+            "24. EEM24 - Controles de iluminação": {
                 "projeto": [
                     "Projeto elétrico com layout dos controles de iluminação, com localização e especificação dos modelos",
                     "Lista de todos os controles de iluminação utilizados no empreendimento. A lista deve apresentar quantitativo",
@@ -395,7 +395,7 @@
                     "Notas fiscais dos equipamentos de controle de iluminação (Mín. 5 notas)"
                 ]
             },
-            "25. EEM25 - Skylights": {
+            "25. EEM25 - Claraboias": {
                 "projeto": [
                     "Projetos com informação das zonas de luz natural, bem como localização e tamanho das claraboias e seus obstáculos (móveis e/ou divisórias no caminho da iluminação)",
                     "Ficha técnica dos vidros utilizados nas claraboias",
@@ -411,7 +411,7 @@
                     "Projetos conforme construído de iluminação com informação do controle de iluminação fotosensível conforme iluminação natural"
                 ]
             },
-            "26. EEM26 - Demand Control Ventilation for Parking using CO Sensors": {
+            "26. EEM26 - Ventilação controlada por demanda para estacionametnos usando sensores de CO": {
                 "projeto": [
                     "Projetos HVAC com layout dos sensores de CO2 para controle dos sistemas de ventilação do estacionamento. Os projetos devem conter localização e altura de instalação",
                     "Fichas técnicas dos sensores de CO2 utilizados para controle dos sistemas de ventilação do estacionamento"
@@ -425,7 +425,7 @@
                     "Notas fiscais dos sensores de CO2 utilizados para controle dos sistemas de ventilação do estacionamento (Mín. 5 notas)"
                 ]
             },
-            "27. EEM27 - Insulation for Cold Storage Envelope": {
+            "27. EEM27 - Isolamento para envoltória de armazenamento a frio": {
                 "projeto": [
                     "Projetos com espaço de armazenamento refrigerado destacando os elementos de envoltória (paredes, laje de piso, cobertura e vidro)",
                     "Memorial descritivo dos sistemas construtivos da envoltória dos espaços de armazenamento refrigerado",
@@ -441,7 +441,7 @@
                     "Notas fiscais dos materiais utilizados na envoltória dos espaços de armazenamento refrigerado (Mín. 5 fotos)"
                 ]
             },
-            "28. EEM28 - Efficient Refrigeration for Cold Storage": {
+            "28. EEM28 - Refrigeração eficiente para armazenamento a frio": {
                 "projeto": [
                     "Lista dos equipamentos de refrigeração (freezer, etc.). A lista deve apresentar o uso de energia",
                     "Ficha técnica dos equipamentos de refrigeração (freezer, etc.) utilizados",
@@ -455,7 +455,7 @@
                     "Notas fiscais dos equipamentos de refrigeração (freezer, etc.) utilizados (Mín. 5 notas)"
                 ]
             },
-            "29. EEM29 - Efficient Refrigerators and Clothes Washing Machines": {
+            "29. EEM29 - Refrigeradores e máquinas de lavar roupa eficientes": {
                 "projeto": [
                     "Lista das geladeiras e máquinas de lavar roupas utilizadas no empreendimento",
                     "Documentos de comprovação de certificação pela Energy Star, EU Energy Efficiency Labeling Scheme, ETL ou equivalente das geladeiras e máquinas de lavar roupas",
@@ -469,7 +469,7 @@
                     "Notas fiscais das geladeiras e máquinas de lavar roupas utilizadas (Mín. 5 notas)"
                 ]
             },
-            "30. EEM30 - Submeters for Heating and/or Cooling Systems": {
+            "30. EEM30 - Submedidores para sistemas de aquecimento e/ou resfriamento": {
                 "projeto": [
                     "Projetos elétricos com layout dos submedidores de energia dos sistemas de resfriamento e/ou aquecimento",
                     "Fichas técnicas dos submedidores de energia",
@@ -484,7 +484,7 @@
                     "Notas fiscais da contratação do sistema equivalente online, se aplicável"
                 ]
             },
-            "31. EEM31 - Smart Meters for Energy": {
+            "31. EEM31 - Medidores inteligentes de energia": {
                 "projeto": [
                     "Projetos elétricos com layout dos medidores de energia e a conexão dos equipamentos com o sistema elétrico",
                     "Ficha técnica dos medidores de energia",
@@ -499,7 +499,7 @@
                     "Notas fiscais da contratação do sistema equivalente online, se aplicável"
                 ]
             },
-            "32. EEM32 - Power Factor Corrections": {
+            "32. EEM32 - Correções do fator de potência": {
                 "projeto": [
                     "Projetos elétricos com informação dos equipamentos de fator de correção de potência",
                     "Fichas técnicas dos equipamentos de fator de correção de potência"
@@ -512,7 +512,7 @@
                     "Notas fiscais dos equipamentos de fator de correção de potência (Mín. 5 notas)"
                 ]
             },
-            "33. EEM33 - Onsite Renewable Energy": {
+            "33. EEM33 - Energia renovável no local": {
                 "projeto": [
                     "Memorial descritivo do tipo de sistema utilizado para a geração de energia",
                     "Memorial de cálculo assinado pelo projetista responsável comprovando a geração de energia em relação ao consumo total do empreendimento",
@@ -528,7 +528,7 @@
                     "Contrato com a empresa de gerenciamento de energia caso o sistema seja comprado por terceiro"
                 ]
             },
-            "34. EEM34 - Additional Energy Savings Measures": {
+            "34. EEM34 - Medidas adicionais de economia de energia": {
                 "projeto": [
                     "Projetos em consonância com as estratégias extras de geração de energia",
                     "Memorial de cálculo com assinado pelo projetista responsável comprovando a geração de energia das estratégias extras",
@@ -544,21 +544,21 @@
                     "SRR aprovado pelo IFC (Alternative Compliance Path)"
                 ]
             },
-            "35. EEM35 - Offsite Renewable Energy Procurement": {
+            "35. EEM35 - Aquisição de energia renovável fora do local": {
                 "pos-construcao":[
                     "Cópia do contrato ou documento formal que estabeleça a quantidade de energia renovável fornecida ao empreendimento por terceiros",
                     "Descritivo da origem da energia renovável contratada, bem como informativo do programa contratado",
                     "Documento comprobatório de atendimento da contração de energia renovável quanto à legislação local"
                 ]
             },
-            "36. EEM36 - Carbon Ofsets": {
+            "36. EEM36 - Compensações de carbono": {
                 "pos-construcao":[
                     "Cópia do contrato ou documento formal que estabeleça a quantidade de compra de carbono por terceiros",
                     "Descritivo dos métodos utilizados para compensação de carbono pelo programa contratado, bem como descritivo do programa no geral",
                     "Documento comprobatório da quantidade de carbono em toneladas de CO2 considerada no programa"
                 ]
             },
-            "37. EEM37 - Low Impact Refrigerants": {
+            "37. EEM37 - Agentes refrigerantes de baixo impacto": {
                 "projeto": [
                     "Projeto HVAC com especificações dos equipamentos de refrigeração",
                     "Memorial descritivo informando que os equipamentos de refrigeração apresentam baixo GWP",
@@ -596,7 +596,7 @@
     },
     "02. Água": {
         "creditos": {
-            "01. WEM01 - Water-efficient Showerheads": {
+            "01. WEM01 - Chuveiros com eficiência hídrica": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações dos chuveiros conforme anexo W.1",
                     "Lista de todos os chuveiros projetados. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -612,7 +612,7 @@
                     "Notas fiscais dos chuveiros (Mín. 5 notas)"
                 ]
             },
-            "02. WEM02 - Water-efficient Faucets for all Bathrooms": {
+            "02. WEM02 - Torneiras com eficiência hídrica para todos os banheiros": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das torneiras de banheiro conforme anexo W.1",
                     "Lista de todas as torneiras de banheiro projetadas. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -628,7 +628,7 @@
                     "Notas fiscais das torneiras de banheiro (Mín. 5 notas)"
                 ]
             },
-            "04. WEM04 - Efficient Water Closets for All Bathrooms": {
+            "04. WEM04 - Sanitários com economia hídrica em todos os banheiros": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das bacias sanitárias conforme anexo W.1",
                     "Lista de todas as bacias sanitárias projetadas. A lista deve conter nome do modelo, tipo de acionamento (single ou dual flush) e quantitativo",
@@ -643,7 +643,7 @@
                     "Notas fiscais das bacias sanitárias (Mín. 5 notas)"
                 ]
             },
-            "06. WEM06 - Water Efficient Bidet": {
+            "06. WEM06 - Bidês com eficiência hídrica": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações dos bidês conforme anexo W.1",
                     "Lista de todos os bidês projetados. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -658,7 +658,7 @@
                     "Notas fiscais dos bidês (Mín. 5 notas)"
                 ]
             },
-            "07. WEM07 - Water Efficient Urinals": {
+            "07. WEM07 - Mictórios com eficiência hídrica": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações dos mictórios conforme anexo W.1",
                     "Lista de todos os mictórios. A lista deve conter nome do modelo, consumo no acionamento e quantitativo",
@@ -673,7 +673,7 @@
                     "Notas fiscais dos mictórios (Mín. 5 notas)"
                 ]
             },
-            "08. WEM08 - Water-efficient Faucets for Kitchen Sinks": {
+            "08. WEM08 - Torneiras com economia hídrica para pias de cozinha": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das torneiras de cozinha conforme anexo W.1",
                     "Lista de todas as torneiras de cozinha projetadas. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -689,7 +689,7 @@
                     "Notas fiscais das torneiras de cozinha (Mín. 5 notas)"
                 ]
             },
-            "09. WEM09 - Water Efficient Dishwashers": {
+            "09. WEM09 - Lava-louças com eficiência hídrica": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com layout e definição das máquinas de lavar louça no empreendimento",
                     "Lista de todas as máquinas de lavar louça com quantitativo e consumo de água por máquina",
@@ -706,7 +706,7 @@
                     "Notas fiscais das máquinas de lavar louça (Mín. 5 notas)"
                 ]
             },
-            "10. WEM10 - Water Efficient Pre-Rinse Spray Valves for Kitchen": {
+            "10. WEM10 - Valvulas à jato pré-lavagem com eficiência hídrica para cozinhas": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com especificações das válvulas a jato de cozinha conforme anexo W.1",
                     "Lista de todas as válvulas a jato de cozinha projetadas. A lista deve conter nome do modelo, vazão calculada de projeto e quantitativo",
@@ -722,7 +722,7 @@
                     "Notas fiscais das válvulas a jato de cozinha (Mín. 5 notas)"
                 ]
             },
-            "11. WEM11 - Water Efficient Washing Machine": {
+            "11. WEM11 - Máquinas de lavar roupa com eficiência hídrica": {
                 "projeto": [
                     "Projeto hidrossanitário e/ou memorial descritivo com layout e definição das máquinas de lavar roupas no empreendimento",
                     "Lista de todas as máquinas de lavar roupas com quantitativo e consumo de água por máquina",
@@ -739,7 +739,7 @@
                     "Notas fiscais das máquinas de lavar roupas (Mín. 5 notas)"
                 ]
             },
-            "12. WEM12 - Swimming Pool Covers": {
+            "12. WEM12 - Coberturas de piscina": {
                 "projeto": [
                     "Projeto com dimensões das áreas de piscina",
                     "Memorial descritivo com informações dos materiais utilizados para a cobertura da piscina, bem como as dimensões comprobatórias de cobrir as piscinas inteiramente"
@@ -752,7 +752,7 @@
                     "Notas fiscais dos materiais utilizados para cobertura da(s) piscina(s) (Mín. 5 notas)"
                 ]
             },
-            "13. WEM13 - Water Efficient Landscape Irrigation": {
+            "13. WEM13 - Sistemas de irrigação paisagística com eficiência hídrica": {
                 "projeto": [
                     "Projeto de paisagismo com informação das áreas e espécies utilizadas",
                     "Lista das espécies de paisagismo projetadas. A lista deve conter nome da espécie, quantitativo (unidades ou áreas), informação se é nativa, adaptada ou exótica",
@@ -775,7 +775,7 @@
                     "Notas fiscais dos equipamentos de irrigação (Mín. 5 notas)"
                 ]
             },
-            "14. WEM14 - Rainwater Harvesting System": {
+            "14. WEM14 - Sistema de captação de água da chuva": {
                 "projeto": [
                     "Projeto com informação do sistema de captação pluvial, destacando as áreas de captação, tubulação e reservatórios",
                     "Memorial de cálculo para dimensionamento dos reservatórios e da tubulação referente à captação pluvial",
@@ -793,7 +793,7 @@
                     "Notas fiscais das tubulações e equipamentos referentes ao sistema de captação pluvial (Mín. 5 notas) "
                 ]
             },
-            "15. WEM15 - Wastewater Treatment and Recycling System": {
+            "15. WEM15 - Sistema de tratamento e reciclagem de águas residuais": {
                 "projeto": [
                     "Projeto com informação do sistema de reaproveitamento de águas cinzas, destacando os ambientes de captação e direcionamento, bem como os reservatórios",
                     "Memorial de cálculo para o sistema de reaproveitamento de águas cinzas conforme anexo W.2",
@@ -811,7 +811,7 @@
                     "Contrato com a empresa de gerenciamento de águas cinzas caso o sistema seja centralizado fora do terreno"
                 ]
             },
-            "16. WEM16 - Condensate Water Recovery": {
+            "16. WEM16 - Sistema de recuperação de águas condensadas": {
                 "projeto": [
                     "Projeto com informação do sistema de reaproveitamento de águas condensadas, destacando os ambientes de captação e direcionamento, bem como os reservatórios",
                     "Memorial de cálculo para o sistema de reaproveitamento de águas condensadas. O memorial deve conter o potencial de coleta de água por dia",
@@ -827,7 +827,7 @@
                     "Notas fiscais das tubulações e equipamentos referentes ao sistema de captação de águas condensadas (Mín. 5 notas) "
                 ]
             },
-            "17. WEM17 - Smart Meters for Water": {
+            "17. WEM17 - Hidrômetros inteligentes": {
                 "projeto": [
                     "Projeto hidráulico com informação dos hidrômetros",
                     "Memorial descritivo dos hidrômetros conforme anexo W.3",
@@ -863,7 +863,7 @@
     },
     "03. Materiais": {
         "creditos": {
-            "01. MEM01 - Bottom Floor Construction": {
+            "01. MEM01 - Construção do piso inferior": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto e/ou memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
@@ -883,7 +883,7 @@
                     "Notas fiscais dos materiais utilizados nas lajes térreas/em contato com o solo (Mín. 5 notas)"
                 ]
             },
-            "02. MEM02 - Intermediate Floor Construction": {
+            "02. MEM02 - Construção da laje intermediária": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da laje intermediária. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de lajes intermediárias, em caso de mais de um sistema construtivo utilizado",
@@ -900,7 +900,7 @@
                     "Notas fiscais dos materiais utilizados nas lajes intermediárias (Mín. 5 notas)"
                 ]
             },
-            "03. MEM03 - Floor Finish": {
+            "03. MEM03 - Acabamento do piso": {
                 "projeto": [
                     "Projeto com informação dos acabamentos de piso. É necessário apresentar as espessuras dos acabamentos",
                     "Memorial de cálculo com as relações entre as áreas de acabamento de piso, em caso de mais de um sistema construtivo utilizado",
@@ -917,7 +917,7 @@
                     "Notas fiscais dos materiais utilizados nos acabamentos de piso (Mín. 5 notas)"
                 ]
             },
-            "04. MEM04 - Roof Construction": {
+            "04. MEM04 - Construção do telhado": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo do telhado/cobertura. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de telhados/coberturas, em caso de mais de um sistema construtivo utilizado",
@@ -934,7 +934,7 @@
                     "Notas fiscais dos materiais utilizados nos telhados/coberturas (Mín. 5 notas)"
                 ]
             },
-            "05. MEM05 - Exterior Walls": {
+            "05. MEM05 - Paredes externas": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes internas, em caso de mais de um sistema construtivo utilizado",
@@ -951,7 +951,7 @@
                     "Notas fiscais dos materiais utilizados nas paredes internas (Mín. 5 notas)"
                 ]
             },
-            "06. MEM06 - Interior Walls": {
+            "06. MEM06 - Paredes internas": {
                 "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
@@ -968,7 +968,7 @@
                     "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
-            "07. MEM07 - Window Frames": {
+            "07. MEM07 - Esquadrias da janela": {
                 "projeto": [
                     "Projeto com informação das esquadrias. O informação deverá conter os materiais, bem como áreas e espessuras",
                     "Memorial de cálculo com separação das áreas de cada esquadria, se utilizado mais de um sistema construtivo",
@@ -985,7 +985,7 @@
                     "Notas fiscais dos materiais utilizados nas esquadrias (Mín. 5 notas)"
                 ]
             },
-            "08. MEM08 - Window Glazing": {
+            "08. MEM08 - Vidros das janelas": {
                 "projeto": [
                     "Projeto arquitetônico com informação dos vidros utilizados",
                     "Memorial de cálculo com as relações entre as áreas de vidro, em caso de mais de uma especificação",
@@ -1002,7 +1002,7 @@
                     "Notas fiscais dos vidros utilizados (Mín. 5 notas)"
                 ]
             },
-            "09. MEM09 - Roof Insulation": {
+            "09. MEM09 - Isolamento do telhado": {
                 "projeto": [
                     "Projeto com informação do tipo de isolamento de cobertura, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de telhado, em caso de mais de uma especificação",
@@ -1020,7 +1020,7 @@
                     "Notas fiscais dos isolamentos de cobertura (Mín. 5 notas)"
                 ]
             },
-            "10. MEM10 - Wall Insulation": {
+            "10. MEM10 - Isolamento da parede": {
                 "projeto": [
                     "Projeto com informação do tipo de isolamento de parede, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de parede, em caso de mais de uma especificação",
@@ -1038,7 +1038,7 @@
                     "Notas fiscais dos isolamentos de parede (Mín. 5 notas)"
                 ]
             },
-            "11. MEM11 - Floor Insulation": {
+            "11. MEM11 - Isolamento do piso": {
                 "projeto": [
                     "Projeto com informação do tipo de isolamento de piso, se aplicável",
                     "Memorial de cálculo com as relações entre as áreas de isolamentos de piso, em caso de mais de uma especificação",
