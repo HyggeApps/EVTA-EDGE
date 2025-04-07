@@ -78,6 +78,7 @@ def descricoes_categorias():
     st.write('----')
     st.title('Pré-requisitos e créditos')
     st.info('Todos os itens marcados com **(*)** são pré-requisitos')
+    st.info('Nem todos os itens listados abaixo serão percorridos para este projeto.')
 
     cols = st.columns(3)
 
