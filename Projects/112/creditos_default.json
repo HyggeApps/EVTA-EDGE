@@ -218,9 +218,9 @@
                     "Fotos após a construção das paredes internas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
-                    "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
-                    "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
+                    "Memorial de cálculo com as relações entre as áreas de paredes internas em caso de mais de um sistema construtivo utilizado",
+                    "Notas fiscais dos materiais utilizados nas paredes internas (Mín. 5 notas)"
                 ]
             },
             "07. MEM07 - Esquadrias das janelas": {
