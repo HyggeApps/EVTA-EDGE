@@ -131,7 +131,7 @@
                     "Fotos após a instalação dos equipamentos referentes ao resfriamento dos ambientes (Mín. 5 fotos). As fotos devem apresentar datas e mostrar o modelo e a marca do equipamento"
                 ],
                 "pos-construcao":[
-                    "Projeto de HVAC conforme construído com informação dos componentes internos e externos referentes ao resfriamento dos ambientes",
+                    "Projeto HVAC conforme construído com informação dos componentes internos e externos referentes ao resfriamento dos ambientes",
                     "Notas fiscais dos equipamentos de resfriamento utilizados (Mín. 5 notas)"
                 ]
             },
@@ -145,8 +145,7 @@
                 ],
                 "pos-construcao":[
                     "Projetos elétricos conforme construído com layout dos medidores de energia e a conexão dos equipamentos com o sistema elétrico",
-                    "Notas fiscais dos medidores de energia (Mín. 5 notas)",
-                    "Notas fiscais da contratação do sistema equivalente online, se aplicável"
+                    "Notas fiscais dos medidores de energia (Mín. 5 notas)"
                 ]
             }
         },
@@ -265,7 +264,6 @@
                     "Projeto arquitetônico com informação do sistema construtivo da laje térrea/em contato com o solo. É necessário apresentar as espessuras das camadas construtivas",
                     "Projeto e/ou memorial de cálculo com as relações entre as áreas de lajes térreas/em contato com o solo, em caso de mais de um sistema construtivo utilizado",
                     "Projeto e/ou memorial de cálculo com a estimativa de taxa de consumo de aço das lajes, conforme anexo M.1",
-                    "Print do preenchimento da calculadora de U-value do EDGE",
                     "Ficha técnica dos materiais utilizados na laje térrea/em contato com o solo",
                     "Orçamento com as especificações de quaisquer materiais utilizados nas lajes térreas/em contato com o solo"
                 ],
@@ -333,6 +331,23 @@
             },
             "05. MEM05 - Paredes externas": {
                 "projeto": [
+                    "Projeto arquitetônico com informação do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
+                    "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
+                    "Ficha técnica dos materiais utilizados nas paredes externas",
+                    "Orçamento com as especificações de quaisquer materiais utilizados nas paredes externas"
+                ],
+                "obra": [
+                    "Fotos durante a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável",
+                    "Fotos após a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
+                ],
+                "pos-construcao":[
+                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
+                    "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
+                    "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
+                ]
+            },
+            "06. MEM06 - Paredes internas": {
+                "projeto": [
                     "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes internas, em caso de mais de um sistema construtivo utilizado",
                     "Ficha técnica dos materiais utilizados nas paredes internas",
@@ -346,23 +361,6 @@
                     "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
                     "Memorial de cálculo com as relações entre as áreas de paredes internas, em caso de mais de um sistema construtivo utilizado",
                     "Notas fiscais dos materiais utilizados nas paredes internas (Mín. 5 notas)"
-                ]
-            },
-            "06. MEM06 - Paredes internas": {
-                "projeto": [
-                    "Projeto arquitetônico com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
-                    "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
-                    "Ficha técnica dos materiais utilizados nas paredes externas",
-                    "Orçamento com as especificações de quaisquer materiais utilizados nas paredes externas"
-                ],
-                "obra": [
-                    "Fotos durante a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável",
-                    "Fotos após a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
-                ],
-                "pos-construcao":[
-                    "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
-                    "Memorial de cálculo com as relações entre as áreas de paredes externas, em caso de mais de um sistema construtivo utilizado",
-                    "Notas fiscais dos materiais utilizados nas paredes externas (Mín. 5 notas)"
                 ]
             },
             "07. MEM07 - Esquadrias da janela": {

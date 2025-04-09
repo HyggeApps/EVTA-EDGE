@@ -687,10 +687,7 @@ if st.experimental_user.is_logged_in and com_acesso:
                 "collection": (
                     [{"value": "", "label": "Todos"}] +
                     [{"value": op, "label": op} for op in sorted(
-                        set(
-                            st.session_state.get("custom_filter_options", []) +
-                            [db_val for db_val in db[collection_name].distinct("atribuicao") if db_val]
-                        )
+                        {row.get("atribuicao", "") for row in st.session_state.rows if row.get("atribuicao")}
                     )]
                 ),
             },
