@@ -203,8 +203,8 @@
             },
             "05. MEM05 - Paredes externas": {
                 "obra": [
-                    "Fotos durante a construção das paredes internas (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável",
-                    "Fotos após a construção das paredes internas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
+                    "Fotos durante a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável",
+                    "Fotos após a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
                     "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede interna. É necessário apresentar as espessuras das camadas construtivas",
@@ -214,8 +214,8 @@
             },
             "06. MEM06 - Paredes internas": {
                 "obra": [
-                    "Fotos durante a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável",
-                    "Fotos após a construção das paredes externas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
+                    "Fotos durante a construção das paredes internas (Mín. 5 fotos). As fotos devem apresentar datas e localização, bem como visualização dos materiais utilizados, se aplicável",
+                    "Fotos após a construção das paredes internas (Mín. 5 fotos). As fotos devem apresentar datas e localização"
                 ],
                 "pos-construcao":[
                     "Projeto conforme construído e/ou detalhe construtivo com informação do sistema construtivo da parede externa. É necessário apresentar as espessuras das camadas construtivas",
