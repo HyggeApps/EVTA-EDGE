@@ -405,6 +405,8 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
     #Se o 'descritivo' tiver mais que o limite de caracteres para criação de uma pasta no Windows, alterar para o limite de 255 caracteres
     if len(descritivo) > 255:
         descritivo = descritivo[:255]
+    
+    descritivo = descritivo.replace('/', ' ')
 
     # Folder structure
     folder_structure = [
