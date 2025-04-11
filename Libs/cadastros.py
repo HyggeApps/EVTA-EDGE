@@ -406,8 +406,15 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
     if len(descritivo) > 255:
         descritivo = descritivo[:255]
     
-    descritivo = descritivo.replace('/', ' ')
-    descritivo = descritivo.replace("*", ' ')
+    descritivo = descritivo.replace("/", " ")
+    descritivo = descritivo.replace("*", " ")
+    descritivo = descritivo.replace("?", " ")
+    descritivo = descritivo.replace(":", " ")
+    descritivo = descritivo.replace(">", " ")
+    descritivo = descritivo.replace("<", " ")
+    descritivo = descritivo.replace("|", " ")
+    descritivo = descritivo.replace("\"", " ")
+    descritivo = descritivo.replace("\\", " ")
 
     # Folder structure
     folder_structure = [
