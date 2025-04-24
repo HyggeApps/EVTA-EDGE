@@ -413,16 +413,16 @@
             },
             "26. EEM26 - Ventilação controlada por demanda para estacionamentos usando sensores de CO": {
                 "projeto": [
-                    "Projetos HVAC com layout dos sensores de CO2 para controle dos sistemas de ventilação do estacionamento. Os projetos devem conter localização e altura de instalação",
-                    "Fichas técnicas dos sensores de CO2 utilizados para controle dos sistemas de ventilação do estacionamento"
+                    "Projetos HVAC com layout dos sensores de CO para controle dos sistemas de ventilação do estacionamento. Os projetos devem conter localização e altura de instalação",
+                    "Fichas técnicas dos sensores de CO utilizados para controle dos sistemas de ventilação do estacionamento"
                 ],
                 "obra": [
-                    "Fotos durante a instalação dos sensores de CO2 do estacionamento (Mín. 5 fotos). As fotos devem apresentar datas e mostrar o modelo e a marca do equipamento",
-                    "Fotos após a instalação dos sensores de CO2 do estacionamento (Mín. 5 fotos). As fotos devem apresentar datas e mostrar o modelo e a marca do equipamento"
+                    "Fotos durante a instalação dos sensores de CO do estacionamento (Mín. 5 fotos). As fotos devem apresentar datas e mostrar o modelo e a marca do equipamento",
+                    "Fotos após a instalação dos sensores de CO do estacionamento (Mín. 5 fotos). As fotos devem apresentar datas e mostrar o modelo e a marca do equipamento"
                 ],
                 "pos-construcao":[
-                    "Projetos de HVAC conforme construído com layout dos sensores de CO2 para controle dos sistemas de ventilação do estacionamento. Os projetos devem conter localização e altura de instalação",
-                    "Notas fiscais dos sensores de CO2 utilizados para controle dos sistemas de ventilação do estacionamento (Mín. 5 notas)"
+                    "Projetos de HVAC conforme construído com layout dos sensores de CO para controle dos sistemas de ventilação do estacionamento. Os projetos devem conter localização e altura de instalação",
+                    "Notas fiscais dos sensores de CO utilizados para controle dos sistemas de ventilação do estacionamento (Mín. 5 notas)"
                 ]
             },
             "27. EEM27 - Isolamento para envoltória de armazenamento a frio": {
