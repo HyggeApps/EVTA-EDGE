@@ -155,7 +155,7 @@
                 "projeto": [
                     "Projetos e fichas técnicas com informação dos fechamentos externos indicando as condições de estanqueidade",
                     "Projetos e fichas técnicas com informação das barreiras de ar contínuas em todas as superfícies opacas externas (paredes, telhado, piso) com classificações de estanqueidade",
-                    "Projetos e fichas técnicas com informação dos caixinhos de janelas e portas, bem como detalhes da marcenaria",
+                    "Projetos e fichas técnicas com informação dos caixilhos de janelas e portas, bem como detalhes da marcenaria",
                     "Projetos e fichas técnicas com informação das penetrações na envoltória nos tubos, dutos, canos",
                     "Projetos e fichas técnicas com informação das juntas seladas da envoltória (cantos de parede, juntas entre parede e telhado)",
                     "Projetos e fichas técnicas com informação das portas externas com fechamento automático",
@@ -286,7 +286,7 @@
                     "Notas fiscais das válvulas termostáticas (Mín. 5 notas fiscais)"
                 ]
             },
-            "18. EEM18 - Eficiência do sistema de aquecimento ambiente": {
+            "18. EEM18 - Eficiência do sistema de aquecimento de água": {
                 "projeto": [
                     "Projeto com layout dos equipamentos de aquecimento de água de todos os pavimentos",
                     "Memorial descritivo do sistema de aquecimento de água implementado no empreendimento",
