@@ -403,8 +403,8 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
     drive_id = "b!yrE7SxqrykWOoQYwwGXFrzTd7LHaY8FOgzJR4akW6vvvT1mGsai9QqqR_4XDxhMj"
     
     #Se o 'descritivo' tiver mais que o limite de caracteres para criação de uma pasta no Windows, alterar para o limite de 255 caracteres
-    if len(descritivo) > 255:
-        descritivo = descritivo[:255]
+    if len(descritivo) > 30:
+        descritivo_folder = descritivo[:30]
     
     descritivo = descritivo.replace("/", " ")
     descritivo = descritivo.replace("*", " ")
@@ -416,6 +416,16 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
     descritivo = descritivo.replace("\"", " ")
     descritivo = descritivo.replace("\\", " ")
 
+    descritivo_folder = descritivo_folder.replace("/", " ")
+    descritivo_folder = descritivo_folder.replace("*", " ")
+    descritivo_folder = descritivo_folder.replace("?", " ")
+    descritivo_folder = descritivo_folder.replace(":", " ")
+    descritivo_folder = descritivo_folder.replace(">", " ")
+    descritivo_folder = descritivo_folder.replace("<", " ")
+    descritivo_folder = descritivo_folder.replace("|", " ")
+    descritivo_folder = descritivo_folder.replace("\"", " ")
+    descritivo_folder = descritivo_folder.replace("\\", " ")
+
     # Folder structure
     folder_structure = [
         root_folder_name,
@@ -423,7 +433,7 @@ def upload_to_3projetos(uploaded_files, root_folder_name, tipo_certificacao, cre
         tipo_certificacao,
         "01. Créditos e Pré-requisitos",
         credito,
-        descritivo,
+        descritivo_folder,
         revisao
     ]
     
